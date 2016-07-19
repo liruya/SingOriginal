@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/item_dynamic_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:src="@mipmap/loading_6_0" />
+
+    <TextView
+        android:id="@+id/item_dynamic_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/item_dynamic_icon"
+        android:layout_toRightOf="@+id/item_dynamic_icon"
+        android:text="昵称"
+        android:textColor="@color/colorDarkGreen"
+        android:textSize="15sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/item_dynamic_nickname"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/item_dynamic_nickname"
+        android:text="发布了一首原创"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/item_dynamic_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/item_dynamic_nickname"
+        android:layout_below="@+id/item_dynamic_nickname"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/item_dynamic_icon"
+        android:text="时间"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/item_dynamic_textIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/item_dynamic_nickname"
+        android:layout_below="@+id/item_dynamic_time"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/item_dynamic_icon"
+        android:text="图片"
+        android:textColor="@color/colorDarkGreen"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/item_dynamic_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/item_dynamic_nickname"
+        android:layout_below="@+id/item_dynamic_textIcon"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/item_dynamic_icon"
+        android:text="内容"
+        android:textColor="@color/colorBlack"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:id="@+id/item_dynamic_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/item_dynamic_nickname"
+        android:layout_below="@id/item_dynamic_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/colorLightGray"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@mipmap/musician_play" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="end"
+            android:text="歌名"
+            android:textColor="@color/colorBlack"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/item_dynamic_commentNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/item_dynamic_ll"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
+        android:text="评论个数" />
+
+    <ImageView
+        android:id="@+id/item_dynamic_commentIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_dynamic_ll"
+        android:layout_marginRight="3dp"
+        android:layout_marginTop="15dp"
+        android:layout_toLeftOf="@+id/item_dynamic_commentNum"
+        android:src="@mipmap/comment_left" />
+
+    <TextView
+        android:id="@+id/item_dynamic_laudNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_dynamic_ll"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_toLeftOf="@+id/item_dynamic_commentIcon"
+        android:text="赞个数" />
+
+    <ImageView
+        android:id="@+id/item_dynamic_laudIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_dynamic_ll"
+        android:layout_marginRight="3dp"
+        android:layout_marginTop="15dp"
+        android:layout_toLeftOf="@+id/item_dynamic_laudNum"
+        android:src="@mipmap/comments_icon" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/item_dynamic_laudIcon"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/colorGray" />
+
+
+</RelativeLayout>

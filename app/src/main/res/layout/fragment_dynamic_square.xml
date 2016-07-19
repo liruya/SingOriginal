@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,9 +9,9 @@
         android:layout_height="wrap_content" />
 
     <RadioGroup
-        android:background="@color/colorLightGray"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorLightGray"
         android:gravity="right"
         android:orientation="horizontal">
 
@@ -21,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:button="@null"
-            android:text="@string/attention"
+            android:text="@string/newest"
             android:textColor="@color/selector_main_rbtxtcolor" />
 
         <View
@@ -35,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:button="@null"
-            android:text="@string/total"
+            android:text="@string/hottest"
             android:textColor="@color/selector_main_rbtxtcolor" />
 
     </RadioGroup>
@@ -46,7 +45,6 @@
         android:background="@color/colorGray" />
 
     <android.support.v7.widget.RecyclerView
-        android:background="@color/colorLightGray"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
