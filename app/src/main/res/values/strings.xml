@@ -12,6 +12,10 @@
     <string name="square">广场</string>
     <string name="attention">关注</string>
     <string name="total">全部</string>
+    <string name="newest">最新</string>
+    <string name="hottest">最热</string>
+    <string name="channelNoAttention">您还没有关注任何频道哦~</string>
+    <string name="dynamicNoAttention">快关注喜爱的音乐人, 获取独家的最新动态 !</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
