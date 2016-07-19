@@ -12,4 +12,6 @@
     <color name="colorGray">#FFA9B7B7</color>
     <color name="colorDarkGreen">#FF00BB9C</color>
     <color name="colorShallowWhite">#FFCCCCCC</color>
+    <color name="colorShallowBlue">#AA0000CC</color>
+    <color name="colorHyaline">#00FFFFFF</color>
 </resources>

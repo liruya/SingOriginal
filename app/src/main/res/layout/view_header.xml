@@ -2,17 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorDarkGreen"
-    android:gravity="center"
+    android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:padding="20dp">
+    android:padding="10dp">
 
     <ImageButton
         android:id="@+id/hdr_ib_srch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp"
-        android:background="@color/colorDarkGreen"
         android:src="@mipmap/client_search" />
     <RadioGroup
         android:id="@+id/hdr_rg_show"
@@ -26,6 +24,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:button="@null"
             android:gravity="center"
             android:textColor="@color/selector_hdr_rbtxtcolor"
@@ -36,6 +36,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:button="@null"
             android:gravity="center"
             android:textColor="@color/selector_hdr_rbtxtcolor"
@@ -46,6 +48,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:button="@null"
             android:gravity="center"
             android:textColor="@color/selector_hdr_rbtxtcolor"
@@ -58,6 +62,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:background="@color/colorDarkGreen"
         android:src="@mipmap/in_play"/>
 </LinearLayout>
