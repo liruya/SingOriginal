@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorDarkGreen"
-    android:padding="20dp"
-    android:gravity="center">
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:padding="20dp">
 
     <ImageButton
         android:id="@+id/hdr_ib_srch"
@@ -14,44 +14,49 @@
         android:layout_marginRight="5dp"
         android:background="@color/colorDarkGreen"
         android:scaleType="fitCenter"
-        android:src="@mipmap/client_search"/>
+        android:src="@mipmap/client_search" />
+
     <RadioGroup
         android:id="@+id/hdr_rg_show"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="horizontal">
+
         <RadioButton
             android:id="@+id/hdr_rb_first"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
             android:button="@null"
+            android:gravity="center"
+            android:text="@string/recommend"
             android:textColor="@color/colorWhite"
-            android:textSize="18sp"
-            android:text="@string/recommend"/>
+            android:textSize="18sp" />
+
         <RadioButton
             android:id="@+id/hdr_rb_second"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
             android:button="@null"
+            android:gravity="center"
+            android:text="@string/song_list"
             android:textColor="@color/colorWhite"
-            android:textSize="18sp"
-            android:text="@string/song_list"/>
+            android:textSize="18sp" />
+
         <RadioButton
             android:id="@+id/hdr_rb_third"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
             android:button="@null"
+            android:gravity="center"
+            android:text="@string/top_list"
             android:textColor="@color/colorWhite"
-            android:textSize="18sp"
-            android:text="@string/top_list"/>
+            android:textSize="18sp" />
     </RadioGroup>
+
     <ImageButton
         android:id="@+id/hdr_ib_music"
         android:layout_width="wrap_content"
@@ -59,5 +64,5 @@
         android:layout_marginLeft="5dp"
         android:background="@color/colorDarkGreen"
         android:scaleType="fitCenter"
-        android:src="@mipmap/in_play"/>
+        android:src="@mipmap/in_play" />
 </LinearLayout>
