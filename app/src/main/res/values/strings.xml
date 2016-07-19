@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">SingOriginal</string>
+
+    <string name="music_lib">乐库</string>
+    <string name="channel">频道</string>
+    <string name="dynamic">动态</string>
+    <string name="me">我的</string>
+
+    <string name="recommend">推荐</string>
+    <string name="song_list">歌单</string>
+    <string name="top_list">排行榜</string>
+    <string name="square">广场</string>
+    <string name="attention">关注</string>
+    <string name="total">全部</string>
+
 </resources>
