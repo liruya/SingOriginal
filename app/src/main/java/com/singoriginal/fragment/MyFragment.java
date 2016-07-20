@@ -43,7 +43,7 @@ public class MyFragment extends Fragment {
         tv_second.setText(getString(R.string.me));
         tv_second.setChecked(true);
         incView.findViewById(R.id.hdr_rb_third).setVisibility(View.GONE);
-        int color = CommanVal.isLogin ? ConstVal.colorHyaline : ConstVal.colorDKGreen;
+        int color = CommanVal.isLogin ? ConstVal.COLOR_HYALINE : ConstVal.COLOR_DARKGREEN;
         incView.setBackgroundColor(color);
         Toast.makeText(getContext(), CommanVal.isLogin + "", Toast.LENGTH_SHORT).show();
         //"我的"主体页面
