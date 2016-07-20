@@ -11,7 +11,6 @@
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorLightGray"
         android:gravity="right"
         android:orientation="horizontal">
 
@@ -20,7 +19,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:button="@null"
-            android:text="@string/newest"
             android:textColor="@color/selector_main_rbtxtcolor" />
 
         <View
@@ -34,7 +32,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:button="@null"
-            android:text="@string/hottest"
             android:textColor="@color/selector_main_rbtxtcolor" />
 
     </RadioGroup>

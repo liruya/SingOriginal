@@ -73,7 +73,6 @@
         android:layout_below="@id/item_dynamic_content"
         android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
-        android:background="@color/colorLightGray"
         android:orientation="horizontal">
 
         <ImageView
