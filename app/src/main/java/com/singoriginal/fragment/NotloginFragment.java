@@ -8,16 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.singoriginal.R;
-import com.singoriginal.constant.ConstVal;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MusicFragment extends Fragment
+public class NotloginFragment extends Fragment
 {
 
 
-    public MusicFragment()
+    public NotloginFragment()
     {
         // Required empty public constructor
     }
@@ -27,17 +26,8 @@ public class MusicFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        View view = inflater.inflate(R.layout.fragment_music, null);
-
-        initView(view);
-        return view;
-    }
-
-    private void initView(View view)
-    {
-//        LayoutInflater.from(getContext()).inflate(R.layout.view_header, null);
-
-        view.findViewById(R.id.msc_inc_hdr).setBackgroundColor(ConstVal.colorDKGreen);
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_notlogin, container, false);
     }
 
 }
