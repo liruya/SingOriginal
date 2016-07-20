@@ -40,6 +40,7 @@ public class FirstLandingIndexActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(FirstLandingIndexActivity.this, MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

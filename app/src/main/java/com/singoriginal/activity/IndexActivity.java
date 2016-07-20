@@ -24,6 +24,7 @@ public class IndexActivity extends AppCompatActivity {
                 } else {
                     Intent intent = new Intent(IndexActivity.this, FirstLandingIndexActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             }
         }

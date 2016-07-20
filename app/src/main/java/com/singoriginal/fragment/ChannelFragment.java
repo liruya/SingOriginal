@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,12 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.singoriginal.R;
 import com.singoriginal.adapter.ChannelAdapter;
+import com.singoriginal.constant.CommanVal;
 import com.singoriginal.constant.ConstVal;
 import com.singoriginal.model.Channel;
 import com.squareup.picasso.Picasso;
@@ -32,22 +35,22 @@ public class ChannelFragment extends Fragment {
     private RecyclerView channel_recyclerView;
     private List<Channel> dataList;
     private ChannelAdapter adapter;
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-
-            switch (msg.what) {
-                case 0:
-                    Toast.makeText(getActivity(), "加载失败，请稍后再试！", Toast.LENGTH_SHORT).show();
-                    break;
-                case 1:
-                    adapter = new ChannelAdapter(getActivity(), dataList);
-                    channel_recyclerView.setAdapter(adapter);
-                    break;
-            }
-        }
-    };
+//    private Handler handler = new Handler() {
+//        @Override
+//        public void handleMessage(Message msg) {
+//            super.handleMessage(msg);
+//
+//            switch (msg.what) {
+//                case 0:
+//                    Toast.makeText(getActivity(), "加载失败，请稍后再试！", Toast.LENGTH_SHORT).show();
+//                    break;
+//                case 1:
+//                    adapter = new ChannelAdapter(getActivity(), dataList);
+//                    channel_recyclerView.setAdapter(adapter);
+//                    break;
+//            }
+//        }
+//    };
 
     public ChannelFragment() {
         // Required empty public constructor
@@ -70,40 +73,66 @@ public class ChannelFragment extends Fragment {
         GridLayoutManager glm = new GridLayoutManager(getActivity(), 2);
         channel_recyclerView.setLayoutManager(glm);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
 
-                Gson gson = new Gson();
+//                Gson gson = new Gson();
+//
+//                Channel channel = new Channel();
+//                channel.setItem_channel_text("态度");
+//                String channelText = gson.toJson(channel);
+//                Channel channel2 = gson.fromJson(channelText, Channel.class);
+//
+//                dataList = new ArrayList<Channel>();
+//                dataList.add(channel2);
+//                String channel3 = gson.toJson(dataList);
+//
+//
+//                dataList = gson.fromJson(channel3, new TypeToken<List<Channel>>() {
+//                }.getType());
 
-                Channel channel = new Channel();
-                channel.setItem_channel_text("态度");
-                String channelText = gson.toJson(channel);
-                Channel channel2 = gson.fromJson(channelText,Channel.class);
 
-                dataList = new ArrayList<Channel>();
-                dataList.add(channel2);
-                String channel3 = gson.toJson(dataList);
-
-
-                dataList= gson.fromJson(channel3, new TypeToken<List<Channel>>(){}.getType());
-
-
-
-                if (dataList.size() > 0) {
-                    handler.sendEmptyMessage(1);
-                } else {
-
-                    handler.sendEmptyMessage(0);
-                }
-            }
-        }).start();
+//                if (dataList.size() > 0) {
+//                    handler.sendEmptyMessage(1);
+//                } else {
+//
+//                    handler.sendEmptyMessage(0);
+//                }
+//            }
+//        }).start();
     }
 
     private void initView(View view) {
 
         channel_recyclerView = (RecyclerView) view.findViewById(R.id.channel_recyclerView);
 
-    }
+        //如果已登录则显示个人信息页面,否则显示登录注册页面 标题头及页面主体均不相同
+        //页面公用标题头初始化
+        View incView = view.findViewById(R.id.channel_include_header);
 
+        incView.findViewById(R.id.hdr_ib_srch).setVisibility(View.INVISIBLE);
+
+        incView.findViewById(R.id.hdr_rb_first).setVisibility(View.GONE);
+
+        RadioButton tv_second = (RadioButton) incView.findViewById(R.id.hdr_rb_second);
+        tv_second.setText(getString(R.string.channel));
+        tv_second.setChecked(true);
+
+        incView.findViewById(R.id.hdr_rb_third).setVisibility(View.GONE);
+
+        int color = CommanVal.isLogin ? ConstVal.colorHyaline : ConstVal.colorDKGreen;
+        incView.setBackgroundColor(color);
+        Toast.makeText(getContext(), CommanVal.isLogin + "", Toast.LENGTH_SHORT).show();
+        //"频道"主体页面
+        FragmentTransaction beginTransaction = getActivity().getSupportFragmentManager()
+                .beginTransaction();
+        Fragment frag;
+        if (CommanVal.isLogin) {
+            frag = new MyinfoFragment();
+        } else {
+            frag = new NotloginFragment();
+        }
+        beginTransaction.replace(R.id.channel_frameLayout, frag).commit();
+    }
 }
