@@ -1,70 +1,59 @@
 package com.singoriginal.activity;
 
-import android.support.v4.view.ViewPager;
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.singoriginal.R;
-import com.singoriginal.adapter.PagerIndexAdapter;
-
-import java.util.ArrayList;
 
 public class IndexActivity extends AppCompatActivity {
 
-    private ViewPager index_viewPager;
+    private Handler handler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            if (msg.what == 0x101) {
+
+                if (msg.arg1 > 0) {
+
+                } else {
+                    Intent intent = new Intent(IndexActivity.this, FirstLandingIndexActivity.class);
+                    startActivity(intent);
+                }
+            }
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index);
 
-        initView();
         initData();
     }
 
     private void initData() {
 
-        ArrayList<Picture> dataList = new ArrayList<>();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
 
-        dataList.add(new Picture(R.mipmap.spec_1_top, R.mipmap.spec_1_bottom));
-        dataList.add(new Picture(R.mipmap.spec_2_top, R.mipmap.spec_2_bottom));
-        dataList.add(new Picture(R.mipmap.spec_3_top, R.mipmap.spec_3_bottom));
-
-        //给viewPager绑定Adapter
-        index_viewPager.setAdapter(new PagerIndexAdapter(IndexActivity.this, dataList));
-        //设置默认的Pager
-        index_viewPager.setCurrentItem(0);
+                for (int i = 1; i >= 0; i--) {
+                    Message msg = handler.obtainMessage();
+                    msg.what = 0x101;
+                    msg.arg1 = i;
+                    SystemClock.sleep(1000);
+                    handler.sendMessage(msg);
+                }
+            }
+        }).start();
     }
 
-    private void initView() {
 
-        index_viewPager = (ViewPager) findViewById(R.id.index_viewPager);
-    }
-
-    public final class Picture {
-
-        private int pager_index_imageTop;
-        private int pager_index_imageBottom;
-
-        public Picture(int pager_index_imageBottom, int pager_index_imageTop) {
-            this.pager_index_imageBottom = pager_index_imageBottom;
-            this.pager_index_imageTop = pager_index_imageTop;
-        }
-
-        public int getPager_index_imageTop() {
-            return pager_index_imageTop;
-        }
-
-        public void setPager_index_imageTop(int pager_index_imageTop) {
-            this.pager_index_imageTop = pager_index_imageTop;
-        }
-
-        public int getPager_index_imageBottom() {
-            return pager_index_imageBottom;
-        }
-
-        public void setPager_index_imageBottom(int pager_index_imageBottom) {
-            this.pager_index_imageBottom = pager_index_imageBottom;
-        }
-    }
 }
