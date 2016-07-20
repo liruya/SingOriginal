@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import com.singoriginal.R;
 import com.singoriginal.constant.CommanVal;
@@ -39,15 +38,14 @@ public class MyFragment extends Fragment
         //如果已登录则显示个人信息页面,否则显示登录注册页面 标题头及页面主体均不相同
         //页面公用标题头初始化
         View incView = view.findViewById(R.id.my_inc_hdr);
-        incView.findViewById(R.id.hdr_ib_srch).setVisibility(View.GONE);
-        incView.findViewById(R.id.hdr_rb_second).setVisibility(View.GONE);
-        RadioButton tv_second = (RadioButton) incView.findViewById(R.id.hdr_rb_first);
+        incView.findViewById(R.id.hdr_ib_srch).setVisibility(View.INVISIBLE);
+        incView.findViewById(R.id.hdr_rb_first).setVisibility(View.GONE);
+        RadioButton tv_second = (RadioButton) incView.findViewById(R.id.hdr_rb_second);
         tv_second.setText(getString(R.string.me));
         tv_second.setChecked(true);
         incView.findViewById(R.id.hdr_rb_third).setVisibility(View.GONE);
-        int color = CommanVal.isLogin ? ConstVal.colorHyaline : ConstVal.colorDKGreen;
+        int color = CommanVal.isLogin ? ConstVal.COLOR_HYALINE : ConstVal.COLOR_DARKGREEN;
         incView.setBackgroundColor(color);
-        Toast.makeText(getContext(), CommanVal.isLogin+"", Toast.LENGTH_SHORT).show();
         //"我的"主体页面
         FragmentTransaction beginTransaction = getActivity().getSupportFragmentManager()
                                                                .beginTransaction();
