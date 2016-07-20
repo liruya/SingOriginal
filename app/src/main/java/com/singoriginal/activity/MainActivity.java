@@ -1,9 +1,10 @@
-package com.singoriginal;
+package com.singoriginal.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.widget.FrameLayout;
 
+import com.singoriginal.R;
 import com.singoriginal.fragment.MusicFragment;
 
 public class MainActivity extends FragmentActivity
