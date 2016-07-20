@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.singoriginal.R;
-import com.singoriginal.activity.IndexActivity;
+import com.singoriginal.activity.FirstLandingIndexActivity;
 
 import java.util.List;
 
@@ -16,10 +16,10 @@ import java.util.List;
  */
 public class PagerIndexAdapter extends PagerAdapter {
 
-    private List<IndexActivity.Picture> list;
+    private List<FirstLandingIndexActivity.Picture> list;
     private Context context;
 
-    public PagerIndexAdapter(Context context, List<IndexActivity.Picture> list) {
+    public PagerIndexAdapter(Context context, List<FirstLandingIndexActivity.Picture> list) {
         this.context = context;
         this.list = list;
     }
@@ -41,7 +41,18 @@ public class PagerIndexAdapter extends PagerAdapter {
         View view = View.inflate(context, R.layout.pager_index_item, null);
 
         ImageView pager_index_imageTop = (ImageView) view.findViewById(R.id.pager_index_imageTop);
+        ImageView pager_index_imageBottom = (ImageView) view.findViewById(R.id.pager_index_imageBottom);
 
+        int newPos = position % list.size();
+        FirstLandingIndexActivity.Picture picture = list.get(newPos);
+
+        int PicResID = picture.getPicResID();
+        int PicResIDBottom = picture.getPicResIDBottom();
+
+        pager_index_imageTop.setImageResource(PicResID);
+        pager_index_imageBottom.setImageResource(PicResIDBottom);
+
+        container.addView(view);
 
         return view;
     }

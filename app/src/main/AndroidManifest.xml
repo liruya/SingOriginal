@@ -15,9 +15,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.IndexActivity">
 
-        </activity>
+        <activity android:name=".activity.FirstLandingIndexActivity" />
+        <activity
+            android:name=".activity.IndexActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+
     </application>
 
 </manifest>
