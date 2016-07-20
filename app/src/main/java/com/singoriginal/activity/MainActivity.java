@@ -12,13 +12,12 @@ import com.singoriginal.fragment.DynamicSquareFragment;
 import com.singoriginal.fragment.MusicFragment;
 import com.singoriginal.fragment.MyFragment;
 
-public class MainActivity extends FragmentActivity
-{
+public class MainActivity extends FragmentActivity {
     private FrameLayout main_fl_show;
     private RadioGroup main_rg_show;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -26,26 +25,21 @@ public class MainActivity extends FragmentActivity
         initEvent();
     }
 
-    private void initView()
-    {
+    private void initView() {
         main_fl_show = (FrameLayout) findViewById(R.id.main_fl_show);
         main_rg_show = (RadioGroup) findViewById(R.id.main_rg_show);
     }
 
-    private void initEvent()
-    {
-        main_rg_show.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-        {
+    private void initEvent() {
+        main_rg_show.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId)
-            {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
                 MusicFragment musicFrag = new MusicFragment();
                 ChannelFragment chnFrag = new ChannelFragment();
                 DynamicSquareFragment dynFrag = new DynamicSquareFragment();
                 MyFragment myFrag = new MyFragment();
                 FragmentTransaction beginTransaction = getSupportFragmentManager().beginTransaction();
-                switch (checkedId)
-                {
+                switch (checkedId) {
                     case R.id.main_rb_msc:
                         beginTransaction.replace(R.id.main_fl_show, musicFrag).commit();
                         break;

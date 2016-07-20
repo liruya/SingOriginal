@@ -4,8 +4,7 @@ package com.singoriginal.constant;
  * 全局公用常量类
  * Created by lanouhn on 16/7/19.
  */
-public class ConstVal
-{
+public class ConstVal {
     //颜色值 ARGB格式
     public static final int COLOR_DARKGREEN = 0xFF00BB9C;
     public static final int COLOR_HYALINE = 0x00FFFFFF;
@@ -16,4 +15,9 @@ public class ConstVal
     public static final String GET = "GET";
     public static final String POST = "POST";
     public static final String SUCCESS = "success";
+    public static final int colorDKGreen = 0xFF00BB9C;
+    public static final int colorHyaline = 0x00FFFFFF;
+
+    //WebLink
+    public static final String CHANNEL_HTTP_PATH = "http://mobileapi.5sing.kugou.com/channel/channel?limit=10&offset=%@&sid=0&version=6.0.1";
 }
