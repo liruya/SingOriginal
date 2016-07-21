@@ -1,27 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <include
-        android:id="@+id/channel_include_header"
+        android:id="@+id/dynamic_include_header"
         layout="@layout/view_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <RadioGroup
+        android:id="@+id/dynamic_radioGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:button="@null"
-            android:text="@string/attention"
+            android:text="@string/newest"
             android:textColor="@color/selector_main_rbtxtcolor" />
 
         <View
@@ -35,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:button="@null"
-            android:text="@string/total"
+            android:text="@string/hottest"
             android:textColor="@color/selector_main_rbtxtcolor" />
 
     </RadioGroup>
@@ -46,7 +47,7 @@
         android:background="@color/colorGray" />
 
     <FrameLayout
-        android:id="@+id/channel_frameLayout"
+        android:id="@+id/dynamic_frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

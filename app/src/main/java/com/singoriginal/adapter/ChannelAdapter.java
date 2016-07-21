@@ -54,9 +54,9 @@ public class ChannelAdapter extends RecyclerView.Adapter {
         ViewHolder holder1 = null;
 
         Channel channel = dataList.get(position);
-        holder1.item_channel_text.setText(channel.getItem_channel_text());
+        holder1.item_channel_text.setText(channel.getNA());
 
-        Picasso.with(context).load(ConstVal.CHANNEL_HTTP_PATH).fit()
+        Picasso.with(context).load(channel.getIM()).fit()
                 .placeholder(R.mipmap.loading_picture216x150)
                 .error(R.mipmap.loading_picture216x150)
                 .into(holder1.item_channel_icon);

@@ -6,5 +6,5 @@ package com.singoriginal.constant;
  */
 public class CommanVal {
     public static boolean isFirst = false;
-    public static boolean isLogin = false;
+    public static boolean isLogin = true;
 }

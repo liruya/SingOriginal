@@ -8,22 +8,27 @@ import android.widget.TextView;
  */
 public class Channel {
 
-    private int item_channel_icon;
-    private String item_channel_text;
+    private int IM;
+    private String NA;
 
-    public int getItem_channel_icon() {
-        return item_channel_icon;
+    public int getIM() {
+        return IM;
     }
 
-    public void setItem_channel_icon(int item_channel_icon) {
-        this.item_channel_icon = item_channel_icon;
+    public void setIM(int IM) {
+        this.IM = IM;
     }
 
-    public String getItem_channel_text() {
-        return item_channel_text;
+    public String getNA() {
+        return NA;
     }
 
-    public void setItem_channel_text(String item_channel_text) {
-        this.item_channel_text = item_channel_text;
+    public void setNA(String NA) {
+        this.NA = NA;
+    }
+
+    public Channel(int IM, String NA) {
+        this.IM = IM;
+        this.NA = NA;
     }
 }

@@ -8,6 +8,7 @@ import android.widget.RadioGroup;
 
 import com.singoriginal.R;
 import com.singoriginal.fragment.ChannelFragment;
+import com.singoriginal.fragment.DynamicFragment;
 import com.singoriginal.fragment.DynamicSquareFragment;
 import com.singoriginal.fragment.MusicFragment;
 import com.singoriginal.fragment.MyFragment;
@@ -36,7 +37,7 @@ public class MainActivity extends FragmentActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 MusicFragment musicFrag = new MusicFragment();
                 ChannelFragment chnFrag = new ChannelFragment();
-                DynamicSquareFragment dynFrag = new DynamicSquareFragment();
+                DynamicFragment dynFrag = new DynamicFragment();
                 MyFragment myFrag = new MyFragment();
                 FragmentTransaction beginTransaction = getSupportFragmentManager().beginTransaction();
                 switch (checkedId) {

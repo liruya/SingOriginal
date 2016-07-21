@@ -4,8 +4,9 @@
     android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/dynamic_square_recyclerView"
+        android:id="@+id/channel_info_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@color/colorLightGray" />
 
 </LinearLayout>
