@@ -28,6 +28,11 @@
     <string name="collect_song">收藏歌曲</string>
     <string name="download">下载</string>
     <string name="settings">设置</string>
+    <string name="musician">音乐人</string>
+    <string name="daily_recommend">每日推荐</string>
+    <string name="original_rank">原创音乐榜</string>
+    <string name="more">更多</string>
+    <string name="hot_list">热门歌单</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -15,4 +15,5 @@
     <color name="colorShallowWhite">#FFCCCCCC</color>
     <color name="colorShallowBlue">#AA0000CC</color>
     <color name="colorHyaline">#00FFFFFF</color>
+    <color name="colorShallowBlack">#FF444444</color>
 </resources>

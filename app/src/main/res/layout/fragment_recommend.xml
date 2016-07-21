@@ -6,11 +6,65 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/recmd_vp_show"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/recmd_vp_show"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/colorWhite"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp">
+                <Button
+                    android:id="@+id/recmd_iv_mscian"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    android:background="@color/colorWhite"
+                    android:drawableTop="@mipmap/music_lib_rec_musican_icon"
+                    android:drawablePadding="5dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/colorShallowBlack"
+                    android:text="@string/musician"/>
+                <Button
+                    android:id="@+id/recmd_iv_daily"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    android:background="@color/colorWhite"
+                    android:drawableTop="@mipmap/music_lib_rec_daily_recomment_icon"
+                    android:drawablePadding="5dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/colorShallowBlack"
+                    android:text="@string/daily_recommend"/>
+                <Button
+                    android:id="@+id/recmd_iv_rank"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    android:background="@color/colorWhite"
+                    android:drawableTop="@mipmap/music_lib_rec_rank_icon"
+                    android:drawablePadding="5dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/colorShallowBlack"
+                    android:text="@string/original_rank"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
     </ScrollView>
 
 </LinearLayout>

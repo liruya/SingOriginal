@@ -11,7 +11,10 @@ public class ConstVal {
 
     //网络数据接口
     public static final String ADVERT_LINK = "http://goapi.5sing.kugou.com/getAdvert?t=101&tag=449";
-    public static final String VERSION = "6.2.2";
+    public static final String HOTLIST_LINK = "http://goapi.5sing.kugou.com/getRecommendSo&ngList?";
+    public static final String LIVEROOM_LINK = "http://5singlive.kugou.com/api.php?action=Mobile&fun=getLiveNew";
+    public static final String MUSICTOPICS_LINK = "http://goapi.5sing.kugou.com/getTheme?t=101&o1=1&o2=20&tag=86";
+    public static final String VERSION = "6.0.1";
     public static final String GET = "GET";
     public static final String POST = "POST";
     public static final String SUCCESS = "success";

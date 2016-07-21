@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:id="@+id/rec_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/rec_tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorShallowBlack"
+            android:textSize="16sp"
+            android:text="name"/>
+        <TextView
+            android:id="@+id/rec_tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/colorGray"
+            android:textSize="14sp"
+            android:text="time"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/rec_iv_show"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/rec_ll"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ranking_new_back"/>
+    <ImageView
+        android:id="@+id/rec_iv_stat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/rec_iv_show"
+        android:layout_alignRight="@id/rec_iv_show"
+        android:visibility="visible"
+        android:src="@mipmap/main_rec_prelive_online_icon"/>
+    <TextView
+        android:id="@+id/rec_tv_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/rec_iv_show"
+        android:layout_alignRight="@id/rec_iv_show"
+        android:layout_margin="3dp"
+        android:visibility="visible"
+        android:background="@color/colorHyaline"
+        android:drawableLeft="@mipmap/dj_listener"
+        android:drawablePadding="5dp"
+        android:textSize="12sp"
+        android:textColor="@color/colorWhite"
+        android:text="num"/>
+</RelativeLayout>
