@@ -10,14 +10,18 @@ import android.view.ViewGroup;
 import android.widget.RadioGroup;
 
 import com.singoriginal.R;
+import com.singoriginal.adapter.MusicAdapter;
 import com.singoriginal.constant.ConstVal;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MusicFragment extends Fragment
 {
-
+    private ArrayList<Fragment> frags;
+    private MusicAdapter mscAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
@@ -47,6 +51,16 @@ public class MusicFragment extends Fragment
         });
         ViewPager msc_vp_show = (ViewPager) view.findViewById(R.id.msc_vp_show);
         hdr_rg_show.check(R.id.hdr_rb_first);
+
+        RecommendFragment recmdFrag = new RecommendFragment();
+        SonglistFragment songFrag = new SonglistFragment();
+        ToplistFragment topFrag = new ToplistFragment();
+        frags = new ArrayList<>();
+        frags.add(recmdFrag);
+        frags.add(songFrag);
+        frags.add(topFrag);
+        mscAdapter = new MusicAdapter(getActivity().getSupportFragmentManager(), frags);
+        msc_vp_show.setAdapter(mscAdapter);
     }
 
     private void initEvent()

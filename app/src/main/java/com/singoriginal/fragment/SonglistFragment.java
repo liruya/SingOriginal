@@ -12,11 +12,11 @@ import com.singoriginal.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SinglistFragment extends Fragment
+public class SonglistFragment extends Fragment
 {
 
 
-    public SinglistFragment()
+    public SonglistFragment()
     {
         // Required empty public constructor
     }
