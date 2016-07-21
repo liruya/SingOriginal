@@ -6,68 +6,68 @@ package com.singoriginal.model;
  */
 public class Advert
 {
-    private int id;
-    private String title;
-    private String imgUrl;
-    private String linkUrl;
-    private int behaviorType;
+    private int Id;
+    private String Title;
+    private String ImgUrl;
+    private String LinkUrl;
+    private int BehaviorType;
 
-    public Advert(int id, String title, String imgUrl, String linkUrl, int behaviorType)
+    public Advert(int Id, String Title, String ImgUrl, String LinkUrl, int BehaviorType)
     {
-        this.id = id;
-        this.title = title;
-        this.imgUrl = imgUrl;
-        this.linkUrl = linkUrl;
-        this.behaviorType = behaviorType;
+        this.Id = Id;
+        this.Title = Title;
+        this.ImgUrl = ImgUrl;
+        this.LinkUrl = LinkUrl;
+        this.BehaviorType = BehaviorType;
     }
 
     public int getId()
     {
-        return id;
+        return Id;
     }
 
-    public void setId(int id)
+    public void setId(int Id)
     {
-        this.id = id;
+        this.Id = Id;
     }
 
     public String getTitle()
     {
-        return title;
+        return Title;
     }
 
-    public void setTitle(String title)
+    public void setTitle(String Title)
     {
-        this.title = title;
+        this.Title = Title;
     }
 
     public String getImgUrl()
     {
-        return imgUrl;
+        return ImgUrl;
     }
 
-    public void setImgUrl(String imgUrl)
+    public void setImgUrl(String ImgUrl)
     {
-        this.imgUrl = imgUrl;
+        this.ImgUrl = ImgUrl;
     }
 
     public String getLinkUrl()
     {
-        return linkUrl;
+        return LinkUrl;
     }
 
-    public void setLinkUrl(String linkUrl)
+    public void setLinkUrl(String LinkUrl)
     {
-        this.linkUrl = linkUrl;
+        this.LinkUrl = LinkUrl;
     }
 
     public int getBehaviorType()
     {
-        return behaviorType;
+        return BehaviorType;
     }
 
-    public void setBehaviorType(int behaviorType)
+    public void setBehaviorType(int BehaviorType)
     {
-        this.behaviorType = behaviorType;
+        this.BehaviorType = BehaviorType;
     }
 }

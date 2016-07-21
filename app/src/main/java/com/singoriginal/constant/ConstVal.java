@@ -15,8 +15,10 @@ public class ConstVal {
     public static final String GET = "GET";
     public static final String POST = "POST";
     public static final String SUCCESS = "success";
+    public static final String DATA = "data";
     public static final int colorDKGreen = 0xFF00BB9C;
     public static final int colorHyaline = 0x00FFFFFF;
+    public static final int ADVERT_CODE = 0x101;
 
     //WebLink
     public static final String CHANNEL_HTTP_PATH = "http://mobileapi.5sing.kugou.com/channel/channel?limit=10&offset=%@&sid=0&version=6.0.1";

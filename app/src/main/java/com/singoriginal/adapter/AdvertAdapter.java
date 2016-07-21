@@ -11,6 +11,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 /**
+ * 音乐.推荐.轮播图数据适配器
  * Created by lanouhn on 16/7/20.
  */
 public class AdvertAdapter extends PagerAdapter
@@ -50,4 +51,5 @@ public class AdvertAdapter extends PagerAdapter
     {
         container.removeView((View) object);
     }
+
 }
