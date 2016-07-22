@@ -34,5 +34,25 @@
     <string name="more">更多</string>
     <string name="hot_list">热门歌单</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="shrink">收起</string>
+    <string name="nickname">昵称</string>
+    <string name="time">时间</string>
+    <string name="textIcon">图片</string>
+    <string name="songName">歌名</string>
+    <string name="content">内容</string>
+    <string name="laudNum">赞个数</string>
+    <string name="publish">发布了一首原创</string>
+    <string name="commentNum">评论个数</string>
+    <string name="goldBean">金豆数</string>
+    <string name="beanNum">豆豆数</string>
+    <string name="songBeanNum">歌豆数</string>
+    <string name="happyBean">乐豆数</string>
+    <string name="aFew">颗</string>
+    <string name="recharge">充值</string>
+    <string name="zeroNum">0</string>
+    <string name="exchange">兑换</string>
+    <string name="buySong">已购买歌曲</string>
+    <string name="fortuneRecord">财富记录</string>
+
 
 </resources>

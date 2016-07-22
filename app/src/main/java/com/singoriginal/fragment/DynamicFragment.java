@@ -21,7 +21,8 @@ import com.singoriginal.constant.ConstVal;
  */
 public class DynamicFragment extends Fragment {
 
-    private RadioGroup radioGroup;
+    private RadioGroup titleRadioGroup;
+    private RadioGroup squareRadioGroup;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,21 +38,42 @@ public class DynamicFragment extends Fragment {
 
     private void initEvent(final View view) {
 
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        titleRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.hdr_rb_first:
                         View radView = view.findViewById(R.id.dynamic_radioGroup);
+                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                        transaction.replace(R.id.dynamic_frameLayout, new NoAttentionMusicianFragment()).commit();
                         radView.setVisibility(View.GONE);
                         break;
                     case R.id.hdr_rb_third:
                         View radView2 = view.findViewById(R.id.dynamic_radioGroup);
+                        FragmentTransaction transaction2 = getFragmentManager().beginTransaction();
+                        transaction2.replace(R.id.dynamic_frameLayout, new DynamicSquareFragment()).commit();
                         radView2.setVisibility(View.VISIBLE);
                         break;
                 }
             }
         });
+        titleRadioGroup.check(R.id.hdr_rb_first);
+
+        squareRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.dynamic_rb_newest:
+
+                        break;
+                    case R.id.dynamic_rb_hottest:
+
+
+                        break;
+                }
+            }
+        });
+        squareRadioGroup.check(R.id.dynamic_rb_hottest);
     }
 
     private void initView(View view) {
@@ -60,14 +82,14 @@ public class DynamicFragment extends Fragment {
         //页面公用标题头初始化
         View incView = view.findViewById(R.id.dynamic_include_header);
 
-        radioGroup = (RadioGroup) incView.findViewById(R.id.hdr_rg_show);
+        titleRadioGroup = (RadioGroup) incView.findViewById(R.id.hdr_rg_show);
+        squareRadioGroup = (RadioGroup) view.findViewById(R.id.dynamic_radioGroup);
 
         ImageButton image = (ImageButton) incView.findViewById(R.id.hdr_ib_srch);
         image.setImageResource(R.mipmap.find_dynamic_send_prs);
 
         RadioButton tv_first = (RadioButton) incView.findViewById(R.id.hdr_rb_first);
         tv_first.setText(getString(R.string.dynamic));
-        tv_first.setChecked(true);
 
         incView.findViewById(R.id.hdr_rb_second).setVisibility(View.GONE);
 
