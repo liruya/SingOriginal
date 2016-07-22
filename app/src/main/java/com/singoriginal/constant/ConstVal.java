@@ -67,5 +67,8 @@ public class ConstVal {
     public static final String LIVE_STAT_RECOMMEND = "RECOMMEND";
 
     //WebLink
-    public static final String CHANNEL_HTTP_PATH = "http://mobileapi.5sing.kugou.com/channel/channel?limit=10&offset=%@&sid=0&version=6.0.1";
+    public static final String CHANNEL_HTTP_PATH = "http://mobileapi.5sing.kugou.com/channel/channel?limit=10&offset=%@&sid=0&version=6.2.2";
+    public static final String Dynamic_HTTP_PATH = "http://mobileapi.5sing.kugou.com/message/square?ordering=2&pageindex=0&pagesize=20&fields=ID%2CNN%2CI%2CB%2CP%2CC%2CSX%2CE%2CM%2CVT%2CCT%2CTYC%2CTFC%2CTBZ%2CTFD%2CTFS%2CSC%2CDJ&version=6.2.2";
+
+    public static final int CHANNEL_CODE = 0x201;
 }
