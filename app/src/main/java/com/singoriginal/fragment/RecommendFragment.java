@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -16,6 +17,9 @@ import com.singoriginal.R;
 import com.singoriginal.adapter.AdvertAdapter;
 import com.singoriginal.constant.ConstVal;
 import com.singoriginal.model.Advert;
+import com.singoriginal.model.Hotlist;
+import com.singoriginal.model.Liveroom;
+import com.singoriginal.model.MusicTopics;
 import com.singoriginal.util.GsonUtil;
 import com.singoriginal.util.OkHttpUtil;
 
@@ -31,8 +35,14 @@ public class RecommendFragment extends Fragment
     //Log输出标签
     private static String TAG = "RecommendFragment";
     private ViewPager recmd_vp_show;
-    private ArrayList<String> imgLinks;
+
+    private ArrayList<Advert> advertList;
     private AdvertAdapter adapter;
+
+    private ArrayList<Hotlist> hotlist;
+    private ArrayList<Liveroom> liveList;
+    private ArrayAdapter<MusicTopics> topicList;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
@@ -51,9 +61,7 @@ public class RecommendFragment extends Fragment
     private void initData()
     {
         //空数据初始化适配器
-        imgLinks = new ArrayList<>();
-        adapter = new AdvertAdapter(getContext(), imgLinks);
-        recmd_vp_show.setAdapter(adapter);
+        advertList = new ArrayList<>();
 
         //音乐.推荐.轮播图数据api接口地址
         String path = ConstVal.ADVERT_LINK + "&version=" + ConstVal.VERSION;
@@ -69,13 +77,11 @@ public class RecommendFragment extends Fragment
                     //轮播图api数据码
                     case ConstVal.ADVERT_CODE:
                         String json = (String) msg.obj;
-                        ArrayList<Advert> ads = new Gson().fromJson(GsonUtil.getJsonArray(json),
+                        advertList = new Gson().fromJson(GsonUtil.getJsonArray(json),
                                                                     new TypeToken<ArrayList<Advert>>(){}.getType());
-                        for (Advert ad : ads)
-                        {
-                            imgLinks.add(ad.getImgUrl());
-                        }
-                        adapter.notifyDataSetChanged();
+                        adapter = new AdvertAdapter(getContext(), advertList);
+                        recmd_vp_show.setAdapter(adapter);
+                        recmd_vp_show.setCurrentItem(advertList.size()*1000);
                         break;
                 }
             }
@@ -84,6 +90,5 @@ public class RecommendFragment extends Fragment
         final Request request = new Request.Builder().url(path).build();
         OkHttpUtil.enqueue(getContext(), hdl, request);
     }
-
 
 }

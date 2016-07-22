@@ -40,7 +40,7 @@ public class MusicFragment extends Fragment
     {
         View incView = view.findViewById(R.id.msc_inc_hdr);
         incView.setBackgroundColor(ConstVal.COLOR_DARKGREEN);
-        RadioGroup hdr_rg_show = (RadioGroup) incView.findViewById(R.id.hdr_rg_show);
+        final RadioGroup hdr_rg_show = (RadioGroup) incView.findViewById(R.id.hdr_rg_show);
         hdr_rg_show.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
         {
             @Override
@@ -50,6 +50,39 @@ public class MusicFragment extends Fragment
             }
         });
         ViewPager msc_vp_show = (ViewPager) view.findViewById(R.id.msc_vp_show);
+        msc_vp_show.addOnPageChangeListener(new ViewPager.OnPageChangeListener()
+        {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
+            {
+
+            }
+
+            @Override
+            public void onPageSelected(int position)
+            {
+                switch (position)
+                {
+                    case 0:
+                        hdr_rg_show.check(R.id.hdr_rb_first);
+                        break;
+
+                    case 1:
+                        hdr_rg_show.check(R.id.hdr_rb_second);
+                        break;
+
+                    case 2:
+                        hdr_rg_show.check(R.id.hdr_rb_third);
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state)
+            {
+
+            }
+        });
         hdr_rg_show.check(R.id.hdr_rb_first);
 
         RecommendFragment recmdFrag = new RecommendFragment();

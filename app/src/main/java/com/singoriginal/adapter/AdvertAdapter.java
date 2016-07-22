@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.singoriginal.model.Advert;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -17,18 +18,29 @@ import java.util.ArrayList;
 public class AdvertAdapter extends PagerAdapter
 {
     private Context context;
-    private ArrayList<String> imgLinks;
+    private ArrayList<Advert> advertList;
+    private int height;
 
-    public AdvertAdapter(Context context, ArrayList<String> imgLinks)
+    public int getHeight()
+    {
+        return height;
+    }
+
+    public void setHeight(int height)
+    {
+        this.height = height;
+    }
+
+    public AdvertAdapter(Context context, ArrayList<Advert> advertList)
     {
         this.context = context;
-        this.imgLinks = imgLinks;
+        this.advertList = advertList;
     }
 
     @Override
     public int getCount()
     {
-        return imgLinks == null ? 0 : imgLinks.size();
+        return advertList == null ? 0 : (advertList.size()*2000);
     }
 
     @Override
@@ -40,8 +52,10 @@ public class AdvertAdapter extends PagerAdapter
     @Override
     public Object instantiateItem(ViewGroup container, int position)
     {
+        int pos = (position)%advertList.size();
         ImageView imgView = new ImageView(context);
-        Picasso.with(context).load(imgLinks.get(position)).into(imgView);
+        Picasso.with(context).load(advertList.get(pos).getImgUrl()).into(imgView);
+        imgView.setScaleType(ImageView.ScaleType.FIT_XY);
         container.addView(imgView);
         return imgView;
     }
@@ -52,4 +66,17 @@ public class AdvertAdapter extends PagerAdapter
         container.removeView((View) object);
     }
 
+    /**
+     * 测量控件高度
+     * @param view
+     * @return
+     */
+    private int getViewHeight(View view)
+    {
+        int w = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        int h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        view.measure(w, h);
+        int height = view.getMeasuredHeight();
+        return height;
+    }
 }
