@@ -10,51 +10,40 @@ import org.json.JSONObject;
  * GSON解析类
  * Created by lanouhn on 16/7/20.
  */
-public class GsonUtil
-{
+public class GsonUtil {
     private static final Gson gson = new Gson();
+
     /**
      * 从获取的字符串格式json中提取出所需的对象集合(字符串格式)
+     *
      * @param json
      * @return
      */
-    public static String getJsonArray(String json)
-    {
-        if ( json.startsWith("{") && json.endsWith("}") )
-        {
-            try
-            {
+    public static String getJsonArray(String json) {
+
+        if (json.startsWith("{") && json.endsWith("}")) {
+
+            try {
                 JSONObject obj = new JSONObject(json);
-                if (obj.has(ConstVal.SUCCESS))
-                {
+
+                if (obj.has(ConstVal.SUCCESS)) {
                     Boolean success = obj.getBoolean(ConstVal.SUCCESS);
-                    if (success)
-                    {
-                        if (obj.has(ConstVal.DATA))
-                        {
+                    if (success) {
+                        if (obj.has(ConstVal.DATA)) {
                             return obj.getString(ConstVal.DATA);
-                        }
-                        else
-                        {
+                        } else {
                             return null;
                         }
-                    }
-                    else
-                    {
+                    } else {
                         return null;
                     }
-                }
-                else
-                {
+                } else {
                     return null;
                 }
-            } catch (JSONException e)
-            {
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }
-        else if ( json.startsWith("[") && json.endsWith("]") )
-        {
+        } else if (json.startsWith("[") && json.endsWith("]")) {
             return json;
         }
         return null;

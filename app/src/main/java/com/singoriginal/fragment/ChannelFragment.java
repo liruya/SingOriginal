@@ -11,9 +11,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -43,6 +45,9 @@ import java.util.Map;
 public class ChannelFragment extends Fragment {
 
     private RadioGroup radioGroup;
+    private RadioButton channel_attention;
+    private RadioButton channel_total;
+    private List<Channel> dataList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,12 +55,52 @@ public class ChannelFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_channel, null);
 
+
         initView(view);
+        initEvent(view);
 
         return view;
     }
 
+    private void initEvent(View view) {
+
+
+        channel_attention.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (isChecked) {
+                    if (dataList == null || dataList.size() == 0) {
+                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.channel_frameLayout, new NoAttentionChannelFragment()).commit();
+                    } else {
+
+                    }
+                }
+            }
+        });
+
+        channel_total.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (isChecked) {
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.channel_frameLayout, new ChannelInfoFragment()).commit();
+                }
+            }
+        });
+        channel_attention.setChecked(true);
+    }
+
     private void initView(View view) {
+
+        dataList = new ArrayList<>();
+        channel_attention = (RadioButton) view.findViewById(R.id.channel_attention);
+        channel_total = (RadioButton) view.findViewById(R.id.channel_total);
 
         //如果已登录则显示个人信息页面,否则显示登录注册页面 标题头及页面主体均不相同
         //页面公用标题头初始化

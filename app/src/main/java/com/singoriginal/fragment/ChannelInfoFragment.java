@@ -21,13 +21,18 @@ import com.google.gson.reflect.TypeToken;
 import com.singoriginal.R;
 import com.singoriginal.adapter.ChannelAdapter;
 import com.singoriginal.constant.ConstVal;
+import com.singoriginal.model.Advert;
 import com.singoriginal.model.Channel;
+import com.singoriginal.util.GsonUtil;
+import com.singoriginal.util.OkHttpUtil;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import okhttp3.Request;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +50,9 @@ public class ChannelInfoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_channel_info, null);
 
         initView(view);
+
+        GridLayoutManager glm = new GridLayoutManager(getContext(), 2);
+        channel_info_recyclerView.setLayoutManager(glm);
         initData();
         initEvent(view);
 
@@ -58,29 +66,30 @@ public class ChannelInfoFragment extends Fragment {
 
     private void initData() {
 
-        GridLayoutManager glm = new GridLayoutManager(getActivity(), 2);
-        channel_info_recyclerView.setLayoutManager(glm);
+        dataList = new ArrayList<>();
+
 
         Gson gson = new Gson();
-        JsonParser parser = new JsonParser();
-        dataList = new ArrayList<Channel>();
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what) {
+                    case ConstVal.ADVERT_CODE:
+                        String json = (String) msg.obj;
+                        dataList = new Gson().fromJson(GsonUtil.getJsonArray(json), new TypeToken<ArrayList<Channel>>() {
+                        }.getType());
 
-        JsonObject jsonObject = parser.parse(ConstVal.CHANNEL_HTTP_PATH).getAsJsonObject();
+                        adapter = new ChannelAdapter(getContext(), dataList);
+                        channel_info_recyclerView.setAdapter(adapter);
 
-        JsonArray jsonArray = jsonObject.getAsJsonArray("data");
-        Type type = new TypeToken<Map<String, String>>() {
-        }.getType();
-        for (int i = 0; i < jsonArray.size(); i++) {
-            JsonElement el = jsonArray.get(i);
-            Channel channel = gson.fromJson(el, type);
-            dataList.add(channel);
-            System.out.println(channel.getNA());
-        }
-        jsonObject.add("data", parser.parse(gson.toJson(dataList)).getAsJsonArray());
-        System.out.println(gson.toJson(jsonObject));
-
-        adapter = new ChannelAdapter(getActivity(), dataList);
-        channel_info_recyclerView.setAdapter(adapter);
+                        break;
+                }
+            }
+        };
+        //创建OkHttpClient请求
+        final Request request = new Request.Builder().url(ConstVal.CHANNEL_HTTP_PATH).build();
+        OkHttpUtil.enqueue(getContext(), handler, request);
     }
 
     private void initView(View view) {

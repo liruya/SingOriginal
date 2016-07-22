@@ -1,6 +1,7 @@
 package com.singoriginal.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,13 +13,14 @@ import com.singoriginal.R;
 import com.singoriginal.constant.ConstVal;
 import com.singoriginal.model.Channel;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import java.util.List;
 
 /**
  * Created by lanouhn on 16/7/20.
  */
-public class ChannelAdapter extends RecyclerView.Adapter {
+public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ViewHolder> {
 
     private Context context;
     private List<Channel> dataList;
@@ -36,7 +38,7 @@ public class ChannelAdapter extends RecyclerView.Adapter {
      * @return
      */
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         //找到布局文件，并创建ViewHolder
         return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_channel_recycler, null));
@@ -49,17 +51,15 @@ public class ChannelAdapter extends RecyclerView.Adapter {
      * @param position
      */
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
-        ViewHolder holder1 = null;
+    public void onBindViewHolder(ViewHolder holder, int position) {
 
         Channel channel = dataList.get(position);
-        holder1.item_channel_text.setText(channel.getNA());
+        holder.item_channel_text.setText(channel.getNA());
 
-        Picasso.with(context).load(channel.getIM()).fit()
+        Picasso.with(context).load(channel.getIM())
                 .placeholder(R.mipmap.loading_picture216x150)
                 .error(R.mipmap.loading_picture216x150)
-                .into(holder1.item_channel_icon);
+                .into(holder.item_channel_icon);
     }
 
     /**
@@ -88,4 +88,5 @@ public class ChannelAdapter extends RecyclerView.Adapter {
             item_channel_text = (TextView) itemView.findViewById(R.id.item_channel_text);
         }
     }
+
 }
