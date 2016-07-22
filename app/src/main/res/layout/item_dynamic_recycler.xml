@@ -6,10 +6,10 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/item_dynamic_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_margin="8dp"
-        android:src="@mipmap/loading_6_0" />
+        android:src="@mipmap/default_image" />
 
     <TextView
         android:id="@+id/item_dynamic_nickname"
@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/item_dynamic_icon"
         android:layout_toRightOf="@+id/item_dynamic_icon"
-        android:text="昵称"
+        android:text="@string/nickname"
         android:textColor="@color/colorDarkGreen"
         android:textSize="15sp" />
 
@@ -27,7 +27,7 @@
         android:layout_alignBottom="@+id/item_dynamic_nickname"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/item_dynamic_nickname"
-        android:text="发布了一首原创"
+        android:text="@string/publish"
         android:textSize="12sp" />
 
     <TextView
@@ -38,7 +38,7 @@
         android:layout_below="@+id/item_dynamic_nickname"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/item_dynamic_icon"
-        android:text="时间"
+        android:text="@string/time"
         android:textSize="12sp" />
 
     <TextView
@@ -49,30 +49,53 @@
         android:layout_below="@+id/item_dynamic_time"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/item_dynamic_icon"
-        android:text="图片"
+        android:text="@string/textIcon"
         android:textColor="@color/colorDarkGreen"
         android:textSize="14sp" />
 
     <TextView
         android:id="@+id/item_dynamic_content"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/item_dynamic_nickname"
         android:layout_below="@+id/item_dynamic_textIcon"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/item_dynamic_icon"
-        android:text="内容"
+        android:maxLines="3"
+        android:text="@string/content"
         android:textColor="@color/colorBlack"
         android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/item_dynamic_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/item_dynamic_nickname"
+        android:layout_below="@+id/item_dynamic_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/more"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/item_dynamic_shrink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/item_dynamic_nickname"
+        android:layout_below="@+id/item_dynamic_more"
+        android:layout_marginTop="5dp"
+        android:text="@string/shrink"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/item_dynamic_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/item_dynamic_nickname"
-        android:layout_below="@id/item_dynamic_content"
+        android:layout_below="@id/item_dynamic_shrink"
         android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
+        android:background="@color/colorLightGray"
         android:orientation="horizontal">
 
         <ImageView
@@ -82,55 +105,60 @@
             android:src="@mipmap/musician_play" />
 
         <TextView
+            android:id="@+id/item_dynamic_songName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:ellipsize="end"
-            android:text="歌名"
+            android:text="@string/songName"
             android:textColor="@color/colorBlack"
             android:textSize="14sp" />
 
     </LinearLayout>
 
     <TextView
-        android:id="@+id/item_dynamic_commentNum"
+        android:id="@+id/item_dynamic_laudNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/item_dynamic_ll"
         android:layout_marginRight="30dp"
         android:layout_marginTop="15dp"
-        android:text="评论个数" />
-
-    <ImageView
-        android:id="@+id/item_dynamic_commentIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/item_dynamic_ll"
-        android:layout_marginRight="3dp"
-        android:layout_marginTop="15dp"
-        android:layout_toLeftOf="@+id/item_dynamic_commentNum"
-        android:src="@mipmap/comment_left" />
-
-    <TextView
-        android:id="@+id/item_dynamic_laudNum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/item_dynamic_ll"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="15dp"
-        android:layout_toLeftOf="@+id/item_dynamic_commentIcon"
-        android:text="赞个数" />
+        android:text="@string/laudNum"
+        android:textSize="13sp" />
 
     <ImageView
         android:id="@+id/item_dynamic_laudIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/item_dynamic_laudNum"
         android:layout_below="@+id/item_dynamic_ll"
         android:layout_marginRight="3dp"
         android:layout_marginTop="15dp"
         android:layout_toLeftOf="@+id/item_dynamic_laudNum"
         android:src="@mipmap/comments_icon" />
+
+    <TextView
+        android:id="@+id/item_dynamic_commentNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_dynamic_ll"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_toLeftOf="@+id/item_dynamic_laudIcon"
+        android:text="@string/commentNum"
+        android:textSize="13sp" />
+
+    <ImageView
+        android:id="@+id/item_dynamic_commentIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/item_dynamic_commentNum"
+        android:layout_below="@+id/item_dynamic_ll"
+        android:layout_marginRight="3dp"
+        android:layout_marginTop="15dp"
+        android:layout_toLeftOf="@+id/item_dynamic_commentNum"
+        android:src="@mipmap/comment_left" />
 
     <View
         android:layout_width="match_parent"
