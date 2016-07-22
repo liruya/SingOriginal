@@ -41,15 +41,30 @@ public class MusicFragment extends Fragment
         View incView = view.findViewById(R.id.msc_inc_hdr);
         incView.setBackgroundColor(ConstVal.COLOR_DARKGREEN);
         final RadioGroup hdr_rg_show = (RadioGroup) incView.findViewById(R.id.hdr_rg_show);
+        final ViewPager msc_vp_show = (ViewPager) view.findViewById(R.id.msc_vp_show);
+
         hdr_rg_show.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
         {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId)
             {
+                switch (checkedId)
+                {
+                    case R.id.hdr_rb_first:
+                        msc_vp_show.setCurrentItem(0);
+                        break;
 
+                    case R.id.hdr_rb_second:
+                        msc_vp_show.setCurrentItem(1);
+                        break;
+
+                    case R.id.hdr_rb_third:
+                        msc_vp_show.setCurrentItem(2);
+                        break;
+                }
             }
         });
-        ViewPager msc_vp_show = (ViewPager) view.findViewById(R.id.msc_vp_show);
+
         msc_vp_show.addOnPageChangeListener(new ViewPager.OnPageChangeListener()
         {
             @Override

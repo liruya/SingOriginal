@@ -66,4 +66,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_above="@id/main_rg_show"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorGray"
+        android:layout_above="@id/main_rg_show"/>
 </RelativeLayout>

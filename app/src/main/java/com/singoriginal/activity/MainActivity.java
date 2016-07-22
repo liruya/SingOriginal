@@ -3,13 +3,15 @@ package com.singoriginal.activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 
 import com.singoriginal.R;
+import com.singoriginal.constant.ConstVal;
 import com.singoriginal.fragment.ChannelFragment;
 import com.singoriginal.fragment.DynamicFragment;
-import com.singoriginal.fragment.DynamicSquareFragment;
 import com.singoriginal.fragment.MusicFragment;
 import com.singoriginal.fragment.MyFragment;
 
@@ -22,15 +24,34 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initSysParam();
         initView();
         initEvent();
     }
 
+    /**
+     * 获取系统参数
+     */
+    private void initSysParam()
+    {
+        Display display = getWindowManager().getDefaultDisplay();
+        DisplayMetrics metrics = new DisplayMetrics();
+        display.getMetrics(metrics);
+        ConstVal.SCREEN_WIDTH = metrics.widthPixels;
+        ConstVal.SCREEN_HEIGHT = metrics.heightPixels;
+    }
+
+    /**
+     * 初始化页面上的组件
+     */
     private void initView() {
         main_fl_show = (FrameLayout) findViewById(R.id.main_fl_show);
         main_rg_show = (RadioGroup) findViewById(R.id.main_rg_show);
     }
 
+    /**
+     * 事件初始化
+     */
     private void initEvent() {
         main_rg_show.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

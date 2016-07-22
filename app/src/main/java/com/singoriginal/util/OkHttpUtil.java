@@ -5,8 +5,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.Toast;
 
-import com.singoriginal.constant.ConstVal;
-
 import java.io.IOException;
 
 import okhttp3.Call;
@@ -35,7 +33,7 @@ public class OkHttpUtil
         return httpClient.newCall(request).execute().body().string();
     }
 
-    public static void enqueue(final Context context, final Handler hdl, Request request)
+    public static void enqueue(final Context context, final Handler hdl, final int code, Request request)
     {
         httpClient.newCall(request).enqueue(new Callback()
         {
@@ -54,7 +52,7 @@ public class OkHttpUtil
                     @Override
                     public void run()
                     {
-                        Message msg = hdl.obtainMessage(ConstVal.ADVERT_CODE, json);
+                        Message msg = hdl.obtainMessage(code, json);
                         hdl.sendMessage(msg);
                     }
                 }).start();

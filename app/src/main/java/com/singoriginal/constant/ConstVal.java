@@ -1,17 +1,22 @@
 package com.singoriginal.constant;
 
+import com.singoriginal.R;
+
 /**
  * 全局公用常量类
  * Created by lanouhn on 16/7/19.
  */
 public class ConstVal {
+    //系统常量
+    public static int SCREEN_WIDTH;
+    public static int SCREEN_HEIGHT;
     //颜色值 ARGB格式
     public static final int COLOR_DARKGREEN = 0xFF00BB9C;
     public static final int COLOR_HYALINE = 0x00FFFFFF;
 
     //网络数据接口
     public static final String ADVERT_LINK = "http://goapi.5sing.kugou.com/getAdvert?t=101&tag=449";
-    public static final String HOTLIST_LINK = "http://goapi.5sing.kugou.com/getRecommendSo&ngList?";
+    public static final String HOTLIST_LINK = "http://goapi.5sing.kugou.com/getRecommendSongList?";
     public static final String LIVEROOM_LINK = "http://5singlive.kugou.com/api.php?action=Mobile&fun=getLiveNew";
     public static final String MUSICTOPICS_LINK = "http://goapi.5sing.kugou.com/getTheme?t=101&o1=1&o2=20&tag=86";
     public static final String VERSION = "6.0.1";
@@ -22,6 +27,44 @@ public class ConstVal {
     public static final int colorDKGreen = 0xFF00BB9C;
     public static final int colorHyaline = 0x00FFFFFF;
     public static final int ADVERT_CODE = 0x101;
+    public static final int HOTLIST_CODE = 0x102;
+    public static final int LIVEROOM_CODE = 0x103;
+    public static final int TOPIC_CODE = 0x104;
+
+    public static final int[] HOTLIST_RESID = {R.id.hot_tr_pic1,
+                                               R.id.hot_tr_pic2,
+                                               R.id.hot_tr_pic3,
+                                               R.id.hot_tr_pic4,
+                                               R.id.hot_tr_pic5,
+                                               R.id.hot_tr_pic6};
+    public static final int[] HOTLIST_NAMEID = {R.id.hot_tr_tv1,
+                                                R.id.hot_tr_tv2,
+                                                R.id.hot_tr_tv3,
+                                                R.id.hot_tr_tv4,
+                                                R.id.hot_tr_tv5,
+                                                R.id.hot_tr_tv6};
+    public static final int[] LIVEROOM_RESID = {R.id.live_tr_pic1,
+                                                R.id.live_tr_pic2,
+                                                R.id.live_tr_pic3,
+                                                R.id.live_tr_pic4};
+    public static final int[] LIVEROOM_NAMEID = {R.id.live_tr_tv1,
+                                                 R.id.live_tr_tv2,
+                                                 R.id.live_tr_tv3,
+                                                 R.id.live_tr_tv4};
+    public static final int[] LIVEROOM_DESCID = {R.id.live_tr_desc1,
+                                                 R.id.live_tr_desc2,
+                                                 R.id.live_tr_desc3,
+                                                 R.id.live_tr_desc4};
+    public static final int[] TOPIC_RESID = {R.id.topic_tr_pic1,
+                                             R.id.topic_tr_pic2,
+                                             R.id.topic_tr_pic3};
+    public static final int[] TOPIC_NAMEID = {R.id.topic_tr_tv1,
+                                              R.id.topic_tr_tv2,
+                                              R.id.topic_tr_tv3};
+
+    public static final String LIVE_STAT_PRESHOW = "TRAILER";
+    public static final String LIVE_STAT_ONLINE = "LIVE";
+    public static final String LIVE_STAT_RECOMMEND = "RECOMMEND";
 
     //WebLink
     public static final String CHANNEL_HTTP_PATH = "http://mobileapi.5sing.kugou.com/channel/channel?limit=10&offset=%@&sid=0&version=6.0.1";
