@@ -55,6 +55,27 @@
     <string name="exchange">兑换</string>
     <string name="buySong">已购买歌曲</string>
     <string name="fortuneRecord">财富记录</string>
-
+    <string name="uploadSongs">上传歌曲列表</string>
+    <string name="scanButton">开始扫描</string>
+    <string name="startScan">点击按钮开始扫描</string>
+    <string name="notGet">尚未获取本地歌曲文件</string>
+    <string name="defaultUploadSongs">手机端上传歌曲,让大家听到你的歌声吧!</string>
+    <string name="alterInfo">修改个人信息</string>
+    <string name="realAuthentication">实名认证</string>
+    <string name="noAuthentication">暂未认证</string>
+    <string name="bind">绑定</string>
+    <string name="clearCache">清除缓存</string>
+    <string name="downloadPath">歌曲下载路径</string>
+    <string name="qualitySelect">音质选择</string>
+    <string name="timeClose">定时关闭</string>
+    <string name="receiveInfo">接收推送消息</string>
+    <string name="feedback">意见反馈</string>
+    <string name="checkNew">检查新版本</string>
+    <string name="latestVersion">已是最新版本</string>
+    <string name="share">分享5sing</string>
+    <string name="helpCenter">帮助中心</string>
+    <string name="aboutSongs">关于5sing原创音乐</string>
+    <string name="copyrightProtection">版权保护</string>
+    <string name="exitAccount">退出当前账号</string>
 
 </resources>

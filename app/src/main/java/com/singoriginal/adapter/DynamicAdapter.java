@@ -76,10 +76,10 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.ViewHold
                 .error(R.mipmap.default_image)
                 .into(holder.item_dynamic_icon);
 
-        if (content.getContent().length() > 75) {
-
-            holder.item_dynamic_more.setVisibility(View.VISIBLE);
-        }
+//        if (content.getContent().length() > 300) {
+//
+//            holder.item_dynamic_more.setVisibility(View.VISIBLE);
+//        }
 
         holder.item_dynamic_more.setOnClickListener(new View.OnClickListener() {
             @Override

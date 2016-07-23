@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -34,9 +36,11 @@ import okhttp3.Request;
  */
 public class DynamicSquareFragment extends Fragment {
 
+    private static final String TAG = "DynamicSquareFragment";
     private RecyclerView dynamic_square_recyclerView;
     private List<DynamicSquare> dataList;
     private DynamicAdapter adapter;
+    private Handler handler;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,7 +67,7 @@ public class DynamicSquareFragment extends Fragment {
         dataList = new ArrayList<>();
 
         Gson gson = new Gson();
-        Handler handler = new Handler() {
+        handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
@@ -81,9 +85,27 @@ public class DynamicSquareFragment extends Fragment {
                 }
             }
         };
+
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+
+            int code = bundle.getInt("code");
+            host(code);
+        }
+
+    }
+
+    public void host(int code) {
+
+        String path = "";
+        if (code == 0) {
+            path = ConstVal.DYNAMIC_HOST_HTTP_PATH;
+        } else {
+            path = ConstVal.DYNAMIC_NEW_HTTP_PATH;
+        }
         //创建OkHttpClient请求
-        final Request request = new Request.Builder().url(ConstVal.Dynamic_HTTP_PATH).build();
-        OkHttpUtil.enqueue(getContext(), handler, request);
+        final Request request = new Request.Builder().url(path).build();
+        OkHttpUtil.enqueue(getContext(), handler, ConstVal.ADVERT_CODE, request);
     }
 
     private void initEvent(View view) {
