@@ -2,8 +2,10 @@ package com.singoriginal.fragment;
 
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.transition.Transition;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,9 @@ import android.widget.Toast;
 import com.singoriginal.R;
 import com.singoriginal.constant.CommanVal;
 import com.singoriginal.constant.ConstVal;
+import com.singoriginal.util.OkHttpUtil;
+
+import okhttp3.Request;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,6 +58,7 @@ public class DynamicFragment extends Fragment {
                         FragmentTransaction transaction2 = getFragmentManager().beginTransaction();
                         transaction2.replace(R.id.dynamic_frameLayout, new DynamicSquareFragment()).commit();
                         radView2.setVisibility(View.VISIBLE);
+                        squareRadioGroup.check(R.id.dynamic_rb_hottest);
                         break;
                 }
             }
@@ -60,20 +66,33 @@ public class DynamicFragment extends Fragment {
         titleRadioGroup.check(R.id.hdr_rb_first);
 
         squareRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                DynamicSquareFragment fragment = new DynamicSquareFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 switch (checkedId) {
                     case R.id.dynamic_rb_newest:
-
+                        transaction.replace(R.id.dynamic_frameLayout, fragment, "fragment");
+//                        transaction.addToBackStack("fragment");
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("code", 1);
+                        fragment.setArguments(bundle);
+                        transaction.commit();
                         break;
                     case R.id.dynamic_rb_hottest:
-
-
+                        DynamicSquareFragment fragment2 = new DynamicSquareFragment();
+                        FragmentTransaction transaction2 = getFragmentManager().beginTransaction();
+                        transaction2.replace(R.id.dynamic_frameLayout, fragment2, "fragment2");
+//                        transaction2.addToBackStack("fragment2");
+                        Bundle bundle2 = new Bundle();
+                        bundle2.putInt("code", 0);
+                        fragment2.setArguments(bundle2);
+                        transaction2.commit();
                         break;
                 }
             }
         });
-        squareRadioGroup.check(R.id.dynamic_rb_hottest);
     }
 
     private void initView(View view) {
