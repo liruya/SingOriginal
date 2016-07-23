@@ -13,12 +13,15 @@ public class ConstVal {
     //颜色值 ARGB格式
     public static final int COLOR_DARKGREEN = 0xFF00BB9C;
     public static final int COLOR_HYALINE = 0x00FFFFFF;
+    public static final int COLOR_GRAY = 0xFFA9B7B7;
+    public static final int COLOR_SHALLOWBLACK = 0xFF333333;
 
     //网络数据接口
     public static final String ADVERT_LINK = "http://goapi.5sing.kugou.com/getAdvert?t=101&tag=449";
     public static final String HOTLIST_LINK = "http://goapi.5sing.kugou.com/getRecommendSongList?";
     public static final String LIVEROOM_LINK = "http://5singlive.kugou.com/api.php?action=Mobile&fun=getLiveNew";
     public static final String MUSICTOPICS_LINK = "http://goapi.5sing.kugou.com/getTheme?t=101&o1=1&o2=20&tag=86";
+    public static final String TOPRANK_LINK = "http://mobileapi.5sing.kugou.com/rank/list?";
     public static final String VERSION = "6.0.1";
     public static final String GET = "GET";
     public static final String POST = "POST";
@@ -30,6 +33,7 @@ public class ConstVal {
     public static final int HOTLIST_CODE = 0x102;
     public static final int LIVEROOM_CODE = 0x103;
     public static final int TOPIC_CODE = 0x104;
+    public static final int RANK_CODE = 0x121;
 
     public static final int[] HOTLIST_RESID = {R.id.hot_tr_pic1,
                                                R.id.hot_tr_pic2,

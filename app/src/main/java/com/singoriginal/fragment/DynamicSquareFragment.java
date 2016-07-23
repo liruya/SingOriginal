@@ -6,11 +6,9 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -20,9 +18,6 @@ import com.singoriginal.constant.ConstVal;
 import com.singoriginal.model.DynamicSquare;
 import com.singoriginal.util.GsonUtil;
 import com.singoriginal.util.OkHttpUtil;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +78,7 @@ public class DynamicSquareFragment extends Fragment {
         };
         //创建OkHttpClient请求
         final Request request = new Request.Builder().url(ConstVal.Dynamic_HTTP_PATH).build();
-        OkHttpUtil.enqueue(getContext(), handler, request);
+        OkHttpUtil.enqueue(getContext(), handler, ConstVal.ADVERT_CODE, request);
     }
 
     private void initEvent(View view) {
