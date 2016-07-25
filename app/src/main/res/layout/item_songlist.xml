@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="10dp">
+        <TextView
+            android:id="@+id/itemsong_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorShallowBlack"
+            android:textSize="14sp"
+            android:text="title"/>
+        <TextView
+            android:id="@+id/itemsong_tv_athor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorGray"
+            android:textSize="12sp"
+            android:text="title"/>
+    </LinearLayout>
+    <ImageButton
+        android:id="@+id/itemsong_ib_more"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:background="@color/colorHyaline"
+        android:scaleType="fitXY"
+        android:src="@mipmap/player_more_selected"/>
+</LinearLayout>

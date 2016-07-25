@@ -14,7 +14,8 @@
             <android.support.v4.view.ViewPager
                android:id="@+id/recmd_vp_show"
                android:layout_width="match_parent"
-               android:layout_height="200dp" />
+               android:layout_height="200dp"
+                />
             <TableRow
                 android:background="@color/colorWhite"
                 android:orientation="horizontal"

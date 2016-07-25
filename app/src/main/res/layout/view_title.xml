@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorDarkGreen"
+    android:padding="10dp"
+    android:gravity="center">
+
+    <ImageButton
+        android:id="@+id/tit_ib_back"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/colorHyaline"
+        android:src="@mipmap/client_back"/>
+    <TextView
+        android:id="@+id/tit_tv_tit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:singleLine="true"
+        android:scrollHorizontally="true"
+        android:focusable="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:textSize="18sp"
+        android:textColor="@color/colorWhite"
+        android:text="title"/>
+    <ImageButton
+        android:id="@+id/tit_ib_msc"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/colorHyaline"
+        android:src="@mipmap/in_play"/>
+</LinearLayout>

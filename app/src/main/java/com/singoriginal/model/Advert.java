@@ -10,9 +10,9 @@ public class Advert
     private String Title;
     private String ImgUrl;
     private String LinkUrl;
-    private int BehaviorType;
+    private String BehaviorType;
 
-    public Advert(int Id, String Title, String ImgUrl, String LinkUrl, int BehaviorType)
+    public Advert(int Id, String Title, String ImgUrl, String LinkUrl, String BehaviorType)
     {
         this.Id = Id;
         this.Title = Title;
@@ -61,12 +61,12 @@ public class Advert
         this.LinkUrl = LinkUrl;
     }
 
-    public int getBehaviorType()
+    public String getBehaviorType()
     {
         return BehaviorType;
     }
 
-    public void setBehaviorType(int BehaviorType)
+    public void setBehaviorType(String BehaviorType)
     {
         this.BehaviorType = BehaviorType;
     }

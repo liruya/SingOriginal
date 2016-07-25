@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import okhttp3.Request;
 
 /**
+ * 乐库.推荐页面
  * A simple {@link Fragment} subclass.
  */
 public class RecommendFragment extends Fragment
@@ -216,4 +217,8 @@ public class RecommendFragment extends Fragment
         OkHttpUtil.enqueue(getContext(), hdl, ConstVal.TOPIC_CODE, request);
     }
 
+    private void initEvent()
+    {
+
+    }
 }

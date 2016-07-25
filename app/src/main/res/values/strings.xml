@@ -55,11 +55,9 @@
     <string name="exchange">兑换</string>
     <string name="buySong">已购买歌曲</string>
     <string name="fortuneRecord">财富记录</string>
-<<<<<<< HEAD
     <string name="select_category">选择分类</string>
     <string name="music_rank">5sing音乐排行榜</string>
 
-=======
     <string name="uploadSongs">上传歌曲列表</string>
     <string name="scanButton">开始扫描</string>
     <string name="startScan">点击按钮开始扫描</string>
@@ -82,6 +80,5 @@
     <string name="aboutSongs">关于5sing原创音乐</string>
     <string name="copyrightProtection">版权保护</string>
     <string name="exitAccount">退出当前账号</string>
->>>>>>> 0ac294d0d4d42297c9c0031b837acad56af97c78
 
 </resources>

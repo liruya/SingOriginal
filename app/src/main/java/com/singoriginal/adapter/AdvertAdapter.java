@@ -1,11 +1,14 @@
 package com.singoriginal.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.singoriginal.activity.SongListActivity;
+import com.singoriginal.activity.WebActivity;
 import com.singoriginal.model.Advert;
 import com.squareup.picasso.Picasso;
 
@@ -52,11 +55,35 @@ public class AdvertAdapter extends PagerAdapter
     @Override
     public Object instantiateItem(ViewGroup container, int position)
     {
-        int pos = (position)%advertList.size();
+        final int pos = (position) % advertList.size();
+        final Advert advert = advertList.get(pos);
         ImageView imgView = new ImageView(context);
-        Picasso.with(context).load(advertList.get(pos).getImgUrl()).into(imgView);
+        Picasso.with(context).load(advert.getImgUrl()).into(imgView);
         imgView.setScaleType(ImageView.ScaleType.FIT_XY);
         container.addView(imgView);
+        imgView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent;
+
+                if (advert.getBehaviorType().equals("4"))
+                {
+                    intent = new Intent(context, WebActivity.class);
+                    intent.putExtra("Title", advert.getTitle());
+                    intent.putExtra("LinkUrl", advert.getLinkUrl());
+                    context.startActivity(intent);
+                }
+                else if (advert.getBehaviorType().equals("2"))
+                {
+                    intent = new Intent(context, SongListActivity.class);
+                    intent.putExtra("id", advert.getId());
+                    intent.putExtra("title", advert.getTitle());
+                    context.startActivity(intent);
+                }
+            }
+        });
         return imgView;
     }
 
