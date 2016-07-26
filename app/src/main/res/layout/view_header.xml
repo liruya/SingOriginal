@@ -13,6 +13,7 @@
         android:layout_marginRight="5dp"
         android:background="@color/colorHyaline"
         android:src="@mipmap/client_search" />
+
     <RadioGroup
         android:id="@+id/hdr_rg_show"
         android:layout_width="0dp"
@@ -25,37 +26,39 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
             android:button="@null"
             android:gravity="center"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/recommend"
             android:textColor="@color/selector_hdr_rbtxtcolor"
-            android:textSize="18sp"
-            android:text="@string/recommend"/>
+            android:textSize="18sp" />
+
         <RadioButton
             android:id="@+id/hdr_rb_second"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
             android:button="@null"
             android:gravity="center"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/song_list"
             android:textColor="@color/selector_hdr_rbtxtcolor"
-            android:textSize="18sp"
-            android:text="@string/song_list"/>
+            android:textSize="18sp" />
+
         <RadioButton
             android:id="@+id/hdr_rb_third"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
             android:button="@null"
             android:gravity="center"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/top_list"
             android:textColor="@color/selector_hdr_rbtxtcolor"
-            android:textSize="18sp"
-            android:text="@string/top_list"/>
+            android:textSize="18sp" />
     </RadioGroup>
 
     <ImageButton
@@ -64,5 +67,5 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:background="@color/colorHyaline"
-        android:src="@mipmap/in_play"/>
+        android:src="@mipmap/in_play" />
 </LinearLayout>

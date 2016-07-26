@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorDarkGreen"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/publish_iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/client_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/publishDynamic"
+            android:textColor="@color/colorWhite"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/publish_tv_publish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="@string/publish"
+            android:textColor="@color/colorWhite"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+
+        <EditText
+            android:id="@+id/publish_et"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:gravity="start"
+            android:hint="@string/shareHappy"
+            android:maxLength="150"
+            android:padding="10dp"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/publish_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:text="@string/publishNumSize" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:background="@color/colorLightGray">
+
+        <TextView
+            android:id="@+id/publish_add_icon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:drawableLeft="@mipmap/add_icon"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:text="@string/addIcon"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

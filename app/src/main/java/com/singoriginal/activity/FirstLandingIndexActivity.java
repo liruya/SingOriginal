@@ -59,7 +59,7 @@ public class FirstLandingIndexActivity extends AppCompatActivity {
         index_viewPager.setCurrentItem(0);
         index_point1.setImageResource(R.mipmap.point_select);
 
-        index_viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        index_viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 

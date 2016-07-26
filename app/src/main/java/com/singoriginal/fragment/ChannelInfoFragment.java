@@ -1,6 +1,7 @@
 package com.singoriginal.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,13 +11,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.singoriginal.R;
+import com.singoriginal.activity.SongDetailsActivity;
 import com.singoriginal.adapter.ChannelAdapter;
 import com.singoriginal.constant.ConstVal;
 import com.singoriginal.model.Channel;
+import com.singoriginal.onclickinterface.ChannelOnItemClickListener;
 import com.singoriginal.util.GsonUtil;
 import com.singoriginal.util.OkHttpUtil;
 
@@ -45,20 +49,27 @@ public class ChannelInfoFragment extends Fragment {
         GridLayoutManager glm = new GridLayoutManager(getContext(), 2);
         channel_info_recyclerView.setLayoutManager(glm);
         initData();
-        initEvent(view);
 
         return view;
     }
 
-    private void initEvent(View view) {
+    private void initEvent() {
 
+        //Item点击事件
+        adapter.setMyOnItemClickListener(new ChannelOnItemClickListener() {
+            @Override
+            public void myOnItemClickListener(View view, int position) {
+
+                Intent intent = new Intent(getContext(), SongDetailsActivity.class);
+                getContext().startActivity(intent);
+            }
+        });
 
     }
 
     private void initData() {
 
         dataList = new ArrayList<>();
-
 
         Gson gson = new Gson();
         Handler handler = new Handler() {
@@ -73,6 +84,7 @@ public class ChannelInfoFragment extends Fragment {
 
                         adapter = new ChannelAdapter(getContext(), dataList);
                         channel_info_recyclerView.setAdapter(adapter);
+                        initEvent();
 
                         break;
                 }

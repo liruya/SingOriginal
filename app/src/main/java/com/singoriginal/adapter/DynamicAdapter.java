@@ -6,8 +6,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.singoriginal.R;
@@ -56,7 +58,7 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.ViewHold
         Gson gson = new Gson();
 
         DynamicSquare dynamic = dataList.get(position);
-        DynamicSquareContent content = gson.fromJson(dynamic.getContent(), DynamicSquareContent.class);
+        final DynamicSquareContent content = gson.fromJson(dynamic.getContent(), DynamicSquareContent.class);
 
         holder.item_dynamic_nickname.setText(dynamic.getUser().getNN());
         holder.item_dynamic_time.setText(dynamic.getCreatetime() + "");
@@ -65,7 +67,6 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.ViewHold
 //        String time = sdf.format(new Date(dynamic.getUser().getCT()));
 //        holder.item_dynamic_time.setText(time);
 
-//        holder.item_dynamic_textIcon.setText(content.getMemo());
         holder.item_dynamic_content.setText(content.getContent());
         holder.item_dynamic_songName.setText(content.getSongName());
         holder.item_dynamic_laudNum.setText(content.getComments() + "");
@@ -76,17 +77,22 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.ViewHold
                 .error(R.mipmap.default_image)
                 .into(holder.item_dynamic_icon);
 
-//        if (content.getContent().length() > 300) {
-//
-//            holder.item_dynamic_more.setVisibility(View.VISIBLE);
-//        }
+        if (null != content.getContent()) {
+
+            int lines = holder.item_dynamic_content.getLineCount();
+            if (lines > 3) {
+
+                holder.item_dynamic_more.setVisibility(View.VISIBLE);
+            }
+        }
 
         holder.item_dynamic_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                holder.item_dynamic_content.setMaxLines(500);
                 holder.item_dynamic_more.setVisibility(View.GONE);
+                int lines = holder.item_dynamic_content.getLineCount();
+                holder.item_dynamic_content.setMaxLines(lines);
                 holder.item_dynamic_shrink.setVisibility(View.VISIBLE);
             }
         });
@@ -95,8 +101,8 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.ViewHold
             @Override
             public void onClick(View v) {
 
-                holder.item_dynamic_content.setMaxLines(3);
                 holder.item_dynamic_shrink.setVisibility(View.GONE);
+                holder.item_dynamic_content.setMaxLines(3);
                 holder.item_dynamic_more.setVisibility(View.VISIBLE);
             }
         });

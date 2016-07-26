@@ -43,7 +43,7 @@
     <string name="songName">歌名</string>
     <string name="content">内容</string>
     <string name="laudNum">赞个数</string>
-    <string name="publish">发布了一首原创</string>
+    <string name="publishOriginal">发布了一首原创</string>
     <string name="commentNum">评论个数</string>
     <string name="goldBean">金豆数</string>
     <string name="beanNum">豆豆数</string>
@@ -55,11 +55,9 @@
     <string name="exchange">兑换</string>
     <string name="buySong">已购买歌曲</string>
     <string name="fortuneRecord">财富记录</string>
-<<<<<<< HEAD
     <string name="select_category">选择分类</string>
     <string name="music_rank">5sing音乐排行榜</string>
 
-=======
     <string name="uploadSongs">上传歌曲列表</string>
     <string name="scanButton">开始扫描</string>
     <string name="startScan">点击按钮开始扫描</string>
@@ -82,6 +80,21 @@
     <string name="aboutSongs">关于5sing原创音乐</string>
     <string name="copyrightProtection">版权保护</string>
     <string name="exitAccount">退出当前账号</string>
->>>>>>> 0ac294d0d4d42297c9c0031b837acad56af97c78
+
+    <string name="publishDynamic">发布动态</string>
+    <string name="publish">发布</string>
+    <string name="shareHappy">分享快乐的事情</string>
+    <string name="addIcon">添加照片</string>
+    <string name="publishNumSize">150</string>
+    <string name="info">消息</string>
+    <string name="songCollection">歌曲收藏</string>
+    <string name="totalPlay">全部播放</string>
+    <string name="attentionChannel">关注频道</string>
+    <string name="common">共</string>
+    <string name="few">首</string>
+    <string name="comment">评论</string>
+    <string name="singer">歌手:</string>
+    <string name="moreComment">更多热评...</string>
+    <string name="attentionNum">关注人数:</string>
 
 </resources>

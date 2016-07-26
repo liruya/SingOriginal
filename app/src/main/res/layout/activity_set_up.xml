@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <include
+        android:id="@+id/set_header"
         layout="@layout/view_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -347,7 +348,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/latestVersion"
-                        android:textSize="13sp" />
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
