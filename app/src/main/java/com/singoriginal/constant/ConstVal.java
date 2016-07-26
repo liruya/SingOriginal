@@ -22,6 +22,11 @@ public class ConstVal {
     public static final String LIVEROOM_LINK = "http://5singlive.kugou.com/api.php?action=Mobile&fun=getLiveNew";
     public static final String MUSICTOPICS_LINK = "http://goapi.5sing.kugou.com/getTheme?t=101&o1=1&o2=20&tag=86";
     public static final String TOPRANK_LINK = "http://mobileapi.5sing.kugou.com/rank/list?";
+    public static final String SONGLIST_URL = "http://mobileapi.5sing.kugou.com/song/getsonglist?id=";
+    public static final String SONGLIST_SONG_URL =
+            "http://mobileapi.5sing.kugou.com/song/getsonglistsong?id=";
+    public static final String SONGLIST_SONG_PARAM =
+            "&songfields=ID%2CSN%2CSK%2CUID%2CST%2CDD%2CCT%2CGD%2CKM5&userfields=ID%2CNN%2CI";
     public static final String VERSION = "6.0.1";
     public static final String GET = "GET";
     public static final String POST = "POST";
@@ -35,6 +40,8 @@ public class ConstVal {
     public static final int LIVEROOM_CODE = 0x103;
     public static final int TOPIC_CODE = 0x104;
     public static final int RANK_CODE = 0x121;
+    public static final int ADVERT_DETAIL_CODE = 0x1011;
+    public static final int SONGLIST_DETAIL_CODE = 0x1012;
 
     public static final int[] HOTLIST_RESID = {R.id.hot_tr_pic1,
             R.id.hot_tr_pic2,

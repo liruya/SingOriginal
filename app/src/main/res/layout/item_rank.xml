@@ -3,7 +3,6 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="fill_vertical"
     android:background="@color/colorWhite"
     android:paddingLeft="15dp"
     android:paddingTop="15dp">
@@ -11,13 +10,12 @@
     <ImageView
         android:id="@+id/item_top_iv"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="fill_vertical"
+        android:layout_height="wrap_content"
         android:scaleType="fitXY"
         android:src="@mipmap/nan"/>
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical"
         android:paddingLeft="15dp">
@@ -27,18 +25,21 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:paddingBottom="10dp"
+            android:textSize="16sp"
             android:text="tv1"/>
         <TextView
             android:id="@+id/item_top_tv2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
+            android:textSize="16sp"
             android:text="tv2"/>
         <TextView
             android:id="@+id/item_top_tv3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
+            android:textSize="16sp"
             android:text="tv3"/>
         <View
             android:layout_width="match_parent"
