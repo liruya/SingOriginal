@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.singoriginal.activity.SongListActivity;
 import com.singoriginal.activity.WebActivity;
+import com.singoriginal.constant.ConstVal;
 import com.singoriginal.model.Advert;
 import com.squareup.picasso.Picasso;
 
@@ -22,17 +23,6 @@ public class AdvertAdapter extends PagerAdapter
 {
     private Context context;
     private ArrayList<Advert> advertList;
-    private int height;
-
-    public int getHeight()
-    {
-        return height;
-    }
-
-    public void setHeight(int height)
-    {
-        this.height = height;
-    }
 
     public AdvertAdapter(Context context, ArrayList<Advert> advertList)
     {
@@ -43,7 +33,7 @@ public class AdvertAdapter extends PagerAdapter
     @Override
     public int getCount()
     {
-        return advertList == null ? 0 : (advertList.size()*2000);
+        return advertList == null ? 0 : (advertList.size() * 2000);
     }
 
     @Override
@@ -58,8 +48,9 @@ public class AdvertAdapter extends PagerAdapter
         final int pos = (position) % advertList.size();
         final Advert advert = advertList.get(pos);
         ImageView imgView = new ImageView(context);
-        Picasso.with(context).load(advert.getImgUrl()).into(imgView);
-        imgView.setScaleType(ImageView.ScaleType.FIT_XY);
+        Picasso.with(context).load(advert.getImgUrl())
+               .resize(ConstVal.SCREEN_WIDTH, (int) (ConstVal.SCREEN_WIDTH * 0.4))
+               .centerCrop().into(imgView);
         container.addView(imgView);
         imgView.setOnClickListener(new View.OnClickListener()
         {
@@ -71,14 +62,13 @@ public class AdvertAdapter extends PagerAdapter
                 if (advert.getBehaviorType().equals("4"))
                 {
                     intent = new Intent(context, WebActivity.class);
-                    intent.putExtra("Title", advert.getTitle());
                     intent.putExtra("LinkUrl", advert.getLinkUrl());
                     context.startActivity(intent);
                 }
                 else if (advert.getBehaviorType().equals("2"))
                 {
                     intent = new Intent(context, SongListActivity.class);
-                    intent.putExtra("id", advert.getId());
+                    intent.putExtra("LinkUrl", advert.getLinkUrl());
                     intent.putExtra("title", advert.getTitle());
                     context.startActivity(intent);
                 }
@@ -93,17 +83,4 @@ public class AdvertAdapter extends PagerAdapter
         container.removeView((View) object);
     }
 
-    /**
-     * 测量控件高度
-     * @param view
-     * @return
-     */
-    private int getViewHeight(View view)
-    {
-        int w = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-        int h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-        view.measure(w, h);
-        int height = view.getMeasuredHeight();
-        return height;
-    }
 }

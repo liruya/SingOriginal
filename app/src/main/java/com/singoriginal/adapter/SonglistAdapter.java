@@ -43,7 +43,8 @@ public class SonglistAdapter extends RecyclerView.Adapter<SonglistAdapter.Songli
     public void onBindViewHolder(SonglistViewHolder holder, int position)
     {
         Hotlist hot = list.get(position);
-        Picasso.with(context).load(hot.getPicture()).into(holder.iv_show);
+        int m = ConstVal.SCREEN_WIDTH/2;
+        Picasso.with(context).load(hot.getPicture()).resize(m, m).centerCrop().into(holder.iv_show);
         holder.tv_name.setText(hot.getTitle());
         holder.tv_num.setText(hot.getPlayCount()+"");
     }

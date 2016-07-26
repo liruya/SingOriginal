@@ -40,13 +40,16 @@ public class ListSongAdapter extends RecyclerView.Adapter<ListSongAdapter.SongVi
     @Override
     public void onBindViewHolder(SongViewHolder holder, int position)
     {
-
+        AdvertSong advertSong = advertSongs.get(position);
+        holder.tv_title.setText(advertSong.getSN());
+        holder.tv_author.setText(advertSong.getUser().getNN());
+        holder.ib_more.setImageResource(R.mipmap.player_more_selected);
     }
 
     @Override
     public int getItemCount()
     {
-        return 0;
+        return advertSongs == null ? 0 : advertSongs.size();
     }
 
     class SongViewHolder extends RecyclerView.ViewHolder

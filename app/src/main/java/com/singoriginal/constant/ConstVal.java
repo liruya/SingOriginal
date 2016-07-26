@@ -15,6 +15,7 @@ public class ConstVal {
     public static final int COLOR_HYALINE = 0x00FFFFFF;
     public static final int COLOR_GRAY = 0xFFA9B7B7;
     public static final int COLOR_SHALLOWBLACK = 0xFF333333;
+    public static final int COLOR_LIGHT_BLACK = 0x55000000;
 
     //网络数据接口
     public static final String ADVERT_LINK = "http://goapi.5sing.kugou.com/getAdvert?t=101&tag=449";
@@ -22,6 +23,7 @@ public class ConstVal {
     public static final String LIVEROOM_LINK = "http://5singlive.kugou.com/api.php?action=Mobile&fun=getLiveNew";
     public static final String MUSICTOPICS_LINK = "http://goapi.5sing.kugou.com/getTheme?t=101&o1=1&o2=20&tag=86";
     public static final String TOPRANK_LINK = "http://mobileapi.5sing.kugou.com/rank/list?";
+    public static final String TOPICMORE_LINK = "http://topic.5sing.kugou.com/index.php?m=index&f=allThemes&sign=h2gZHDPIQ5I8xkQmuXOtwC%2FFIisI4I4%2FRRJNuFyaqj4Qp8DJc9jFNQ%3D%3D";
     public static final String SONGLIST_URL = "http://mobileapi.5sing.kugou.com/song/getsonglist?id=";
     public static final String SONGLIST_SONG_URL =
             "http://mobileapi.5sing.kugou.com/song/getsonglistsong?id=";
