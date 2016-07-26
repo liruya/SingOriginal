@@ -5,7 +5,9 @@
     android:background="@color/colorLightGray"
     android:orientation="vertical">
 
-    <include layout="@layout/view_header"
+    <include
+        android:id="@+id/fortune_header"
+        layout="@layout/view_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -259,6 +261,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:layout_marginTop="45dp"
                 android:orientation="vertical">
 

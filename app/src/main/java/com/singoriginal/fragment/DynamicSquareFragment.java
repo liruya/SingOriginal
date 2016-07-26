@@ -32,7 +32,6 @@ import okhttp3.Request;
  */
 public class DynamicSquareFragment extends Fragment {
 
-    private static final String TAG = "DynamicSquareFragment";
     private RecyclerView dynamic_square_recyclerView;
     private List<DynamicSquare> dataList;
     private DynamicAdapter adapter;

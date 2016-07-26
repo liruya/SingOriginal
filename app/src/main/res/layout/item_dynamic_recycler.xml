@@ -27,7 +27,7 @@
         android:layout_alignBottom="@+id/item_dynamic_nickname"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/item_dynamic_nickname"
-        android:text="@string/publish"
+        android:text="@string/publishOriginal"
         android:textSize="12sp" />
 
     <TextView

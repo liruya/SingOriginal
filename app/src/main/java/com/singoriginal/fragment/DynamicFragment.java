@@ -1,6 +1,7 @@
 package com.singoriginal.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.singoriginal.R;
+import com.singoriginal.activity.PublishDynamicActivity;
 import com.singoriginal.constant.CommanVal;
 import com.singoriginal.constant.ConstVal;
 import com.singoriginal.util.OkHttpUtil;
@@ -28,6 +30,7 @@ public class DynamicFragment extends Fragment {
 
     private RadioGroup titleRadioGroup;
     private RadioGroup squareRadioGroup;
+    private ImageButton image;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -93,6 +96,15 @@ public class DynamicFragment extends Fragment {
                 }
             }
         });
+
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), PublishDynamicActivity.class);
+                getContext().startActivity(intent);
+            }
+        });
+
     }
 
     private void initView(View view) {
@@ -104,7 +116,7 @@ public class DynamicFragment extends Fragment {
         titleRadioGroup = (RadioGroup) incView.findViewById(R.id.hdr_rg_show);
         squareRadioGroup = (RadioGroup) view.findViewById(R.id.dynamic_radioGroup);
 
-        ImageButton image = (ImageButton) incView.findViewById(R.id.hdr_ib_srch);
+        image = (ImageButton) incView.findViewById(R.id.hdr_ib_srch);
         image.setImageResource(R.mipmap.find_dynamic_send_prs);
 
         RadioButton tv_first = (RadioButton) incView.findViewById(R.id.hdr_rb_first);

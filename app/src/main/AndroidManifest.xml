@@ -28,6 +28,19 @@
         </activity>
         <activity android:name=".activity.TopicActivity">
         </activity>
+
+        <activity android:name=".activity.InfoActivity" />
+        <activity android:name=".activity.FortuneCenterActivity" />
+        <activity android:name=".activity.UploadSongsActivity" />
+        <activity android:name=".activity.LocalSongsActivity" />
+        <activity android:name=".activity.MyWorkActivity" />
+        <activity android:name=".activity.MySongActivity" />
+        <activity android:name=".activity.CollectionSongActivity" />
+        <activity android:name=".activity.DownloadActivity" />
+        <activity android:name=".activity.SetUpActivity" />
+        <activity android:name=".activity.PublishDynamicActivity" />
+        <activity android:name=".activity.SongDetailsActivity" />
+
     </application>
 
 </manifest>
