@@ -1,5 +1,6 @@
 package com.singoriginal.activity;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Space;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -25,6 +27,7 @@ import com.singoriginal.model.Channel;
 import com.singoriginal.model.SongDetails;
 import com.singoriginal.util.GsonUtil;
 import com.singoriginal.util.OkHttpUtil;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,13 +42,29 @@ public class SongDetailsActivity extends AppCompatActivity {
     private SongDetailsAdapter adapter;
     private ImageView song_details_icon;
     private LinearLayout song_details_ll;
+    private RadioButton tv_second;
     private Space song_details_space;
+    private TextView song_details_few;
+    private TextView song_details_attention;
+    private String detailUrl;
+    private String IM;
+    private String NA;
+    private String NU;
+    private String LI;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_song_details);
+
+        //获取到频道界面传递的数据
+        Intent intent = getIntent();
+        detailUrl = intent.getStringExtra("detailsUrl");
+        IM = intent.getStringExtra("IM");
+        NA = intent.getStringExtra("NA");
+        NU = intent.getStringExtra("NU");
+        LI = intent.getStringExtra("LI");
 
         initView();
 
@@ -78,8 +97,9 @@ public class SongDetailsActivity extends AppCompatActivity {
                 }
             }
         };
+
         //创建OkHttpClient请求
-        final Request request = new Request.Builder().url(ConstVal.SONG_DETAILS_HTTP_PATH).build();
+        final Request request = new Request.Builder().url(detailUrl).build();
         OkHttpUtil.enqueue(this, handler, ConstVal.ADVERT_CODE, request);
 
         int iconHight = getViewHeight(song_details_icon);
@@ -89,6 +109,16 @@ public class SongDetailsActivity extends AppCompatActivity {
         LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) song_details_space.getLayoutParams();
         linearParams.height = spHight;
         song_details_space.setLayoutParams(linearParams);
+
+        //获取标题和标题下的图片
+        tv_second.setText(NA);
+        Picasso.with(this).load(IM)
+                .placeholder(R.mipmap.loading_picture216x150)
+                .error(R.mipmap.loading_picture216x150)
+                .into(song_details_icon);
+        //获取歌曲数量和关注人数
+        song_details_few.setText(NU);
+        song_details_attention.setText(LI);
     }
 
     private void initEvent() {
@@ -106,6 +136,8 @@ public class SongDetailsActivity extends AppCompatActivity {
         song_details_icon = (ImageView) findViewById(R.id.song_details_icon);
         song_details_ll = (LinearLayout) findViewById(R.id.song_details_ll);
         song_details_space = (Space) findViewById(R.id.song_details_space);
+        song_details_few = (TextView) findViewById(R.id.song_details_few);
+        song_details_attention = (TextView) findViewById(R.id.song_details_attention);
         song_details_recyclerView = (RecyclerView) findViewById(R.id.song_details_recyclerView);
         //页面公用标题头初始化
         View incView = findViewById(R.id.song_details_header);
@@ -113,13 +145,14 @@ public class SongDetailsActivity extends AppCompatActivity {
         imageBack = (ImageButton) incView.findViewById(R.id.hdr_ib_srch);
         imageBack.setImageResource(R.mipmap.client_back);
 
-        incView.findViewById(R.id.hdr_rb_first).setVisibility(View.INVISIBLE);
+        incView.findViewById(R.id.hdr_rb_first).setVisibility(View.GONE);
 
-        RadioButton tv_second = (RadioButton) incView.findViewById(R.id.hdr_rb_second);
+        tv_second = (RadioButton) incView.findViewById(R.id.hdr_rb_second);
         tv_second.setTextColor(ConstVal.colorWhite);
+        tv_second.setSingleLine(true);
         tv_second.setText(getString(R.string.mysonglist));
 
-        incView.findViewById(R.id.hdr_rb_third).setVisibility(View.INVISIBLE);
+        incView.findViewById(R.id.hdr_rb_third).setVisibility(View.GONE);
     }
 
     /**

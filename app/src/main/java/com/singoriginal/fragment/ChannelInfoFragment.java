@@ -8,6 +8,7 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,6 +62,12 @@ public class ChannelInfoFragment extends Fragment {
             public void myOnItemClickListener(View view, int position) {
 
                 Intent intent = new Intent(getContext(), SongDetailsActivity.class);
+                intent.putExtra("detailsUrl", ConstVal.SONG_DETAILS_HTTP_PATH + dataList.get(position).getID() + "&version=" + ConstVal.VERSION2);
+                intent.putExtra("IM", dataList.get(position).getIM());
+                intent.putExtra("NA", dataList.get(position).getNA());
+                intent.putExtra("NU", dataList.get(position).getNU());
+                intent.putExtra("LI", dataList.get(position).getLI());
+                Log.i("info", ConstVal.SONG_DETAILS_HTTP_PATH + dataList.get(position).getID() + "&version=" + ConstVal.VERSION2);
                 getContext().startActivity(intent);
             }
         });
@@ -91,7 +98,7 @@ public class ChannelInfoFragment extends Fragment {
             }
         };
         //创建OkHttpClient请求
-        final Request request = new Request.Builder().url(ConstVal.CHANNEL_HTTP_PATH).build();
+        final Request request = new Request.Builder().url(ConstVal.CHANNEL_HTTP_PATH + "&version=" + ConstVal.VERSION2).build();
         OkHttpUtil.enqueue(getContext(), handler, ConstVal.ADVERT_CODE, request);
     }
 

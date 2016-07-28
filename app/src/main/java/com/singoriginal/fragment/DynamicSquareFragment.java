@@ -94,9 +94,9 @@ public class DynamicSquareFragment extends Fragment {
 
         String path = "";
         if (code == 0) {
-            path = ConstVal.DYNAMIC_HOST_HTTP_PATH;
+            path = ConstVal.DYNAMIC_HOST_HTTP_PATH + ConstVal.DYNAMIC_HTTP_PARAM + "&version=" + ConstVal.VERSION2;
         } else {
-            path = ConstVal.DYNAMIC_NEW_HTTP_PATH;
+            path = ConstVal.DYNAMIC_NEW_HTTP_PATH + ConstVal.DYNAMIC_HTTP_PARAM + "&version=" + ConstVal.VERSION2;
         }
         //创建OkHttpClient请求
         final Request request = new Request.Builder().url(path).build();

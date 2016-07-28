@@ -44,6 +44,7 @@
     <string name="content">内容</string>
     <string name="laudNum">赞个数</string>
     <string name="publishOriginal">发布了一首原创</string>
+    <string name="publishCover">发布了一首翻唱</string>
     <string name="commentNum">评论个数</string>
     <string name="goldBean">金豆数</string>
     <string name="beanNum">豆豆数</string>
@@ -96,5 +97,8 @@
     <string name="singer">歌手:</string>
     <string name="moreComment">更多热评...</string>
     <string name="attentionNum">关注人数:</string>
+    <string name="songComment">歌曲评论</string>
+    <string name="speakWhat">说点什么吧</string>
+    <string name="send">发送</string>
 
 </resources>

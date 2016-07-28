@@ -22,6 +22,7 @@
         android:textSize="15sp" />
 
     <TextView
+        android:id="@+id/item_dynamic_songType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/item_dynamic_nickname"
@@ -51,7 +52,8 @@
         android:layout_toRightOf="@+id/item_dynamic_icon"
         android:text="@string/textIcon"
         android:textColor="@color/colorDarkGreen"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/item_dynamic_content"
@@ -62,9 +64,10 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/item_dynamic_icon"
-        android:maxLines="3"
+        android:autoLink="all"
         android:text="@string/content"
         android:textColor="@color/colorBlack"
+        android:textColorLink="@color/colorDarkGreen"
         android:textSize="14sp" />
 
     <TextView
