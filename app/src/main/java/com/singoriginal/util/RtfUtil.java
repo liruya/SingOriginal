@@ -11,8 +11,6 @@ import android.text.style.ForegroundColorSpan;
  */
 public class RtfUtil
 {
-    SpannableStringBuilder style = new SpannableStringBuilder();
-
     public static SpannableStringBuilder getRtf(SpannableStringBuilder style, String add, int color, int size)
     {
         int start;

@@ -1,37 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp">
+    android:gravity="center_vertical|right">
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:padding="10dp">
-        <TextView
-            android:id="@+id/itemsong_tv_title"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="5dp">
+        <View
+            android:id="@+id/itemsong_view"
+            android:layout_width="5dp"
+            android:layout_height="match_parent"
+            android:paddingRight="5dp"
+            android:background="@color/colorDarkGreen"
+            android:visibility="invisible"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="5dp">
+            <TextView
+                android:id="@+id/itemsong_tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:textColor="@color/colorShallowBlack"
+                android:textSize="14sp"
+                android:text="title"/>
+            <TextView
+                android:id="@+id/itemsong_tv_athor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:textColor="@color/colorGray"
+                android:textSize="12sp"
+                android:text="author"/>
+        </LinearLayout>
+        <ImageButton
+            android:id="@+id/itemsong_ib_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorShallowBlack"
-            android:textSize="14sp"
-            android:text="title"/>
-        <TextView
-            android:id="@+id/itemsong_tv_athor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorGray"
-            android:textSize="12sp"
-            android:text="title"/>
+            android:padding="10dp"
+            android:background="@color/colorHyaline"
+            android:scaleType="fitXY"
+            android:src="@mipmap/player_more_selected"/>
     </LinearLayout>
-    <ImageButton
-        android:id="@+id/itemsong_ib_more"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:padding="10dp"
-        android:background="@color/colorHyaline"
-        android:scaleType="fitXY"
-        android:src="@mipmap/player_more_selected"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorGray" />
 </LinearLayout>

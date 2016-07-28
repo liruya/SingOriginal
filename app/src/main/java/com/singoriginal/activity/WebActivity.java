@@ -29,7 +29,6 @@ public class WebActivity extends AppCompatActivity
         setContentView(R.layout.activity_web);
 
         Intent intent = getIntent();
-        title = intent.getStringExtra("Title");
         link = intent.getStringExtra("LinkUrl");
         initView();
         initEvent();
@@ -42,9 +41,7 @@ public class WebActivity extends AppCompatActivity
         tit_ib_back = (ImageButton) web_inc_tit.findViewById(R.id.tit_ib_back);
         tit_ib_msc = (ImageButton) web_inc_tit.findViewById(R.id.tit_ib_msc);
 
-        //        tit_tv_tit.setMovementMethod(ScrollingMovementMethod.getInstance());
         web_show = (WebView) findViewById(R.id.web_show);
-//        web_show.setNetworkAvailable(true);
         showWebView(web_show, link);
         tit_tv_tit.setText(web_show.getTitle());
     }

@@ -11,16 +11,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.MainActivity">
+
+        </activity>
+        <activity
+            android:name=".activity.IndexActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity.IndexActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".activity.FirstLandingIndexActivity" />
+        <activity android:name=".activity.WebActivity"></activity>
+        <activity android:name=".activity.SongListActivity"></activity>
+        <activity android:name=".activity.TopicActivity"></activity>
+
         <activity android:name=".activity.InfoActivity" />
         <activity android:name=".activity.FortuneCenterActivity" />
         <activity android:name=".activity.UploadSongsActivity" />
@@ -32,9 +38,8 @@
         <activity android:name=".activity.SetUpActivity" />
         <activity android:name=".activity.PublishDynamicActivity" />
         <activity android:name=".activity.SongDetailsActivity" />
-        <activity android:name=".activity.WebActivity" />
-        <activity android:name=".activity.SongListActivity" />
         <activity android:name=".activity.SongCommentActivity"></activity>
+
     </application>
 
 </manifest>

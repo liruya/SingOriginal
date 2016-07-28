@@ -64,9 +64,9 @@ public class TopRankAdapter extends RecyclerView.Adapter<TopRankAdapter.TopRankV
             {
                 sing = song;
             }
-            style = RtfUtil.getRtf(style, (i + 1) + "  ", ConstVal.COLOR_GRAY, 12);
-            style = RtfUtil.getRtf(style, sing, ConstVal.COLOR_SHALLOWBLACK, 14);
-            style = RtfUtil.getRtf(style, author, ConstVal.COLOR_GRAY, 12);
+            style = RtfUtil.getRtf(style, (i + 1) + "  ", ConstVal.COLOR_GRAY, 36);
+            style = RtfUtil.getRtf(style, sing, ConstVal.COLOR_SHALLOWBLACK, 42);
+            style = RtfUtil.getRtf(style, author, ConstVal.COLOR_GRAY, 36);
             holder.tvs.get(i).setText(style, TextView.BufferType.SPANNABLE);
         }
     }
@@ -89,6 +89,31 @@ public class TopRankAdapter extends RecyclerView.Adapter<TopRankAdapter.TopRankV
             tvs.add((TextView) itemView.findViewById(R.id.item_top_tv1));
             tvs.add((TextView) itemView.findViewById(R.id.item_top_tv2));
             tvs.add((TextView) itemView.findViewById(R.id.item_top_tv3));
+            iv_pic.addOnLayoutChangeListener(new View.OnLayoutChangeListener()
+            {
+                @Override
+                public void onLayoutChange(View v,
+                                           int left,
+                                           int top,
+                                           int right,
+                                           int bottom,
+                                           int oldLeft,
+                                           int oldTop,
+                                           int oldRight,
+                                           int oldBottom)
+                {
+                    if (bottom - top != oldBottom - oldTop || right - left != oldRight - oldLeft)
+                    {
+                        int h = bottom - top;
+                        int w = right - left;
+                        int size = (h >= w ? h : w);
+                        ViewGroup.LayoutParams layoutParams = iv_pic.getLayoutParams();
+                        layoutParams.width = size;
+                        layoutParams.height = size;
+                        iv_pic.setLayoutParams(layoutParams);
+                    }
+                }
+            });
         }
     }
 }

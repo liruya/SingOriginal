@@ -1,6 +1,7 @@
 package com.singoriginal.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,6 +19,8 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.singoriginal.R;
+import com.singoriginal.activity.SongListActivity;
+import com.singoriginal.activity.WebActivity;
 import com.singoriginal.adapter.AdvertAdapter;
 import com.singoriginal.constant.ConstVal;
 import com.singoriginal.model.Advert;
@@ -39,7 +42,7 @@ import okhttp3.Request;
 public class RecommendFragment extends Fragment
 {
     //Log输出标签
-    private static String TAG = "RecommendFragment";
+    private static final String TAG = "RecommendFragment";
     private TableLayout recmd_tl_show;
     private ViewPager recmd_vp_show;
     private View rec_inc_hot;
@@ -63,6 +66,7 @@ public class RecommendFragment extends Fragment
         View view = inflater.inflate(R.layout.fragment_recommend, null);
         initView(view);
         initData(view);
+        initEvent();
         return view;
     }
 
@@ -86,6 +90,10 @@ public class RecommendFragment extends Fragment
         tv_title.setText(getString(R.string.live_room));
         tv_title = (TextView) rec_inc_topic.findViewById(R.id.recmd_item_title);
         tv_title.setText(getString(R.string.music_topic));
+
+        TableLayout.LayoutParams lp = (TableLayout.LayoutParams) recmd_vp_show.getLayoutParams();
+        lp.height = (int) (ConstVal.SCREEN_WIDTH * 0.4);
+        recmd_vp_show.setLayoutParams(lp);
     }
 
     private void initData(final View view)
@@ -128,12 +136,23 @@ public class RecommendFragment extends Fragment
                                 rec.setVisibility(View.GONE);
                                 break;
                             }
-                            Hotlist hot = hotList.get(i);
+                            final Hotlist hot = hotList.get(i);
                             ImageView iv_show = (ImageView) rec.findViewById(R.id.rec_iv_show);
                             TextView tv_num = (TextView) rec.findViewById(R.id.rec_tv_num);
-                            Picasso.with(getContext()).load(hot.getPicture()).resize(width, height).into(iv_show);
+                            Picasso.with(getContext()).load(hot.getPicture()).resize(width, height).centerCrop().into(iv_show);
                             tv_num.setText(hot.getPlayCount()+"");
                             tv_num.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.dj_listener, 0, 0, 0);
+                            rec.setOnClickListener(new View.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(View v)
+                                {
+                                    Intent intent = new Intent(getContext(), SongListActivity.class);
+                                    intent.putExtra("LinkUrl", hot.getSongListId());
+                                    intent.putExtra("title", hot.getTitle());
+                                    getContext().startActivity(intent);
+                                }
+                            });
                             //标题
                             TextView tv_name = (TextView) view.findViewById(ConstVal.HOTLIST_NAMEID[i]);
                             tv_name.setText(hot.getTitle());
@@ -144,7 +163,7 @@ public class RecommendFragment extends Fragment
                         liveList = new Gson().fromJson(GsonUtil.getJsonArray(json),
                                                        new TypeToken<ArrayList<Liveroom>>(){}.getType());
                         width = ConstVal.SCREEN_WIDTH/2;
-                        height = width*3/4;
+                        height = (int) (width * 0.6);
                         for (int i = 0; i < 4; i++)
                         {
                             View rc = view.findViewById(ConstVal.LIVEROOM_RESID[i]);
@@ -157,7 +176,7 @@ public class RecommendFragment extends Fragment
                             ImageView iv_show = (ImageView) rc.findViewById(R.id.rec_iv_show);
                             ImageView iv_stat = (ImageView) rc.findViewById(R.id.rec_iv_stat);
                             TextView tv_num = (TextView) rc.findViewById(R.id.rec_tv_num);
-                            Picasso.with(getContext()).load(live.getImgPath()).resize(width, height).into(iv_show);
+                            Picasso.with(getContext()).load(live.getImgPath()).resize(width, height).centerCrop().into(iv_show);
                             int resid = R.mipmap.main_rec_prelive_preshow_icon;
                             switch (live.getType())
                             {
@@ -186,6 +205,8 @@ public class RecommendFragment extends Fragment
                     case ConstVal.TOPIC_CODE:
                         topicList = new Gson().fromJson(GsonUtil.getJsonArray(json),
                                                        new TypeToken<ArrayList<MusicTopics>>(){}.getType());
+                        width = ConstVal.SCREEN_WIDTH;
+                        height = (int) (width * 0.4);
                         for (int i = 0; i < 3; i++)
                         {
                             View rc = view.findViewById(ConstVal.TOPIC_RESID[i]);
@@ -194,10 +215,20 @@ public class RecommendFragment extends Fragment
                                 rc.setVisibility(View.GONE);
                                 break;
                             }
-                            MusicTopics topic = topicList.get(i);
+                            final MusicTopics topic = topicList.get(i);
                             ImageView iv_show = (ImageView) rc.findViewById(R.id.rec_iv_show);
                             rc.findViewById(R.id.rec_tv_num).setVisibility(View.GONE);
-                            Picasso.with(getContext()).load(topic.getImgUrl()).into(iv_show);
+                            Picasso.with(getContext()).load(topic.getImgUrl()).resize(width, height).into(iv_show);
+                            rc.setOnClickListener(new View.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(View v)
+                                {
+                                    Intent intent = new Intent(getContext(), WebActivity.class);
+                                    intent.putExtra("LinkUrl", topic.getUrl());
+                                    startActivity(intent);
+                                }
+                            });
                             //标题
                             TextView tv_name = (TextView) view.findViewById(ConstVal.TOPIC_NAMEID[i]);
                             tv_name.setText(topic.getTitle());
@@ -219,6 +250,29 @@ public class RecommendFragment extends Fragment
 
     private void initEvent()
     {
+        //热门直播.更多
+        TextView tv_more = (TextView) rec_inc_hot.findViewById(R.id.recmd_item_more);
+        tv_more.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                ViewPager msc_vp_show = (ViewPager) getActivity().findViewById(R.id.msc_vp_show);
+                msc_vp_show.setCurrentItem(1);
+            }
+        });
 
+        //音乐专题.更多
+        tv_more = (TextView) rec_inc_topic.findViewById(R.id.recmd_item_more);
+        tv_more.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(getContext(), WebActivity.class);
+                intent.putExtra("LinkUrl", ConstVal.TOPICMORE_LINK);
+                startActivity(intent);
+            }
+        });
     }
 }
