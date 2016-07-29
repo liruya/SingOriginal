@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/song_comment_header"
+        layout="@layout/view_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
+
+    <WebView
+        android:id="@+id/song_comment_webView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/song_comment_rl"
+        android:layout_below="@+id/song_comment_header" />
+
+    <RelativeLayout
+        android:id="@+id/song_comment_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorLightGray">
+
+        <ImageView
+            android:id="@+id/song_comment_smile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="6dp"
+            android:src="@mipmap/smile" />
+
+        <TextView
+            android:id="@+id/song_comment_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="6dp"
+            android:background="@drawable/shape_song_comment_btn"
+            android:paddingBottom="6dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="6dp"
+            android:text="@string/send" />
+
+        <EditText
+            android:id="@+id/song_comment_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="6dp"
+            android:layout_toLeftOf="@+id/song_comment_send"
+            android:layout_toRightOf="@+id/song_comment_smile"
+            android:background="@drawable/shape_song_comment_et"
+            android:hint="@string/speakWhat"
+            android:padding="5dp"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

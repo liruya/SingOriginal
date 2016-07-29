@@ -44,6 +44,7 @@
     <string name="content">内容</string>
     <string name="laudNum">赞个数</string>
     <string name="publishOriginal">发布了一首原创</string>
+    <string name="publishCover">发布了一首翻唱</string>
     <string name="commentNum">评论个数</string>
     <string name="goldBean">金豆数</string>
     <string name="beanNum">豆豆数</string>
@@ -99,5 +100,8 @@
     <string name="no_net">无网络连接</string>
     <string name="no_net_warn">少侠你家网络断了!</string>
     <string name="no_net_check">快检查网络,点击屏幕刷新</string>
+    <string name="songComment">歌曲评论</string>
+    <string name="speakWhat">说点什么吧</string>
+    <string name="send">发送</string>
 
 </resources>

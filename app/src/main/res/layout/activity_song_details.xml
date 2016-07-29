@@ -6,7 +6,7 @@
     <ImageView
         android:id="@+id/song_details_icon"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="188dp"
         android:scaleType="fitXY"
         android:src="@mipmap/loading_picture216x150" />
 
@@ -93,7 +93,8 @@
             <Space
                 android:id="@+id/song_details_space"
                 android:layout_width="match_parent"
-                android:layout_height="120dp" />
+                android:layout_height="150dp"
+                android:visibility="invisible" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
