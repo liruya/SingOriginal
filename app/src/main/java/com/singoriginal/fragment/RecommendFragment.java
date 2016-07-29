@@ -10,7 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridLayout;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.singoriginal.R;
+import com.singoriginal.activity.MusicianActivity;
 import com.singoriginal.activity.SongListActivity;
 import com.singoriginal.activity.WebActivity;
 import com.singoriginal.adapter.AdvertAdapter;
@@ -28,6 +29,7 @@ import com.singoriginal.model.Hotlist;
 import com.singoriginal.model.Liveroom;
 import com.singoriginal.model.MusicTopics;
 import com.singoriginal.util.GsonUtil;
+import com.singoriginal.util.NetUtil;
 import com.singoriginal.util.OkHttpUtil;
 import com.squareup.picasso.Picasso;
 
@@ -43,14 +45,13 @@ public class RecommendFragment extends Fragment
 {
     //Log输出标签
     private static final String TAG = "RecommendFragment";
-    private TableLayout recmd_tl_show;
     private ViewPager recmd_vp_show;
+    private Button recmd_btn_mscian;
+    private Button recmd_btn_daily;
+    private Button recmd_btn_rank;
     private View rec_inc_hot;
     private View rec_inc_live;
     private View rec_inc_topic;
-    private GridLayout rec_gl_hot;
-    private GridLayout rec_gl_live;
-    private GridLayout rec_gl_topic;
 
     private ArrayList<Advert> advertList;
     private AdvertAdapter adapter;
@@ -64,16 +65,21 @@ public class RecommendFragment extends Fragment
                              Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_recommend, null);
-        initView(view);
-        initData(view);
-        initEvent();
+        if (NetUtil.isNetworkAvailable(getContext()))
+        {
+            initView(view);
+            initData(view);
+            initEvent();
+        }
         return view;
     }
 
     private void initView(View view)
     {
-        recmd_tl_show = (TableLayout) view.findViewById(R.id.recmd_tl_show);
         recmd_vp_show = (ViewPager) view.findViewById(R.id.recmd_vp_show);
+        recmd_btn_mscian = (Button) view.findViewById(R.id.recmd_btn_mscian);
+        recmd_btn_daily = (Button) view.findViewById(R.id.recmd_btn_daily);
+        recmd_btn_rank = (Button) view.findViewById(R.id.recmd_btn_rank);
         TableRow hot_tr1 = (TableRow) view.findViewById(R.id.hot_tr1);
         TableRow hot_tr2 = (TableRow) view.findViewById(R.id.hot_tr2);
         TableRow live_tr1 = (TableRow) view.findViewById(R.id.live_tr1);
@@ -150,6 +156,7 @@ public class RecommendFragment extends Fragment
                                     Intent intent = new Intent(getContext(), SongListActivity.class);
                                     intent.putExtra("LinkUrl", hot.getSongListId());
                                     intent.putExtra("title", hot.getTitle());
+                                    intent.putExtra("code", ConstVal.SONGLIST_DETAIL_CODE);
                                     getContext().startActivity(intent);
                                 }
                             });
@@ -271,6 +278,44 @@ public class RecommendFragment extends Fragment
             {
                 Intent intent = new Intent(getContext(), WebActivity.class);
                 intent.putExtra("LinkUrl", ConstVal.TOPICMORE_LINK);
+                startActivity(intent);
+            }
+        });
+
+        recmd_btn_mscian.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(getContext(), MusicianActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        recmd_btn_daily.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(getContext(), SongListActivity.class);
+                intent.putExtra("LinkUrl", ConstVal.DAILYRECMD_LINK
+                                           + "&pagesize=20&page=1");
+                intent.putExtra("title", "每日推荐");
+                intent.putExtra("code", ConstVal.DAILYRECMD_CODE);
+                startActivity(intent);
+            }
+        });
+
+        recmd_btn_rank.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(getContext(), SongListActivity.class);
+                intent.putExtra("LinkUrl", ConstVal.RANKDETAIL_LINK
+                                           + "&id=yc&pagesize=20&pageindex=1");
+                intent.putExtra("title", "原创排行榜");
+                intent.putExtra("code", ConstVal.RANKYC_CODE);
                 startActivity(intent);
             }
         });

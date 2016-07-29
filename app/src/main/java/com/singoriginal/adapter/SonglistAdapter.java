@@ -1,6 +1,7 @@
 package com.singoriginal.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.singoriginal.R;
+import com.singoriginal.activity.SongListActivity;
 import com.singoriginal.constant.ConstVal;
 import com.singoriginal.model.Hotlist;
 import com.squareup.picasso.Picasso;
@@ -42,11 +44,23 @@ public class SonglistAdapter extends RecyclerView.Adapter<SonglistAdapter.Songli
     @Override
     public void onBindViewHolder(SonglistViewHolder holder, int position)
     {
-        Hotlist hot = list.get(position);
+        final Hotlist hot = list.get(position);
         int m = ConstVal.SCREEN_WIDTH/2;
         Picasso.with(context).load(hot.getPicture()).resize(m, m).centerCrop().into(holder.iv_show);
         holder.tv_name.setText(hot.getTitle());
         holder.tv_num.setText(hot.getPlayCount()+"");
+        holder.itemView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(context, SongListActivity.class);
+                intent.putExtra("LinkUrl", hot.getSongListId());
+                intent.putExtra("title", hot.getTitle());
+                intent.putExtra("code", ConstVal.SONGLIST_DETAIL_CODE);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

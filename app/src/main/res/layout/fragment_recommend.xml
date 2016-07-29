@@ -25,7 +25,7 @@
                 android:paddingTop="15dp">
 
                 <Button
-                    android:id="@+id/recmd_iv_mscian"
+                    android:id="@+id/recmd_btn_mscian"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -38,7 +38,7 @@
                     android:textSize="12sp" />
 
                 <Button
-                    android:id="@+id/recmd_iv_daily"
+                    android:id="@+id/recmd_btn_daily"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -51,7 +51,7 @@
                     android:textSize="12sp" />
 
                 <Button
-                    android:id="@+id/recmd_iv_rank"
+                    android:id="@+id/recmd_btn_rank"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"

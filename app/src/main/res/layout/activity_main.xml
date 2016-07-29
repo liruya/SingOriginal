@@ -23,7 +23,7 @@
             android:gravity="center"
             android:text="@string/music_lib"
             android:textColor="@color/selector_main_rbtxtcolor"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <RadioButton
             android:id="@+id/main_rb_chn"
@@ -36,7 +36,7 @@
             android:gravity="center"
             android:text="@string/channel"
             android:textColor="@color/selector_main_rbtxtcolor"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
 
         <RadioButton
             android:id="@+id/main_rb_dyn"
@@ -49,7 +49,7 @@
             android:gravity="center"
             android:text="@string/dynamic"
             android:textColor="@color/selector_main_rbtxtcolor"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
 
         <RadioButton
             android:id="@+id/main_rb_my"
@@ -62,7 +62,7 @@
             android:gravity="center"
             android:text="@string/me"
             android:textColor="@color/selector_main_rbtxtcolor"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
     </RadioGroup>
 
     <FrameLayout

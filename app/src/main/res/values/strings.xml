@@ -96,5 +96,8 @@
     <string name="singer">歌手:</string>
     <string name="moreComment">更多热评...</string>
     <string name="attentionNum">关注人数:</string>
+    <string name="no_net">无网络连接</string>
+    <string name="no_net_warn">少侠你家网络断了!</string>
+    <string name="no_net_check">快检查网络,点击屏幕刷新</string>
 
 </resources>

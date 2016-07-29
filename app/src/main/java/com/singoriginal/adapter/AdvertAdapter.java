@@ -70,6 +70,7 @@ public class AdvertAdapter extends PagerAdapter
                     intent = new Intent(context, SongListActivity.class);
                     intent.putExtra("LinkUrl", advert.getLinkUrl());
                     intent.putExtra("title", advert.getTitle());
+                    intent.putExtra("code", ConstVal.SONGLIST_DETAIL_CODE);
                     context.startActivity(intent);
                 }
             }

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="10dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/itmsc_civ_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/user_head_bg"/>
+    <ToggleButton
+        android:id="@+id/itmsc_tb_att"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:minHeight="24dp"
+        android:minWidth="64dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/itmsc_civ_icon"
+        android:background="@drawable/selector_attention_bg"
+        android:textColor="@color/selector_attention_text"
+        android:textOff="+ 关注"
+        android:textOn="已关注" />
+    <ToggleButton
+        android:id="@+id/itmsc_tb_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:minHeight="32dp"
+        android:minWidth="32dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@id/itmsc_civ_icon"
+        android:background="@drawable/selector_play"
+        android:textOn=""
+        android:textOff="" />
+    <TextView
+        android:id="@+id/itmsc_tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_alignTop="@id/itmsc_civ_icon"
+        android:layout_toRightOf="@id/itmsc_civ_icon"
+        android:layout_toLeftOf="@id/itmsc_tb_att"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/colorShallowBlack"
+        android:textSize="14sp"
+        android:text="name"/>
+    <TextView
+        android:id="@+id/itmsc_tv_team"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/itmsc_civ_icon"
+        android:layout_toLeftOf="@id/itmsc_tb_play"
+        android:layout_marginLeft="10dp"
+        android:textSize="12sp"
+        android:textColor="@color/colorGray"
+        android:text="team"/>
+    <TextView
+        android:id="@+id/itmsc_tv_song"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_toRightOf="@id/itmsc_civ_icon"
+        android:layout_alignBottom="@id/itmsc_civ_icon"
+        android:layout_toLeftOf="@id/itmsc_tb_play"
+        android:layout_marginLeft="10dp"
+        android:lines="1"
+        android:ellipsize="end"
+        android:textSize="12sp"
+        android:textColor="@color/colorDarkGreen"
+        android:text="song"/>
+
+</RelativeLayout>

@@ -5,14 +5,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewStub;
+import android.widget.AbsListView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Space;
 import android.widget.TextView;
@@ -22,16 +23,22 @@ import com.google.gson.reflect.TypeToken;
 import com.singoriginal.R;
 import com.singoriginal.adapter.ListSongAdapter;
 import com.singoriginal.constant.ConstVal;
-import com.singoriginal.impl.ScrollViewListener;
 import com.singoriginal.model.AdvertSong;
+import com.singoriginal.model.DailyRecmd;
+import com.singoriginal.model.NewSong;
+import com.singoriginal.model.PopularSong;
+import com.singoriginal.model.RankSong;
 import com.singoriginal.model.SongList;
 import com.singoriginal.util.GsonUtil;
 import com.singoriginal.util.OkHttpUtil;
 import com.singoriginal.util.RtfUtil;
-import com.singoriginal.view.CustomScrollView;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.Request;
@@ -39,27 +46,32 @@ import okhttp3.Request;
 public class SongListActivity extends AppCompatActivity
 {
     private View header;
+    private View lv_header;
     private View vs_play = null;
     private View inc_play;
+    private ListView songlist_lv_show;
     private ImageView songlist_iv_show;
     private ViewStub songlist_vs_play;
-    private Space songlist_space;
-    private LinearLayout songlist_ll;
-    private CustomScrollView songlist_scroll;
-    private CircleImageView songlist_civ_icon;
-    private TextView songlist_tv_author;
-    private ImageButton songlist_ib_colc;
-    private ImageButton songlist_ib_share;
-    private TextView songlist_tv_desc;
-    private TextView songlist_tv_tag;
-    private ImageButton songlist_ib_expan;
-    private RecyclerView songlist_rv_show;
+    private TextView songlist_tv_day;
+    private TextView songlist_tv_sub;
+    private View vs_author;
+    private View vs_desc;
 
-    private ArrayList<AdvertSong> advertSongs;
+    private ViewStub lvhdr_vs_author;
+    private ViewStub lvhdr_vs_desc;
+    private Space lvhdr_space;
+
+//    private ArrayList<AdvertSong> advertSongs;
+//    private ArrayList<RankSong> rankSongs;
+//    private ArrayList<NewSong> newSongs;
+//    private ArrayList<PopularSong> popularSongs;
     private ListSongAdapter adapter;
+    private ArrayList<Object> list;
     private Handler hdl;
 
-    private int height;
+    private int idx;
+    private int lvHdrheight;
+    private int spcHeight;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -74,20 +86,17 @@ public class SongListActivity extends AppCompatActivity
     private void initView()
     {
         header = findViewById(R.id.songlist_inc_title);
+        songlist_lv_show = (ListView) findViewById(R.id.songlist_lv_show);
         songlist_vs_play = (ViewStub) findViewById(R.id.songlist_vs_play);
-        inc_play = findViewById(R.id.songlist_inc_play);
+        songlist_tv_day = (TextView) findViewById(R.id.songlist_tv_day);
+        songlist_tv_sub = (TextView) findViewById(R.id.songlist_tv_sub);
+        lv_header = LayoutInflater.from(SongListActivity.this).inflate(R.layout.item_lv_header, songlist_lv_show, false);
+        lvhdr_vs_author = (ViewStub) lv_header.findViewById(R.id.lvhdr_vs_author);
+        lvhdr_vs_desc = (ViewStub) lv_header.findViewById(R.id.lvhdr_vs_desc);
+        lvhdr_space = (Space) lv_header.findViewById(R.id.lvhdr_space);
+
+        inc_play = lv_header.findViewById(R.id.lvhdr_inc_play);
         songlist_iv_show = (ImageView) findViewById(R.id.songlist_iv_show);
-        songlist_space = (Space) findViewById(R.id.songlist_space);
-        songlist_ll = (LinearLayout) findViewById(R.id.songlist_ll);
-        songlist_scroll = (CustomScrollView) findViewById(R.id.songlist_scroll);
-        songlist_civ_icon = (CircleImageView) findViewById(R.id.songlist_civ_icon);
-        songlist_tv_author = (TextView) findViewById(R.id.songlist_tv_author);
-        songlist_ib_colc = (ImageButton) findViewById(R.id.songlist_ib_colc);
-        songlist_ib_share = (ImageButton) findViewById(R.id.songlist_ib_share);
-        songlist_tv_desc = (TextView) findViewById(R.id.songlist_tv_desc);
-        songlist_tv_tag = (TextView) findViewById(R.id.songlist_tv_tag);
-        songlist_ib_expan = (ImageButton) findViewById(R.id.songlist_tb_expan);
-        songlist_rv_show = (RecyclerView) findViewById(R.id.songlist_rv_show);
 
         header.setBackgroundColor(0x11000000);
         RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) songlist_iv_show.getLayoutParams();
@@ -95,26 +104,21 @@ public class SongListActivity extends AppCompatActivity
         lp.height = (int) (ConstVal.SCREEN_WIDTH * 0.64);
         songlist_iv_show.setLayoutParams(lp);
 
-        int llHeight = getViewHeight(songlist_ll);
         int hdHeight = getViewHeight(header);
-        LinearLayout.LayoutParams llp = (LinearLayout.LayoutParams) songlist_space.getLayoutParams();
-        llp.height = (int) (ConstVal.SCREEN_WIDTH * 0.64 - llHeight - hdHeight);
-        songlist_space.setLayoutParams(llp);
 
-        LinearLayoutManager lm = new LinearLayoutManager(SongListActivity.this,
-                                                         LinearLayoutManager.VERTICAL,
-                                                         false);
-        songlist_rv_show.setLayoutManager(lm);
+        spcHeight = (int) (ConstVal.SCREEN_WIDTH * 0.64 - hdHeight);
     }
 
     private void initData()
     {
         Intent intent = getIntent();
-        String id = intent.getStringExtra("LinkUrl");
+        String link = intent.getStringExtra("LinkUrl");
         String title = intent.getStringExtra("title");
+        int code = intent.getIntExtra("code", 0);
         TextView tv_title = (TextView) header.findViewById(R.id.tit_tv_tit);
         tv_title.setText(title);
-        advertSongs = new ArrayList<>();
+        String sub;
+        list = new ArrayList<>();
         hdl = new Handler()
         {
             @Override
@@ -122,6 +126,43 @@ public class SongListActivity extends AppCompatActivity
             {
                 super.handleMessage(msg);
                 String json = (String) msg.obj;
+
+                JSONObject obj = null;
+                try
+                {
+                    JSONObject js = new JSONObject(json);
+                    if (js.has(ConstVal.DATA))
+                    {
+                        String data = js.getString(ConstVal.DATA);
+                        if (data.startsWith("{") && data.endsWith("}"))
+                        {
+                            obj = new JSONObject(data);
+                            String imgurl = null;
+                            if (obj.has("photoBig"))
+                            {
+                                imgurl = obj.getString("photoBig");
+                            }
+                            else if(obj.has("banner"))
+                            {
+                                imgurl = obj.getString("banner");
+                            }
+                            if (imgurl != null)
+                            {
+                                Picasso.with(SongListActivity.this)
+                                       .load(imgurl)
+                                       .resize(ConstVal.SCREEN_WIDTH, (int) (ConstVal.SCREEN_WIDTH*0.64))
+                                       .centerCrop()
+                                       .into(songlist_iv_show);
+                            }
+                        }
+
+                    }
+                } catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+                SpannableStringBuilder str = null;
+                TextView tv_play = (TextView) findViewById(R.id.item_play_tv);
                 switch (msg.what)
                 {
                     case ConstVal.ADVERT_DETAIL_CODE:
@@ -129,56 +170,186 @@ public class SongListActivity extends AppCompatActivity
                         Picasso.with(SongListActivity.this)
                                .load(songs.getP())
                                .resize(ConstVal.SCREEN_WIDTH, (int) (ConstVal.SCREEN_WIDTH*0.64))
-                               .centerInside()
+                               .centerCrop()
                                .into(songlist_iv_show);
+                        TextView tv_author = (TextView) vs_author.findViewById(R.id.songlist_tv_author);
+                        CircleImageView songlist_civ_icon = (CircleImageView) vs_author.findViewById(R.id.songlist_civ_icon);
+                        TextView tv_desc = (TextView) vs_desc.findViewById(R.id.songlist_tv_desc);
+                        TextView tv_tag = (TextView) vs_desc.findViewById(R.id.songlist_tv_tag);
                         Picasso.with(SongListActivity.this).load(songs.getUser().getI()).resize(96, 96).into(songlist_civ_icon);
-                        songlist_tv_author.setText(songs.getUser().getNN());
-                        songlist_tv_desc.setText(songs.getC());
-                        songlist_tv_tag.setText(songs.getL());
+                        tv_author.setText(songs.getUser().getNN());
+                        tv_desc.setText(songs.getC());
+                        tv_tag.setText(songs.getL());
                         break;
 
                     case ConstVal.SONGLIST_DETAIL_CODE:
-                        advertSongs = new Gson().fromJson(GsonUtil.getJsonArray(json),
+                        list = new Gson().fromJson(GsonUtil.getJsonArray(json),
                                                          new TypeToken<ArrayList<AdvertSong>>(){}.getType());
-                        adapter = new ListSongAdapter(SongListActivity.this, advertSongs);
-                        songlist_rv_show.setAdapter(adapter);
-                        SpannableStringBuilder str = RtfUtil.getRtf(null, "全部歌曲", ConstVal.COLOR_SHALLOWBLACK, 42);
-                        str = RtfUtil.getRtf(str, " (共" + adapter.getItemCount() + "首)", ConstVal.COLOR_GRAY, 36);
-                        TextView tv_play = (TextView) inc_play.findViewById(R.id.item_play_tv);
+                        adapter = new ListSongAdapter(SongListActivity.this, list, msg.what);
+                        songlist_lv_show.setAdapter(adapter);
+
+                        int authorHeight = getViewHeight(vs_author);
+                        spcHeight = spcHeight - authorHeight;
+                        str = null;
+                        str = RtfUtil.getRtf(null, "全部歌曲", ConstVal.COLOR_SHALLOWBLACK, 42);
+                        str = RtfUtil.getRtf(str, " (共" + adapter.getCount() + "首)", ConstVal.COLOR_GRAY, 36);
+                        tv_play.setText(str, TextView.BufferType.SPANNABLE);
+                        break;
+
+                    case ConstVal.RANKFC_CODE:
+                    case ConstVal.RANKYC_CODE:
+                        list = new Gson().fromJson(GsonUtil.getJsonArray(json),
+                                                   new TypeToken<ArrayList<RankSong>>(){}.getType());
+                        adapter = new ListSongAdapter(SongListActivity.this, list, msg.what);
+                        songlist_lv_show.setAdapter(adapter);
+                        str = null;
+                        str = RtfUtil.getRtf(null, "全部歌曲", ConstVal.COLOR_SHALLOWBLACK, 42);
+                        str = RtfUtil.getRtf(str, " (共" + adapter.getCount() + "首)", ConstVal.COLOR_GRAY, 36);
+                        tv_play.setText(str, TextView.BufferType.SPANNABLE);
+                        break;
+
+                    case ConstVal.RANKTP_CODE:
+                        list = new Gson().fromJson(GsonUtil.getJsonArray(json),
+                                                   new TypeToken<ArrayList<NewSong>>(){}.getType());
+                        adapter = new ListSongAdapter(SongListActivity.this, list, msg.what);
+                        songlist_lv_show.setAdapter(adapter);
+                        str = null;
+                        str = RtfUtil.getRtf(null, "全部歌曲", ConstVal.COLOR_SHALLOWBLACK, 42);
+                        str = RtfUtil.getRtf(str, " (共" + adapter.getCount() + "首)", ConstVal.COLOR_GRAY, 36);
+                        tv_play.setText(str, TextView.BufferType.SPANNABLE);
+                        break;
+
+                    case ConstVal.RANKPOP_CODE:
+                        list = new Gson().fromJson(GsonUtil.getJsonArray(json),
+                                                   new TypeToken<ArrayList<PopularSong>>(){}.getType());
+                        adapter = new ListSongAdapter(SongListActivity.this, list, msg.what);
+                        songlist_lv_show.setAdapter(adapter);
+                        str = null;
+                        str = RtfUtil.getRtf(null, "全部歌曲", ConstVal.COLOR_SHALLOWBLACK, 42);
+                        str = RtfUtil.getRtf(str, " (共" + adapter.getCount() + "首)", ConstVal.COLOR_GRAY, 36);
+                        tv_play.setText(str, TextView.BufferType.SPANNABLE);
+                        break;
+
+                    case ConstVal.DAILYRECMD_CODE:
+                        list = new Gson().fromJson(GsonUtil.getJsonArray(json),
+                                                   new TypeToken<ArrayList<DailyRecmd>>(){}.getType());
+                        adapter = new ListSongAdapter(SongListActivity.this, list, msg.what);
+                        songlist_lv_show.setAdapter(adapter);
+                        str = null;
+                        str = RtfUtil.getRtf(null, "全部歌曲", ConstVal.COLOR_SHALLOWBLACK, 42);
+                        str = RtfUtil.getRtf(str, " (共" + adapter.getCount() + "首)", ConstVal.COLOR_GRAY, 36);
                         tv_play.setText(str, TextView.BufferType.SPANNABLE);
                         break;
                 }
             }
         };
-        Request request = new Request.Builder().url(ConstVal.SONGLIST_URL + id).build();
-        OkHttpUtil.enqueue(SongListActivity.this, hdl, ConstVal.ADVERT_DETAIL_CODE, request);
 
-        request = new Request.Builder()
-                .url(ConstVal.SONGLIST_SONG_URL + id + ConstVal.SONGLIST_SONG_PARAM)
-                .build();
-        OkHttpUtil.enqueue(SongListActivity.this, hdl, ConstVal.SONGLIST_DETAIL_CODE, request);
+        Request request;
+        switch (code)
+        {
+            case ConstVal.SONGLIST_DETAIL_CODE:
+                vs_author = lvhdr_vs_author.inflate();
+                vs_desc = lvhdr_vs_desc.inflate();
+                request = new Request.Builder().url(ConstVal.SONGLIST_URL + link).build();
+                OkHttpUtil.enqueue(SongListActivity.this, hdl, ConstVal.ADVERT_DETAIL_CODE, request);
+
+                request = new Request.Builder()
+                        .url(ConstVal.SONGLIST_SONG_URL + link + ConstVal.SONGLIST_SONG_PARAM)
+                        .build();
+                OkHttpUtil.enqueue(SongListActivity.this, hdl, ConstVal.SONGLIST_DETAIL_CODE, request);
+                break;
+
+            case ConstVal.RANKYC_CODE:
+                sub = "最热门的原创音乐排行榜,每周一更新";
+                request = new Request.Builder().url(link).build();
+                OkHttpUtil.enqueue(SongListActivity.this, hdl, code, request);
+                songlist_tv_sub.setVisibility(View.VISIBLE);
+                songlist_tv_sub.setText(sub);
+                break;
+            case ConstVal.RANKFC_CODE:
+                sub = "最优秀的流行歌曲翻唱排行,每周一更新";
+                request = new Request.Builder().url(link).build();
+                OkHttpUtil.enqueue(SongListActivity.this, hdl, code, request);
+                songlist_tv_sub.setVisibility(View.VISIBLE);
+                songlist_tv_sub.setText(sub);
+                break;
+            case ConstVal.RANKTP_CODE:
+                sub = "新晋歌曲排行,每周一更新";
+                request = new Request.Builder().url(link).build();
+                OkHttpUtil.enqueue(SongListActivity.this, hdl, code, request);
+                songlist_tv_sub.setVisibility(View.VISIBLE);
+                songlist_tv_sub.setText(sub);
+                break;
+            case ConstVal.RANKPOP_CODE:
+                sub = "按歌曲上周所获支持卡总数排名";
+                request = new Request.Builder().url(link).build();
+                OkHttpUtil.enqueue(SongListActivity.this, hdl, code, request);
+                songlist_tv_sub.setVisibility(View.VISIBLE);
+                songlist_tv_sub.setText(sub);
+                break;
+
+            case ConstVal.DAILYRECMD_CODE:
+                request = new Request.Builder().url(link).build();
+                OkHttpUtil.enqueue(SongListActivity.this, hdl, code, request);
+                int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+                songlist_tv_day.setVisibility(View.VISIBLE);
+                songlist_tv_day.setText(day + "");
+                sub = "最新最热的优秀作品呈现给你";
+                songlist_tv_sub.setVisibility(View.VISIBLE);
+                songlist_tv_sub.setText(sub);
+                break;
+        }
+        songlist_lv_show.addHeaderView(lv_header);
+        ViewGroup.LayoutParams lpSpace = lvhdr_space.getLayoutParams();
+        lpSpace.height = spcHeight;
+        lvhdr_space.setLayoutParams(lpSpace);
+        lvHdrheight = getViewHeight(lv_header);
     }
 
     private void initEvent()
     {
-        songlist_scroll.setScrollViewListener(new ScrollViewListener()
+        songlist_lv_show.setOnScrollListener(new AbsListView.OnScrollListener()
         {
             @Override
-            public void onSrollChanged(CustomScrollView scrollView,
-                                       int x,
-                                       int y,
-                                       int oldx,
-                                       int oldy)
+            public void onScrollStateChanged(AbsListView view, int scrollState)
             {
-                height = inc_play.getTop();
 
-                if (oldy < height && y >= height)
+            }
+
+            @Override
+            public void onScroll(AbsListView view,
+                                 int firstVisibleItem,
+                                 int visibleItemCount,
+                                 int totalItemCount)
+            {
+                int scrollY;
+                if (visibleItemCount == 0)
+                {
+                    return;
+                }
+                View c = view.getChildAt(0);
+                if (firstVisibleItem == 0)
+                {
+                    scrollY = 0 - c.getTop();
+                }
+                else
+                {
+                    if (c != null)
+                    {
+                        scrollY = lvHdrheight + (firstVisibleItem-1)*c.getHeight() - c.getTop();
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                if (scrollY >= inc_play.getTop())
                 {
                     if (vs_play == null)
                     {
                         vs_play = songlist_vs_play.inflate();
                         SpannableStringBuilder str = RtfUtil.getRtf(null, "全部歌曲", ConstVal.COLOR_SHALLOWBLACK, 42);
-                        str = RtfUtil.getRtf(str, " (共" + adapter.getItemCount() + "首)", ConstVal.COLOR_GRAY, 36);
+                        str = RtfUtil.getRtf(str, " (共" + adapter.getCount() + "首)", ConstVal.COLOR_GRAY, 36);
                         TextView tv_play = (TextView) vs_play.findViewById(R.id.item_play_tv);
                         tv_play.setText(str, TextView.BufferType.SPANNABLE);
                     }
@@ -187,9 +358,12 @@ public class SongListActivity extends AppCompatActivity
                         vs_play.setVisibility(View.VISIBLE);
                     }
                 }
-                else if(oldy >= height && y < height)
+                else
                 {
-                    vs_play.setVisibility(View.GONE);
+                    if (vs_play != null)
+                    {
+                        vs_play.setVisibility(View.GONE);
+                    }
                 }
             }
         });
