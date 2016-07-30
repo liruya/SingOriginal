@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp"
-    android:background="@mipmap/myinfo_bg">
+    android:background="@mipmap/myinfo_bg"
+    android:padding="5dp">
 
     <TextView
         android:id="@+id/info_tv_txt"
@@ -11,15 +11,16 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_margin="10dp"
-        android:textSize="14sp"
+        android:text="暂无"
         android:textColor="@color/colorWhite"
-        android:text="暂无"/>
+        android:textSize="14sp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:layout_below="@id/info_tv_txt"
-        android:textSize="14sp"
+        android:layout_margin="10dp"
+        android:text="简介:"
         android:textColor="@color/colorWhite"
-        android:text="简介:"/>
+        android:textSize="14sp" />
 </RelativeLayout>

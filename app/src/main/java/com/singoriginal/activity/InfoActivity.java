@@ -1,18 +1,40 @@
 package com.singoriginal.activity;
 
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.singoriginal.R;
+import com.singoriginal.adapter.PagerInfoAdapter;
 import com.singoriginal.constant.ConstVal;
+import com.singoriginal.fragment.LeaveWordFragment;
+import com.singoriginal.fragment.RelatedMeFragment;
+import com.singoriginal.fragment.StationSmsFragment;
+import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class InfoActivity extends AppCompatActivity {
 
-    private ImageButton image;
+    private TabLayout info_tabLayout;
+    private ViewPager info_viewPager;
+    private PagerInfoAdapter adapter;
+    private List<String> list;
+    private List<Fragment> fragments;
+    private ImageView info_back;
+    private TextView info_writeSms;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,38 +42,71 @@ public class InfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_info);
 
         initView();
+        initData();
+        setDataToView();
         initEvent();
+    }
+
+    private void initData() {
+
+        fragments = new ArrayList<Fragment>();
+
+        fragments.add(new RelatedMeFragment());
+        fragments.add(new LeaveWordFragment());
+        fragments.add(new StationSmsFragment());
+
+        String[] text = {"与我相关", "留言", "站内信"};
+
+        list = new ArrayList<>();
+
+        for (int i = 0; i < text.length; i++) {
+
+            list.add(text[i]);
+        }
+    }
+
+    private void setDataToView() {
+
+        adapter = new PagerInfoAdapter(getSupportFragmentManager(), this, list, fragments);
+        info_viewPager.setAdapter(adapter);
+        info_tabLayout.setupWithViewPager(info_viewPager);
     }
 
     private void initEvent() {
 
-        image.setOnClickListener(new View.OnClickListener() {
+        info_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        info_viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+                if (position == 2)
+                    info_writeSms.setVisibility(View.VISIBLE);
+                else
+                    info_writeSms.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
             }
         });
     }
 
     private void initView() {
 
-        //页面公用标题头初始化
-        View incView = findViewById(R.id.info_header);
-
-        image = (ImageButton) incView.findViewById(R.id.hdr_ib_srch);
-        image.setImageResource(R.mipmap.client_back);
-
-        incView.findViewById(R.id.hdr_rb_first).setVisibility(View.INVISIBLE);
-
-        RadioButton tv_second = (RadioButton) incView.findViewById(R.id.hdr_rb_second);
-        tv_second.setTextColor(ConstVal.colorWhite);
-        tv_second.setText(getString(R.string.info));
-
-        incView.findViewById(R.id.hdr_rb_third).setVisibility(View.INVISIBLE);
-
-        incView.findViewById(R.id.hdr_ib_music).setVisibility(View.INVISIBLE);
-
-        int color = ConstVal.colorDKGreen;
-        incView.setBackgroundColor(color);
+        info_back = (ImageView) findViewById(R.id.info_back);
+        info_writeSms = (TextView) findViewById(R.id.info_writeSms);
+        info_tabLayout = (TabLayout) findViewById(R.id.info_tabLayout);
+        info_viewPager = (ViewPager) findViewById(R.id.info_viewPager);
     }
 }
