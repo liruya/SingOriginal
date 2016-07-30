@@ -3,8 +3,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorWhite"
-    android:gravity="center_vertical|right">
+    android:descendantFocusability="blocksDescendants"
+    android:background="@drawable/selector_bg_press">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,6 +31,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="2dp"
+                android:ellipsize="end"
+                android:lines="1"
                 android:textColor="@color/colorShallowBlack"
                 android:textSize="14sp"
                 android:text="title"/>
@@ -39,6 +41,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="2dp"
+                android:ellipsize="end"
+                android:lines="1"
                 android:textColor="@color/colorGray"
                 android:textSize="12sp"
                 android:text="author"/>
@@ -50,6 +54,7 @@
             android:padding="10dp"
             android:background="@color/colorHyaline"
             android:scaleType="fitXY"
+            android:focusable="false"
             android:src="@mipmap/player_more_selected"/>
     </LinearLayout>
     <View

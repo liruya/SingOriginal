@@ -22,11 +22,20 @@ import java.util.ArrayList;
  * 乐库.推荐.轮播图.详情数据适配器
  * Created by lanouhn on 16/7/25.
  */
-public class ListSongAdapter extends BaseAdapter
+public class  ListSongAdapter extends BaseAdapter
 {
     private Context context;
     private ArrayList<Object> advertSongs;
     private int code;
+    private int[] vsIdx;
+
+    public ListSongAdapter(Context context, ArrayList<Object> advertSongs, int[] vsIdx, int code)
+    {
+        this.context = context;
+        this.advertSongs = advertSongs;
+        this.vsIdx = vsIdx;
+        this.code = code;
+    }
 
     public ListSongAdapter(Context context, ArrayList<Object> advertSongs, int code)
     {
@@ -57,6 +66,7 @@ public class ListSongAdapter extends BaseAdapter
     public View getView(int position, View convertView, ViewGroup parent)
     {
         SongViewHolder holder;
+        int convertIdx;
         if (convertView == null)
         {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_songlist, null);
@@ -64,6 +74,7 @@ public class ListSongAdapter extends BaseAdapter
             holder.tv_title = (TextView) convertView.findViewById(R.id.itemsong_tv_title);
             holder.tv_author = (TextView) convertView.findViewById(R.id.itemsong_tv_athor);
             holder.ib_more = (ImageButton) convertView.findViewById(R.id.itemsong_ib_more);
+            holder.v = convertView.findViewById(R.id.itemsong_view);
             convertView.setTag(holder);
         }
         else
@@ -109,6 +120,15 @@ public class ListSongAdapter extends BaseAdapter
         holder.tv_title.setText(title);
         holder.tv_author.setText(author);
         holder.ib_more.setImageResource(R.mipmap.player_more_selected);
+        holder.v.setVisibility(View.INVISIBLE);
+        holder.ib_more.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+            }
+        });
         return convertView;
     }
 
@@ -117,5 +137,6 @@ public class ListSongAdapter extends BaseAdapter
         private TextView tv_title;
         private TextView tv_author;
         private ImageButton ib_more;
+        private View v;
     }
 }

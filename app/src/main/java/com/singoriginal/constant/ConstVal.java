@@ -37,9 +37,11 @@ public class ConstVal {
     public static final String DAILYRECMD_LINK
             = "http://mobileapi.5sing.kugou.com/song/getRecommendDailyList?songfields=ID%2CSN%2CSK%2CUID%2CST%2CDD%2CCT%2CGD%2CKM5&userfields=ID%2CNN%2CI";
     public static final String RECMD_MUSICIAN_LINK
-            = "http://mobileapi.5sing.kugou.com/user/listmusician?songfields=ID%2CSN%2CSK%2CSW%2CSS%2CST%2CSI%2CCT%2CM%2CS%2CZQ%2CWO%2CZC%2CHY%2CYG%2CCK%2CD%2CRQ%2CDD%2CE%2CR%2CRC%2CSG%2CC%2CCS%2CLV%2CLG%2CSY%2CUID%2CPT%2CSCSR%2CSC&pageindex=1&pagesize=10";
+            = "http://mobileapi.5sing.kugou.com/user/listmusician?songfields=ID%2CSN%2CSK%2CSW%2CSS%2CST%2CSI%2CCT%2CM%2CS%2CZQ%2CWO%2CZC%2CHY%2CYG%2CCK%2CD%2CRQ%2CDD%2CE%2CR%2CRC%2CSG%2CC%2CCS%2CLV%2CLG%2CSY%2CUID%2CPT%2CSCSR%2CSC&pageindex=1&pagesize=8";
     public static final String NEW_MUSICIAN_LINK
             = "http://mobileapi.5sing.kugou.com/musician/latestList?songfields=ID%2CSN%2CSK%2CSW%2CSS%2CST%2CSI%2CCT%2CM%2CS%2CZQ%2CWO%2CZC%2CHY%2CYG%2CCK%2CD%2CRQ%2CDD%2CE%2CR%2CRC%2CSG%2CC%2CCS%2CLV%2CLG%2CSY%2CUID%2CPT%2CSCSR%2CSC&pageindex=1&pagesize=8";
+    public static final String GETSONGURL_LINK = "http://mobileapi.5sing.kugou.com/song/getSongUrl?";
+
     /*id=yc&pagesize=20&pageindex=1*/
     /*&limit=20&maxid=0" pagesize=20&page=1*/
     //time=20160725
@@ -114,4 +116,6 @@ public class ConstVal {
     public static final String VERSION2 = "6.2.2";
 
     public static final int CHANNEL_CODE = 0x201;
+
+    public static final int NOTIFY_SHOW = 0x10;
 }
