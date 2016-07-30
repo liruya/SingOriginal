@@ -19,6 +19,7 @@ import com.singoriginal.adapter.SonglistAdapter;
 import com.singoriginal.constant.ConstVal;
 import com.singoriginal.model.Hotlist;
 import com.singoriginal.util.GsonUtil;
+import com.singoriginal.util.NetUtil;
 import com.singoriginal.util.OkHttpUtil;
 
 import java.util.ArrayList;
@@ -40,9 +41,17 @@ public class SonglistFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        View view = inflater.inflate(R.layout.fragment_songlist, null);
-        initView(view);
-        initData();
+        View view;
+        if (NetUtil.isNetworkAvailable(getContext()) || adapter != null)
+        {
+            view = inflater.inflate(R.layout.fragment_songlist, null);
+            initView(view);
+            initData();
+        }
+        else
+        {
+            view = inflater.inflate(R.layout.fragment_default, null);
+        }
         return view;
     }
 
@@ -58,6 +67,7 @@ public class SonglistFragment extends Fragment
         TextView tv_more = (TextView) song_inc_title.findViewById(R.id.recmd_item_more);
         tv_title.setText(R.string.recommend);
         tv_more.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.describe_more, 0);
+        tv_more.setBackgroundResource(R.drawable.text_border);
         tv_more.setText(getString(R.string.select_category));
 
         GridLayoutManager glm = new GridLayoutManager(getContext(), 2);
@@ -69,7 +79,7 @@ public class SonglistFragment extends Fragment
      */
     private void initData()
     {
-        list = new ArrayList<>();
+
         hdl = new Handler()
         {
             @Override
@@ -80,17 +90,25 @@ public class SonglistFragment extends Fragment
                 switch (msg.what)
                 {
                     case ConstVal.HOTLIST_CODE:
-                        list = new Gson().fromJson(GsonUtil.getJsonArray(json),
-                                                      new TypeToken<ArrayList<Hotlist>>(){}.getType());
+                        list = new Gson().fromJson(GsonUtil.getJsonArray(json), new TypeToken<ArrayList<Hotlist>>()
+                        {
+                        }.getType());
                         adapter = new SonglistAdapter(getContext(), list);
                         song_rv_show.setAdapter(adapter);
                         break;
                 }
             }
         };
-
-        Request request = new Request.Builder().url(ConstVal.HOTLIST_LINK + "&version" + ConstVal.VERSION).build();
-        OkHttpUtil.enqueue(getContext(), hdl, ConstVal.HOTLIST_CODE, request);
+        if (adapter == null)
+        {
+            list = new ArrayList<>();
+            Request request = new Request.Builder().url(ConstVal.HOTLIST_LINK + "&version" + ConstVal.VERSION).build();
+            OkHttpUtil.enqueue(getContext(), hdl, ConstVal.HOTLIST_CODE, request);
+        }
+        else
+        {
+            song_rv_show.setAdapter(adapter);
+        }
     }
 
 }

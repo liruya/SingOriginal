@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:foregroundGravity="fill_vertical"
         android:scaleType="fitXY"
-        android:src="@mipmap/ranking_new_back"/>
+        android:src="@mipmap/default_image_6_0"/>
     <ImageView
         android:id="@+id/rec_iv_stat"
         android:layout_width="wrap_content"

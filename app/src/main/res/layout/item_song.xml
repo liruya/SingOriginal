@@ -19,7 +19,7 @@
             android:layout_marginRight="5dp"
             android:layout_alignParentTop="true"
             android:scaleType="fitXY"
-            android:src="@mipmap/ranking_new_back"/>
+            android:src="@mipmap/default_image_6_0"/>
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
             android:background="@color/colorHyaline"
             android:textSize="12sp"
             android:textColor="@color/colorWhite"
-            android:text="num"/>
+            android:text="0"/>
     </RelativeLayout>
     <TextView
         android:id="@+id/song_tv_name"

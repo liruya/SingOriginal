@@ -42,7 +42,7 @@ public class MusicFragment extends Fragment
         incView.setBackgroundColor(ConstVal.COLOR_DARKGREEN);
         final RadioGroup hdr_rg_show = (RadioGroup) incView.findViewById(R.id.hdr_rg_show);
         final ViewPager msc_vp_show = (ViewPager) view.findViewById(R.id.msc_vp_show);
-
+        msc_vp_show.setOffscreenPageLimit(0);
         hdr_rg_show.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
         {
             @Override

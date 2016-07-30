@@ -3,7 +3,6 @@ package com.singoriginal.util;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -40,7 +39,7 @@ public class OkHttpUtil
             @Override
             public void onFailure(Call call, IOException e)
             {
-                Toast.makeText(context, "获取网络数据失败", Toast.LENGTH_SHORT).show();
+
             }
 
             @Override

@@ -23,17 +23,33 @@ public class ConstVal {
     public static final String LIVEROOM_LINK = "http://5singlive.kugou.com/api.php?action=Mobile&fun=getLiveNew";
     public static final String MUSICTOPICS_LINK = "http://goapi.5sing.kugou.com/getTheme?t=101&o1=1&o2=20&tag=86";
     public static final String TOPRANK_LINK = "http://mobileapi.5sing.kugou.com/rank/list?";
-    public static final String TOPICMORE_LINK = "http://topic.5sing.kugou.com/index.php?m=index&f=allThemes&sign=h2gZHDPIQ5I8xkQmuXOtwC%2FFIisI4I4%2FRRJNuFyaqj4Qp8DJc9jFNQ%3D%3D";
+    public static final String TOPICMORE_LINK
+            = "http://topic.5sing.kugou.com/index.php?m=index&f=allThemes&sign=h2gZHDPIQ5I8xkQmuXOtwC%2FFIisI4I4%2FRRJNuFyaqj4Qp8DJc9jFNQ%3D%3D";
     public static final String SONGLIST_URL = "http://mobileapi.5sing.kugou.com/song/getsonglist?id=";
     public static final String SONGLIST_SONG_URL =
             "http://mobileapi.5sing.kugou.com/song/getsonglistsong?id=";
     public static final String SONGLIST_SONG_PARAM =
             "&songfields=ID%2CSN%2CSK%2CUID%2CST%2CDD%2CCT%2CGD%2CKM5&userfields=ID%2CNN%2CI";
+    public static final String POPULAR_LINK
+            = "http://mobileapi.5sing.kugou.com/song/listbysupportcard?songfields=ID%2CSN%2CSK%2CUID%2CST%2CDD%2CCT%2CGD%2CKM5%2CSC%2CSCSR&userfields=ID%2CNN%2CI";
+    public static final String RANKDETAIL_LINK
+            = "http://mobileapi.5sing.kugou.com/rank/detail?songfields=ID%2CSN%2CSK%2CUID%2CST%2CDD%2CCT%2CGD%2CKM5&userfields=ID%2CNN%2CI";
+    public static final String DAILYRECMD_LINK
+            = "http://mobileapi.5sing.kugou.com/song/getRecommendDailyList?songfields=ID%2CSN%2CSK%2CUID%2CST%2CDD%2CCT%2CGD%2CKM5&userfields=ID%2CNN%2CI";
+    public static final String RECMD_MUSICIAN_LINK
+            = "http://mobileapi.5sing.kugou.com/user/listmusician?songfields=ID%2CSN%2CSK%2CSW%2CSS%2CST%2CSI%2CCT%2CM%2CS%2CZQ%2CWO%2CZC%2CHY%2CYG%2CCK%2CD%2CRQ%2CDD%2CE%2CR%2CRC%2CSG%2CC%2CCS%2CLV%2CLG%2CSY%2CUID%2CPT%2CSCSR%2CSC&pageindex=1&pagesize=10";
+    public static final String NEW_MUSICIAN_LINK
+            = "http://mobileapi.5sing.kugou.com/musician/latestList?songfields=ID%2CSN%2CSK%2CSW%2CSS%2CST%2CSI%2CCT%2CM%2CS%2CZQ%2CWO%2CZC%2CHY%2CYG%2CCK%2CD%2CRQ%2CDD%2CE%2CR%2CRC%2CSG%2CC%2CCS%2CLV%2CLG%2CSY%2CUID%2CPT%2CSCSR%2CSC&pageindex=1&pagesize=8";
+    /*id=yc&pagesize=20&pageindex=1*/
+    /*&limit=20&maxid=0" pagesize=20&page=1*/
+    //time=20160725
     public static final String VERSION = "6.0.1";
     public static final String GET = "GET";
     public static final String POST = "POST";
     public static final String SUCCESS = "success";
     public static final String DATA = "data";
+    public static final String SONGS = "songs";
+    public static final String LIST = "list";
     public static final int colorDKGreen = 0xFF00BB9C;
     public static final int colorWhite = 0xFFFFFFFF;
     public static final int colorHyaline = 0x00FFFFFF;
@@ -44,6 +60,14 @@ public class ConstVal {
     public static final int RANK_CODE = 0x121;
     public static final int ADVERT_DETAIL_CODE = 0x1011;
     public static final int SONGLIST_DETAIL_CODE = 0x1012;
+    public static final int RANKYC_CODE = 0x1041;
+    public static final int RANKFC_CODE = 0x1042;
+    public static final int RANKTP_CODE = 0x1043;
+    public static final int RANKPOP_CODE = 0x1044;
+    public static final int DAILYRECMD_CODE = 0x1014;
+    public static final int MUSICIAN_CODE = 0x1013;
+
+    public static final int PAGESIZE = 20;
 
     public static final int[] HOTLIST_RESID = {R.id.hot_tr_pic1,
             R.id.hot_tr_pic2,

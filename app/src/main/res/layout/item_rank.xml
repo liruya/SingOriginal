@@ -4,27 +4,28 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorWhite"
-    android:paddingLeft="15dp"
-    android:paddingTop="15dp">
+    android:paddingLeft="10dp"
+    android:paddingTop="10dp">
 
     <ImageView
         android:id="@+id/item_top_iv"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"
+        android:scaleType="fitCenter"
         android:src="@mipmap/nan"/>
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:paddingLeft="15dp">
+        android:paddingLeft="10dp">
         <TextView
             android:id="@+id/item_top_tv1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:paddingBottom="15dp"
+            android:linksClickable="true"
             android:lines="1"
             android:ellipsize="end"
             android:textSize="16sp"

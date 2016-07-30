@@ -1,6 +1,7 @@
 package com.singoriginal.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
@@ -10,12 +11,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.singoriginal.R;
+import com.singoriginal.activity.SongListActivity;
 import com.singoriginal.constant.ConstVal;
 import com.singoriginal.model.TopRank;
 import com.singoriginal.util.RtfUtil;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by lanouhn on 16/7/23.
@@ -42,7 +46,7 @@ public class TopRankAdapter extends RecyclerView.Adapter<TopRankAdapter.TopRankV
     @Override
     public void onBindViewHolder(TopRankViewHolder holder, int position)
     {
-        TopRank top = tops.get(position);
+        final TopRank top = tops.get(position);
         String[] songs = top.getSongs();
         Picasso.with(context).load(top.getPhoto()).into(holder.iv_pic);
         for (int i = 0; i < songs.length; i++)
@@ -68,7 +72,61 @@ public class TopRankAdapter extends RecyclerView.Adapter<TopRankAdapter.TopRankV
             style = RtfUtil.getRtf(style, sing, ConstVal.COLOR_SHALLOWBLACK, 42);
             style = RtfUtil.getRtf(style, author, ConstVal.COLOR_GRAY, 36);
             holder.tvs.get(i).setText(style, TextView.BufferType.SPANNABLE);
+            int h = getViewHeight(holder.itemView);
+            ViewGroup.LayoutParams lp = holder.iv_pic.getLayoutParams();
+            lp.width = h;
+            holder.iv_pic.setLayoutParams(lp);
+
+            holder.itemView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    String id = top.getId();
+                    String link = "";
+                    String title = "";
+                    int code = 0;
+                    switch (id)
+                    {
+                        case "fc":
+                            link = ConstVal.RANKDETAIL_LINK
+                                   + "&id=" + id + "&pagesize=20&pageindex=1";
+                            title = "翻唱排行榜";
+                            code = ConstVal.RANKFC_CODE;
+                            break;
+
+                        case "yc":
+                            link = ConstVal.RANKDETAIL_LINK
+                                   + "&id=" + id + "&pagesize=20&pageindex=1";
+                            title = "原创排行榜";
+                            code = ConstVal.RANKYC_CODE;
+                            break;
+
+                        case "list23":
+                            link = ConstVal.RANKDETAIL_LINK
+                                   + "&id=" + id + "&pagesize=20&pageindex=1";
+                            title = "新歌top50";
+                            code = ConstVal.RANKTP_CODE;
+                            break;
+
+                        case "list25":
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+                            String dt = sdf.format(new Date(System.currentTimeMillis()));
+                            link = ConstVal.POPULAR_LINK
+                                   + "&time=" + dt + "&limit=20&maxid=0";
+                            title = "本周实况";
+                            code = ConstVal.RANKPOP_CODE;
+                            break;
+                    }
+                    Intent intent = new Intent(context, SongListActivity.class);
+                    intent.putExtra("LinkUrl", link);
+                    intent.putExtra("title", title);
+                    intent.putExtra("code", code);
+                    context.startActivity(intent);
+                }
+            });
         }
+
     }
 
     @Override
@@ -89,31 +147,20 @@ public class TopRankAdapter extends RecyclerView.Adapter<TopRankAdapter.TopRankV
             tvs.add((TextView) itemView.findViewById(R.id.item_top_tv1));
             tvs.add((TextView) itemView.findViewById(R.id.item_top_tv2));
             tvs.add((TextView) itemView.findViewById(R.id.item_top_tv3));
-            iv_pic.addOnLayoutChangeListener(new View.OnLayoutChangeListener()
-            {
-                @Override
-                public void onLayoutChange(View v,
-                                           int left,
-                                           int top,
-                                           int right,
-                                           int bottom,
-                                           int oldLeft,
-                                           int oldTop,
-                                           int oldRight,
-                                           int oldBottom)
-                {
-                    if (bottom - top != oldBottom - oldTop || right - left != oldRight - oldLeft)
-                    {
-                        int h = bottom - top;
-                        int w = right - left;
-                        int size = (h >= w ? h : w);
-                        ViewGroup.LayoutParams layoutParams = iv_pic.getLayoutParams();
-                        layoutParams.width = size;
-                        layoutParams.height = size;
-                        iv_pic.setLayoutParams(layoutParams);
-                    }
-                }
-            });
         }
+    }
+
+    /**
+     * 测量控件高度
+     * @param view
+     * @return
+     */
+    private int getViewHeight(View view)
+    {
+        int w = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        int h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        view.measure(w, h);
+        int height = view.getMeasuredHeight();
+        return height;
     }
 }

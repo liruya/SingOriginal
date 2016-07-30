@@ -30,7 +30,39 @@ public class GsonUtil {
                     Boolean success = obj.getBoolean(ConstVal.SUCCESS);
                     if (success) {
                         if (obj.has(ConstVal.DATA)) {
-                            return obj.getString(ConstVal.DATA);
+                            String dat = obj.getString(ConstVal.DATA);
+                            if (dat.startsWith("[") && dat.endsWith("]"))
+                            {
+                                return dat;
+                            }
+                            else
+                            {
+                                if (dat.startsWith("{") && dat.endsWith("}"))
+                                {
+                                    JSONObject jobj = new JSONObject(dat);
+                                    String js = null;
+                                    if (jobj.has(ConstVal.SONGS))
+                                    {
+                                        js = jobj.getString(ConstVal.SONGS);
+                                    }
+                                    else if(jobj.has(ConstVal.LIST))
+                                    {
+                                        js = jobj.getString(ConstVal.LIST);
+                                    }
+                                    if (js != null)
+                                    {
+                                        if (js.startsWith("{") && js.endsWith("}"))
+                                        {
+                                            return dat;
+                                        }
+                                        else if(js.startsWith("[") && js.endsWith("]"))
+                                        {
+                                            return js;
+                                        }
+                                    }
+                                }
+                            }
+
                         } else {
                             return null;
                         }

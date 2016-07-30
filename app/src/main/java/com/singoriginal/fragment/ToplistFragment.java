@@ -18,6 +18,7 @@ import com.singoriginal.adapter.TopRankAdapter;
 import com.singoriginal.constant.ConstVal;
 import com.singoriginal.model.TopRank;
 import com.singoriginal.util.GsonUtil;
+import com.singoriginal.util.NetUtil;
 import com.singoriginal.util.OkHttpUtil;
 
 import java.util.ArrayList;
@@ -38,23 +39,29 @@ public class ToplistFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        View view = inflater.inflate(R.layout.fragment_toplist, null);
-        initView(view);
-        initData();
+        View view;
+        if (NetUtil.isNetworkAvailable(getContext()) || adapter != null)
+        {
+            view = inflater.inflate(R.layout.fragment_toplist, null);
+            initView(view);
+            initData();
+        }
+        else
+        {
+            view = inflater.inflate(R.layout.fragment_default, null);
+        }
         return view;
     }
 
     private void initView(View view)
     {
         top_rv_show = (RecyclerView) view.findViewById(R.id.top_rv_show);
-        LinearLayoutManager lm = new LinearLayoutManager(getContext());
-        lm.setOrientation(LinearLayoutManager.VERTICAL);
+        LinearLayoutManager lm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         top_rv_show.setLayoutManager(lm);
     }
 
     private void initData()
     {
-        tops = new ArrayList<>();
         hdl = new Handler()
         {
             @Override
@@ -73,7 +80,15 @@ public class ToplistFragment extends Fragment
                 }
             }
         };
-        Request request = new Request.Builder().url(ConstVal.TOPRANK_LINK + "&version" + ConstVal.VERSION).build();
-        OkHttpUtil.enqueue(getContext(), hdl, ConstVal.RANK_CODE, request);
+        if (adapter == null)
+        {
+            tops = new ArrayList<>();
+            Request request = new Request.Builder().url(ConstVal.TOPRANK_LINK + "&version" + ConstVal.VERSION).build();
+            OkHttpUtil.enqueue(getContext(), hdl, ConstVal.RANK_CODE, request);
+        }
+        else
+        {
+            top_rv_show.setAdapter(adapter);
+        }
     }
 }
