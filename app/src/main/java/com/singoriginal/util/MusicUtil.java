@@ -14,8 +14,12 @@ import android.widget.RemoteViews;
 
 import com.singoriginal.R;
 import com.singoriginal.constant.ConstVal;
+import com.singoriginal.model.AdvertSong;
 import com.singoriginal.model.DailyRecmd;
 import com.singoriginal.model.Music;
+import com.singoriginal.model.NewSong;
+import com.singoriginal.model.PopularSong;
+import com.singoriginal.model.RankSong;
 import com.singoriginal.service.MusicService;
 import com.squareup.picasso.Picasso;
 
@@ -163,6 +167,46 @@ public class MusicUtil
         String classtype = pkg.substring(pkg.lastIndexOf(".")+1);
         switch (classtype)
         {
+            case "AdvertSong":
+                AdvertSong as = (AdvertSong) object;
+                msc = new Music(as.getID() + "",
+                                as.getSN(),
+                                as.getSK(),
+                                as.getUser().getID(),
+                                as.getUser().getNN(),
+                                as.getUser().getI());
+                break;
+
+            case "RankSong":
+                RankSong rs = (RankSong) object;
+                msc = new Music(rs.getID() + "",
+                                rs.getSN(),
+                                rs.getSK(),
+                                rs.getUser().getID(),
+                                rs.getUser().getNN(),
+                                rs.getUser().getI());
+                break;
+
+            case "NewSong":
+                NewSong ns = (NewSong) object;
+                msc = new Music(ns.getID() + "",
+                                ns.getSN(),
+                                ns.getSK(),
+                                ns.getUser().getID(),
+                                ns.getUser().getNN(),
+                                ns.getUser().getI());
+                break;
+
+            case "PopularSong":
+                PopularSong ps = (PopularSong) object;
+                msc = new Music(ps.getID() + "",
+                                ps.getSN(),
+                                ps.getSK(),
+                                ps.getUser().getID(),
+                                ps.getUser().getNN(),
+                                ps.getUser().getI());
+                break;
+
             case "DailyRecmd":
                 DailyRecmd ds = (DailyRecmd) object;
                 msc = new Music(ds.getSongId(),

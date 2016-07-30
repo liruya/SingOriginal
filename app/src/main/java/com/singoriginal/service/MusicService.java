@@ -1,12 +1,14 @@
 package com.singoriginal.service;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import java.io.IOException;
 
@@ -31,6 +33,7 @@ public class MusicService extends Service
         super.onCreate();
         //创建MediaPlay对象,并设置准备,完成监听事件
         mediaPlayer = new MediaPlayer();
+        Log.e("TAG", "onCreate: 1");
         mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener()
         {
             @Override
@@ -67,7 +70,7 @@ public class MusicService extends Service
 
     public static void prepareLocalMedia(String path)
     {
-        if (path != null)
+        if (path != null && mediaPlayer != null)
         {
             mediaPlayer.reset();
             try
@@ -81,15 +84,15 @@ public class MusicService extends Service
         }
     }
 
-    private void prepareNetMedia(String url)
+    public static void prepareNetMedia(Context context, String url)
     {
         Uri uri = Uri.parse(url);
-        if (uri != null)
+        if (uri != null && mediaPlayer != null)
         {
             mediaPlayer.reset();
             try
             {
-                mediaPlayer.setDataSource(this, uri);
+                mediaPlayer.setDataSource(context, uri);
                 mediaPlayer.prepareAsync();
             } catch (IOException e)
             {

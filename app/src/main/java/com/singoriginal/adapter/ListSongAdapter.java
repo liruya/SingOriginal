@@ -27,15 +27,6 @@ public class  ListSongAdapter extends BaseAdapter
     private Context context;
     private ArrayList<Object> advertSongs;
     private int code;
-    private int[] vsIdx;
-
-    public ListSongAdapter(Context context, ArrayList<Object> advertSongs, int[] vsIdx, int code)
-    {
-        this.context = context;
-        this.advertSongs = advertSongs;
-        this.vsIdx = vsIdx;
-        this.code = code;
-    }
 
     public ListSongAdapter(Context context, ArrayList<Object> advertSongs, int code)
     {

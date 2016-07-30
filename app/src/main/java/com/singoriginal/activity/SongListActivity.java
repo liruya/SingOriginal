@@ -9,6 +9,7 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.text.SpannableStringBuilder;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,10 +31,13 @@ import com.singoriginal.adapter.ListSongAdapter;
 import com.singoriginal.constant.ConstVal;
 import com.singoriginal.model.AdvertSong;
 import com.singoriginal.model.DailyRecmd;
+import com.singoriginal.model.Music;
 import com.singoriginal.model.NewSong;
 import com.singoriginal.model.PopularSong;
 import com.singoriginal.model.RankSong;
+import com.singoriginal.model.SongBrief;
 import com.singoriginal.model.SongList;
+import com.singoriginal.service.MusicService;
 import com.singoriginal.util.GsonUtil;
 import com.singoriginal.util.MusicUtil;
 import com.singoriginal.util.OkHttpUtil;
@@ -71,7 +75,7 @@ public class SongListActivity extends AppCompatActivity
     private ArrayList<Object> list;
     private Handler hdl;
 
-    private int[] vsIdx = new int[]{-1};
+    private int vsIdx = -1;
     private int lvHdrheight;
     private int spcHeight;
     private int code;
@@ -174,7 +178,7 @@ public class SongListActivity extends AppCompatActivity
                 }
                 SpannableStringBuilder str = null;
                 TextView tv_play = (TextView) findViewById(R.id.item_play_tv);
-                vsIdx = new int[]{-1};
+                vsIdx = -1;
                 switch (msg.what)
                 {
                     case ConstVal.ADVERT_DETAIL_CODE:
@@ -197,7 +201,7 @@ public class SongListActivity extends AppCompatActivity
                     case ConstVal.SONGLIST_DETAIL_CODE:
                         list = new Gson().fromJson(GsonUtil.getJsonArray(json),
                                                          new TypeToken<ArrayList<AdvertSong>>(){}.getType());
-                        adapter = new ListSongAdapter(SongListActivity.this, list, vsIdx, msg.what);
+                        adapter = new ListSongAdapter(SongListActivity.this, list, msg.what);
                         songlist_lv_show.setAdapter(adapter);
 
                         int authorHeight = getViewHeight(vs_author);
@@ -212,7 +216,7 @@ public class SongListActivity extends AppCompatActivity
                     case ConstVal.RANKYC_CODE:
                         list = new Gson().fromJson(GsonUtil.getJsonArray(json),
                                                    new TypeToken<ArrayList<RankSong>>(){}.getType());
-                        adapter = new ListSongAdapter(SongListActivity.this, list, vsIdx, msg.what);
+                        adapter = new ListSongAdapter(SongListActivity.this, list, msg.what);
                         songlist_lv_show.setAdapter(adapter);
                         str = null;
                         str = RtfUtil.getRtf(null, "全部歌曲", ConstVal.COLOR_SHALLOWBLACK, 42);
@@ -223,7 +227,7 @@ public class SongListActivity extends AppCompatActivity
                     case ConstVal.RANKTP_CODE:
                         list = new Gson().fromJson(GsonUtil.getJsonArray(json),
                                                    new TypeToken<ArrayList<NewSong>>(){}.getType());
-                        adapter = new ListSongAdapter(SongListActivity.this, list, vsIdx, msg.what);
+                        adapter = new ListSongAdapter(SongListActivity.this, list, msg.what);
                         songlist_lv_show.setAdapter(adapter);
                         str = null;
                         str = RtfUtil.getRtf(null, "全部歌曲", ConstVal.COLOR_SHALLOWBLACK, 42);
@@ -234,7 +238,7 @@ public class SongListActivity extends AppCompatActivity
                     case ConstVal.RANKPOP_CODE:
                         list = new Gson().fromJson(GsonUtil.getJsonArray(json),
                                                    new TypeToken<ArrayList<PopularSong>>(){}.getType());
-                        adapter = new ListSongAdapter(SongListActivity.this, list, vsIdx, msg.what);
+                        adapter = new ListSongAdapter(SongListActivity.this, list, msg.what);
                         songlist_lv_show.setAdapter(adapter);
                         str = null;
                         str = RtfUtil.getRtf(null, "全部歌曲", ConstVal.COLOR_SHALLOWBLACK, 42);
@@ -245,7 +249,7 @@ public class SongListActivity extends AppCompatActivity
                     case ConstVal.DAILYRECMD_CODE:
                         list = new Gson().fromJson(GsonUtil.getJsonArray(json),
                                                    new TypeToken<ArrayList<DailyRecmd>>(){}.getType());
-                        adapter = new ListSongAdapter(SongListActivity.this, list, vsIdx, msg.what);
+                        adapter = new ListSongAdapter(SongListActivity.this, list, msg.what);
                         songlist_lv_show.setAdapter(adapter);
                         str = null;
                         str = RtfUtil.getRtf(null, "全部歌曲", ConstVal.COLOR_SHALLOWBLACK, 42);
@@ -326,69 +330,74 @@ public class SongListActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                if (vsIdx[0] >= parent.getFirstVisiblePosition() && vsIdx[0] <= parent.getLastVisiblePosition())
+                if (vsIdx >= parent.getFirstVisiblePosition() && vsIdx <= parent.getLastVisiblePosition())
                 {
-                    parent.getChildAt(vsIdx[0] - parent.getFirstVisiblePosition()).findViewById(R.id.itemsong_view).setVisibility(View.INVISIBLE);
+                    parent.getChildAt(vsIdx - parent.getFirstVisiblePosition())
+                          .findViewById(R.id.itemsong_view)
+                          .setVisibility(View.INVISIBLE);
                 }
-                vsIdx = new int[]{position};
+                vsIdx = position;
                 view.findViewById(R.id.itemsong_view).setVisibility(View.VISIBLE);
                 String songid = null;
                 String songtype = null;
                 String imgurl = null;
                 String songname = null;
                 String author = null;
-                switch (code)
-                {
-                    case ConstVal.SONGLIST_DETAIL_CODE:
-                        AdvertSong as = (AdvertSong) list.get(position-1);
-                        songid = as.getID() + "";
-                        songtype = as.getSK();
-                        imgurl = as.getUser().getI();
-                        songname = as.getSN();
-                        author = as.getUser().getNN();
-                        break;
-                    case ConstVal.RANKFC_CODE:
-                    case ConstVal.RANKYC_CODE:
-                        RankSong rs = (RankSong) list.get(position-1);
-                        songid = rs.getID() + "";
-                        songtype = rs.getSK();
-                        imgurl = rs.getUser().getI();
-                        songname = rs.getSN();
-                        author = rs.getUser().getNN();
-                        break;
-                    case ConstVal.RANKTP_CODE:
-                        NewSong ts = (NewSong) list.get(position-1);
-                        songid = ts.getID() + "";
-                        songtype = ts.getSK();
-                        imgurl = ts.getUser().getI();
-                        songname = ts.getSN();
-                        author = ts.getUser().getNN();
-                        break;
-                    case ConstVal.RANKPOP_CODE:
-                        PopularSong ps = (PopularSong) list.get(position-1);
-                        songid = ps.getID() + "";
-                        songtype = ps.getSK();
-                        imgurl = ps.getUser().getI();
-                        songname = ps.getSN();
-                        author = ps.getUser().getNN();
-                        break;
-                    case ConstVal.DAILYRECMD_CODE:
-                        DailyRecmd ds = (DailyRecmd) list.get(position-1);
-                        songid = ds.getSongId();
-                        songtype = ds.getSongType();
-                        imgurl = ds.getImage();
-                        songname = ds.getRecommendName();
-                        author = ds.getNickName();
-                        MusicUtil.convertMusicType(SongListActivity.this, ds);
-                        break;
-                }
+                Music msc = MusicUtil.convertMusicType(SongListActivity.this, list.get((int) id));
+//                switch (code)
+//                {
+//                    case ConstVal.SONGLIST_DETAIL_CODE:
+//                        AdvertSong as = (AdvertSong) list.get(position-1);
+//                        songid = as.getID() + "";
+//                        songtype = as.getSK();
+//                        imgurl = as.getUser().getI();
+//                        songname = as.getSN();
+//                        author = as.getUser().getNN();
+//                        break;
+//                    case ConstVal.RANKFC_CODE:
+//                    case ConstVal.RANKYC_CODE:
+//                        RankSong rs = (RankSong) list.get(position-1);
+//                        songid = rs.getID() + "";
+//                        songtype = rs.getSK();
+//                        imgurl = rs.getUser().getI();
+//                        songname = rs.getSN();
+//                        author = rs.getUser().getNN();
+//                        break;
+//                    case ConstVal.RANKTP_CODE:
+//                        NewSong ts = (NewSong) list.get(position-1);
+//                        songid = ts.getID() + "";
+//                        songtype = ts.getSK();
+//                        imgurl = ts.getUser().getI();
+//                        songname = ts.getSN();
+//                        author = ts.getUser().getNN();
+//                        break;
+//                    case ConstVal.RANKPOP_CODE:
+//                        PopularSong ps = (PopularSong) list.get(position-1);
+//                        songid = ps.getID() + "";
+//                        songtype = ps.getSK();
+//                        imgurl = ps.getUser().getI();
+//                        songname = ps.getSN();
+//                        author = ps.getUser().getNN();
+//                        break;
+//                    case ConstVal.DAILYRECMD_CODE:
+//                        DailyRecmd ds = (DailyRecmd) list.get(position-1);
+//                        songid = ds.getSongId();
+//                        songtype = ds.getSongType();
+//                        imgurl = ds.getImage();
+//                        songname = ds.getRecommendName();
+//                        author = ds.getNickName();
+//                        MusicUtil.convertMusicType(SongListActivity.this, ds);
+//                        break;
+//                }
                 Bundle bundle = new Bundle();
-                bundle.putString("imgurl", imgurl);
-                bundle.putString("songid", songid);
-                bundle.putString("songtype", songtype);
-                bundle.putString("songname", songname);
-                bundle.putString("author", author);
-//                String path = ConstVal.GETSONGURL_LINK + "songid=" + songid + "&songtype=" + songtype;
+                bundle.putString("imgurl", msc.getUserimg());
+                bundle.putString("songid", msc.getSongid());
+                bundle.putString("songtype", msc.getSongtype());
+                bundle.putString("songname", msc.getSongname());
+                bundle.putString("author", msc.getUsername());
+                String path = ConstVal.GETSONGURL_LINK + "songid=" + msc.getSongid() + "&songtype=" + msc.getSongtype();
+                Log.e("TAG", "onItemClick: " + path );
+                MusicService.prepareNetMedia(SongListActivity.this, path);
 //                Request request = new Request.Builder().url(ConstVal.GETSONGURL_LINK + )
                 MusicUtil.showNotification(SongListActivity.this, bundle);
 
@@ -409,9 +418,11 @@ public class SongListActivity extends AppCompatActivity
                                  int visibleItemCount,
                                  int totalItemCount)
             {
-                if (vsIdx[0] >= firstVisibleItem && vsIdx[0] <= view.getLastVisiblePosition())
+                if (vsIdx >= firstVisibleItem && vsIdx <= view.getLastVisiblePosition())
                 {
-                    view.getChildAt(vsIdx[0] - firstVisibleItem).findViewById(R.id.itemsong_view).setVisibility(View.VISIBLE);
+                    view.getChildAt(vsIdx - firstVisibleItem)
+                        .findViewById(R.id.itemsong_view)
+                        .setVisibility(View.VISIBLE);
                 }
                 int scrollY;
                 if (visibleItemCount == 0)
@@ -477,6 +488,12 @@ public class SongListActivity extends AppCompatActivity
         String songtype = bundle.getString("songtype");
         String songname = bundle.getString("songname");
         String author = bundle.getString("author");
+//        Music msc = (Music) bundle.getSerializable("music");
+//        String imgurl = msc.getUserimg();
+//        String songid = msc.getSongid();
+//        String songtype = msc.getSongtype();
+//        String songname = msc.getSongname();
+//        String author = msc.getUsername();
         NotificationManager notificationManager
                 = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);

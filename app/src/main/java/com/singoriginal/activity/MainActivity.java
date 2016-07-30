@@ -29,6 +29,7 @@ public class MainActivity extends FragmentActivity {
         initSysParam();
         initView();
         initEvent();
+        initService();
     }
 
     @Override
