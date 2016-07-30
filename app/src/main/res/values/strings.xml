@@ -100,5 +100,10 @@
     <string name="songComment">歌曲评论</string>
     <string name="speakWhat">说点什么吧</string>
     <string name="send">发送</string>
+    <string name="writeSms">写信</string>
+    <string name="Original">原创</string>
+    <string name="cover">翻唱</string>
+    <string name="addSong">+ 添加歌单</string>
+    <string name="accompaniment">伴奏</string>
 
 </resources>

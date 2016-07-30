@@ -2,8 +2,11 @@ package com.singoriginal.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.Html;
 import android.text.Spanned;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -85,10 +88,11 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.ViewHold
             e.printStackTrace();
         }
 
-//        holder.item_dynamic_content.setText(content.getContent());
+        holder.item_dynamic_content.setText(content.getContent());
         holder.item_dynamic_songName.setText(content.getSongName());
         holder.item_dynamic_laudNum.setText(content.getLikes() + "");
         holder.item_dynamic_commentNum.setText(content.getComments() + "");
+
         //判断歌曲类型是原创还是翻唱
         if (content.getSongType() == 1)
             holder.item_dynamic_songType.setText(R.string.publishOriginal);
@@ -101,21 +105,21 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.ViewHold
 
         //判断获取内容的行数
         if (content.getContent() != null && !content.getContent().equals("")) {
-            int lines = holder.item_dynamic_content.getLineCount();
-            if (lines > 3) {
-                holder.item_dynamic_content.setLines(3);
-                holder.item_dynamic_content.setText(content.getContent());
-                holder.item_dynamic_more.setVisibility(View.VISIBLE);
-            } else {
-                holder.item_dynamic_content.setText(content.getContent());
-            }
-        } else {
+//            int lines = holder.item_dynamic_content.getLineCount();// 无用
             holder.item_dynamic_content.setText(content.getContent());
-        }
+            if (content.getContent().trim().length() > 80) {
+                holder.item_dynamic_content.setLines(3);
+                holder.item_dynamic_more.setVisibility(View.VISIBLE);
+            } else
+                holder.item_dynamic_more.setVisibility(View.GONE);
+        } else
+            holder.item_dynamic_content.setText(content.getContent());
+
         holder.item_dynamic_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                holder.item_dynamic_content.setText(content.getContent());
                 holder.item_dynamic_more.setVisibility(View.GONE);
                 int lines = holder.item_dynamic_content.getLineCount();
                 holder.item_dynamic_content.setLines(lines);
@@ -127,8 +131,8 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.ViewHold
             @Override
             public void onClick(View v) {
 
-                holder.item_dynamic_shrink.setVisibility(View.GONE);
                 holder.item_dynamic_content.setLines(3);
+                holder.item_dynamic_shrink.setVisibility(View.GONE);
                 holder.item_dynamic_more.setVisibility(View.VISIBLE);
             }
         });
