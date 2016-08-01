@@ -86,6 +86,7 @@ public class TopRankAdapter extends RecyclerView.Adapter<TopRankAdapter.TopRankV
                     String link = "";
                     String title = "";
                     int code = 0;
+                    Intent intent = new Intent(context, SongListActivity.class);
                     switch (id)
                     {
                         case "fc":
@@ -116,9 +117,10 @@ public class TopRankAdapter extends RecyclerView.Adapter<TopRankAdapter.TopRankV
                                    + "&time=" + dt + "&limit=20&maxid=0";
                             title = "本周实况";
                             code = ConstVal.RANKPOP_CODE;
+                            intent.putExtra("imgLink", top.getPhotoBig());
                             break;
                     }
-                    Intent intent = new Intent(context, SongListActivity.class);
+
                     intent.putExtra("LinkUrl", link);
                     intent.putExtra("title", title);
                     intent.putExtra("code", code);

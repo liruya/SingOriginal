@@ -22,17 +22,17 @@ public class Musician
                     int ID,
                     String m,
                     String NN,
-                    Musician.Song song,
+                    Song song,
                     int TFS,
                     int YCRQ)
     {
         this.FCRQ = FCRQ;
         this.follow = follow;
-        I = i;
+        this.I = i;
         this.ID = ID;
-        M = m;
+        this.M = m;
         this.NN = NN;
-        Song = song;
+        this.Song = song;
         this.TFS = TFS;
         this.YCRQ = YCRQ;
     }
@@ -97,12 +97,12 @@ public class Musician
         this.NN = NN;
     }
 
-    public Musician.Song getSong()
+    public Song getSong()
     {
         return Song;
     }
 
-    public void setSong(Musician.Song song)
+    public void setSong(Song song)
     {
         Song = song;
     }

@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.singoriginal.R;
 import com.singoriginal.constant.ConstVal;
 import com.singoriginal.model.Musician;
@@ -20,6 +19,9 @@ import com.singoriginal.util.GsonUtil;
 import com.singoriginal.util.OkHttpUtil;
 import com.singoriginal.util.RtfUtil;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -51,9 +53,23 @@ public class MusicianListAdapter extends BaseAdapter
                 switch (msg.what)
                 {
                     case ConstVal.MUSICIAN_CODE:
-                        list = new Gson().fromJson(GsonUtil.getJsonArray(json),
-                                                   new TypeToken<ArrayList<Musician>>(){}.getType());
-                        notifyDataSetChanged();
+                        String js = GsonUtil.getJsonArray(json);
+                        list = new ArrayList<>();
+                        try
+                        {
+                            JSONArray ary = new JSONArray(js);
+                            for (int i = 0; i < ary.length(); i++)
+                            {
+                                Musician msc = new Gson().fromJson(ary.get(i).toString().replace("[]", "{}"), Musician.class);
+                                list.add(msc);
+                            }
+                            notifyDataSetChanged();
+//                            list = new Gson().fromJson(ary.get(0).toString().replace("[]", "{}"),
+//                                                       new TypeToken<ArrayList<Musician>>(){}.getType());
+                        } catch (JSONException e)
+                        {
+                            e.printStackTrace();
+                        }
                         break;
                 }
             }

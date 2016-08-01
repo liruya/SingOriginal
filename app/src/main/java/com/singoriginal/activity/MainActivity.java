@@ -1,5 +1,6 @@
 package com.singoriginal.activity;
 
+import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -14,6 +15,7 @@ import com.singoriginal.fragment.ChannelFragment;
 import com.singoriginal.fragment.DynamicFragment;
 import com.singoriginal.fragment.MusicFragment;
 import com.singoriginal.fragment.MyFragment;
+import com.singoriginal.util.MusicUtil;
 
 public class MainActivity extends FragmentActivity {
     private FrameLayout main_fl_show;
@@ -29,6 +31,20 @@ public class MainActivity extends FragmentActivity {
         initEvent();
     }
 
+    @Override
+    protected void onDestroy()
+    {
+        MusicUtil.unbindMusicService(this);
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        initService();
+    }
+
     /**
      * 获取系统参数
      */
@@ -39,6 +55,12 @@ public class MainActivity extends FragmentActivity {
         display.getMetrics(metrics);
         ConstVal.SCREEN_WIDTH = metrics.widthPixels;
         ConstVal.SCREEN_HEIGHT = metrics.heightPixels;
+    }
+
+    private void initService()
+    {
+        ServiceConnection svcConn = MusicUtil.creatServiceConnection(this);
+        MusicUtil.bindMusicService(this, svcConn);
     }
 
     /**
