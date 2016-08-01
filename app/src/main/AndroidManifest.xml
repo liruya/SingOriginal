@@ -20,17 +20,11 @@
         </activity>
         <activity
             android:name=".activity.IndexActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
-
-        </activity>
-        <activity android:name=".activity.WebActivity">
-        </activity>
-        <activity android:name=".activity.SongListActivity">
-        </activity>
-        <activity android:name=".activity.TopicActivity">
-        </activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".activity.WebActivity" />
+        <activity android:name=".activity.SongListActivity" />
+        <activity android:name=".activity.TopicActivity" />
         <activity android:name=".activity.FirstLandingIndexActivity" />
-
         <activity android:name=".activity.InfoActivity" />
         <activity android:name=".activity.FortuneCenterActivity" />
         <activity android:name=".activity.UploadSongsActivity" />
@@ -42,12 +36,17 @@
         <activity android:name=".activity.SetUpActivity" />
         <activity android:name=".activity.PublishDynamicActivity" />
         <activity android:name=".activity.SongDetailsActivity" />
-        <activity android:name=".activity.RankActivity">
-        </activity>
-        <activity android:name=".activity.MusicianActivity">
-        </activity>
-        <activity android:name=".activity.SongCommentActivity"></activity>
-
+        <activity android:name=".activity.RankActivity" />
+        <activity android:name=".activity.MusicianActivity" />
+        <activity android:name=".activity.SongCommentActivity" />
+        <activity android:name=".activity.AlterActivity" />
+        <activity android:name=".activity.BindActivity" />
+        <activity android:name=".activity.QualitySelectActivity" />
+        <activity android:name=".activity.CopyrightActivity" />
+        <activity android:name=".activity.AboutActivity" />
+        <activity android:name=".activity.HelpCenterActivity" />
+        <activity android:name=".activity.FeedbackActivity" />
+        <activity android:name=".activity.RealAuthenticationActivity"></activity>
     </application>
 
 </manifest>

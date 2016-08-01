@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/feedback_header"
+        layout="@layout/view_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
+
+    <RelativeLayout
+        android:id="@+id/feedback_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorLightGray">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colorGray" />
+
+        <ImageView
+            android:id="@+id/feedback_iv_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_feedback_add"
+            android:padding="7dp"
+            android:src="@mipmap/umeng_fb_add_photo" />
+
+        <EditText
+            android:id="@+id/feedback_et_suggestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_toLeftOf="@+id/feedback_iv_add"
+            android:background="@drawable/shape_song_comment_et"
+            android:hint="@string/yourSuggestions"
+            android:padding="5dp"
+            android:textCursorDrawable="@null"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/feedback_et_contact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/feedback_et_suggestion"
+            android:layout_alignRight="@+id/feedback_iv_add"
+            android:layout_below="@+id/feedback_et_suggestion"
+            android:layout_marginBottom="8dp"
+            android:background="@null"
+            android:hint="@string/inputContactWay"
+            android:paddingLeft="5dp"
+            android:textCursorDrawable="@null"
+            android:textSize="12sp" />
+
+        <View
+            android:id="@+id/feedback_view"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignLeft="@+id/feedback_et_suggestion"
+            android:layout_alignRight="@+id/feedback_iv_add"
+            android:layout_below="@+id/feedback_et_contact"
+            android:background="@color/colorGray" />
+
+        <TextView
+            android:id="@+id/feedback_commit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/feedback_et_suggestion"
+            android:layout_alignRight="@+id/feedback_iv_add"
+            android:layout_below="@+id/feedback_view"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_fortune"
+            android:gravity="center_horizontal"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:text="@string/commit"
+            android:textColor="@color/colorWhite" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/feedback_rl"
+        android:layout_below="@+id/feedback_header"
+        android:padding="10dp"
+        android:text="@string/screenshotUnderstand" />
+
+
+</RelativeLayout>

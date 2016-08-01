@@ -67,7 +67,6 @@ public class ChannelFragment extends Fragment {
 
         channel_attention.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 

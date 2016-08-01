@@ -14,6 +14,7 @@ public class ConstVal {
     public static final int COLOR_DARKGREEN = 0xFF00BB9C;
     public static final int COLOR_HYALINE = 0x00FFFFFF;
     public static final int COLOR_GRAY = 0xFFA9B7B7;
+    public static final int COLOR_BLACK = 0xFF000000;
     public static final int COLOR_SHALLOWBLACK = 0xFF333333;
     public static final int COLOR_LIGHT_BLACK = 0x55000000;
 
