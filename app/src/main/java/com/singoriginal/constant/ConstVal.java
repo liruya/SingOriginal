@@ -68,6 +68,7 @@ public class ConstVal {
     public static final int RANKPOP_CODE = 0x1044;
     public static final int DAILYRECMD_CODE = 0x1014;
     public static final int MUSICIAN_CODE = 0x1013;
+    public static final int SONGBRIEF_CODE = 0x1100;
 
     public static final int PAGESIZE = 20;
 
@@ -118,4 +119,25 @@ public class ConstVal {
     public static final int CHANNEL_CODE = 0x201;
 
     public static final int NOTIFY_SHOW = 0x10;
+
+    //播放/暂停切换,下一首,上一首命令码
+    public static final int MUSIC_PLAY_START = 0x10;
+    public static final int MUSIC_PLAY_TOGGLE = 0x11;
+    public static final int MUSIC_PLAY_NEXT = 0x12;
+    public static final int MUSIC_PLAY_PREV = 0x13;
+    public static final int MUSIC_PLAY_CLOSE = 0x14;
+    //音乐播放模式:列表循环,单曲循环,顺序播放,随机播放
+    public static final int PLAY_MODE_LIST_LOOP = 0x20;
+    public static final int PLAY_MODE_SINGLE_LOOP = 0x21;
+    public static final int PLAY_MODE_ORDER = 0x22;
+    public static final int PLAY_MODE_RANDOM = 0x23;
+    //音乐播放状态:
+    public static final int PLAY_STATE_PREPARE = 0x30;
+    public static final int PLAY_STATE_PLAYING = 0x31;
+    public static final int PLAY_STATE_PAUSE = 0x32;
+    //音乐类型:
+    public static final int MUSIC_TYPE_NET = 0x40;
+    public static final int MUSIC_TYPE_LOCAL = 0x41;
+
+    public static final int MUSIC_PROGRESS_CODE = 0x2001;
 }

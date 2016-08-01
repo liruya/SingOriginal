@@ -2,7 +2,7 @@ package com.singoriginal.util;
 
 import android.app.Notification;
 import android.app.NotificationManager;
-import android.content.BroadcastReceiver;
+import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -47,13 +47,14 @@ public class MusicUtil
         RemoteViews remoteView = new RemoteViews(context.getPackageName(), R.layout.notification_music);
         remoteView.setTextViewText(R.id.ntf_tv_song, songname);
         remoteView.setTextViewText(R.id.ntf_tv_author, author);
-        //        Intent intent = new Intent(getPackageName() + ".MUSIC_PAUSE");
-        //        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,
-        //                                                                 0,
-        //                                                                 intent,
-        //                                                                 PendingIntent.FLAG_UPDATE_CURRENT);
-        //        remoteView.setOnClickPendingIntent(R.id.ntf_ib_play, pendingIntent);
-        //        builder.setContent(remoteView).setContentIntent(pendingIntent);
+        Intent intent = new Intent(context.getPackageName() + ".MUSIC_PAUSE");
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
+                                                                 0,
+                                                                 intent,
+                                                                 PendingIntent.FLAG_UPDATE_CURRENT);
+        remoteView.setOnClickPendingIntent(R.id.ntf_ib_play, pendingIntent);
+        builder.setContentIntent(pendingIntent);
+
         builder.setCustomBigContentView(remoteView).setOngoing(true).setAutoCancel(false);
         Notification notification = builder.build();
         Picasso.with(context)
@@ -220,24 +221,10 @@ public class MusicUtil
         return msc;
     }
 
-//    public static void registerService(Context context)
-//    {
-//        IntentFilter filter = new IntentFilter();
-//        filter.addAction(context.getPackageName() + ".MUSIC_PAUSE");
-//        context.registerReceiver(musicPauseReceiver, filter);
-//    }
-//
-//    public static void unregisterMusicReceiver(Context context)
-//    {
-//        context.unregisterReceiver(musicPauseReceiver);
-//    }
-
-    static class MusicPauseReceiver extends BroadcastReceiver
+    public static void sendBroadcast(Context context, int requestCode)
     {
-
-        @Override
-        public void onReceive(Context context, Intent intent)
-        {
-        }
+        Intent intent = new Intent(context.getPackageName() + ".MUSIC_RECEIVER.START");
+        intent.putExtra("requestCode", requestCode);
+        context.sendBroadcast(intent);
     }
 }

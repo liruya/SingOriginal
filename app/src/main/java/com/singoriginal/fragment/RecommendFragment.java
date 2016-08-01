@@ -43,6 +43,7 @@ import okhttp3.Request;
  */
 public class RecommendFragment extends Fragment
 {
+    private static boolean isDataLoaded;
     //Log输出标签
     private static final String TAG = "RecommendFragment";
     private ViewPager recmd_vp_show;
@@ -68,7 +69,10 @@ public class RecommendFragment extends Fragment
         if (NetUtil.isNetworkAvailable(getContext()))
         {
             initView(view);
-            initData(view);
+            if (!isDataLoaded)
+            {
+                initData(view);
+            }
             initEvent();
         }
         return view;

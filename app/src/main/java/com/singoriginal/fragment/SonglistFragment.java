@@ -31,6 +31,7 @@ import okhttp3.Request;
  */
 public class SonglistFragment extends Fragment
 {
+    private static boolean isDataLoaded;
     private View song_inc_title;
     private RecyclerView song_rv_show;
     private ArrayList<Hotlist> list;
@@ -46,7 +47,10 @@ public class SonglistFragment extends Fragment
         {
             view = inflater.inflate(R.layout.fragment_songlist, null);
             initView(view);
-            initData();
+            if (!isDataLoaded)
+            {
+                initData();
+            }
         }
         else
         {

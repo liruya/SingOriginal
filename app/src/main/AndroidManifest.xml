@@ -4,6 +4,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -21,7 +24,6 @@
         <activity
             android:name=".activity.IndexActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
-
         </activity>
         <activity android:name=".activity.WebActivity">
         </activity>
@@ -30,7 +32,6 @@
         <activity android:name=".activity.TopicActivity">
         </activity>
         <activity android:name=".activity.FirstLandingIndexActivity" />
-
         <activity android:name=".activity.InfoActivity" />
         <activity android:name=".activity.FortuneCenterActivity" />
         <activity android:name=".activity.UploadSongsActivity" />
@@ -46,8 +47,12 @@
         </activity>
         <activity android:name=".activity.MusicianActivity">
         </activity>
-        <activity android:name=".activity.SongCommentActivity"></activity>
+        <activity android:name=".activity.SongCommentActivity" />
 
+        <service android:name=".service.MusicService" />
+
+        <activity android:name=".activity.MusicDetailActivity">
+        </activity>
     </application>
 
 </manifest>
