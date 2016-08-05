@@ -50,8 +50,8 @@
         <activity android:name=".activity.SongCommentActivity" />
 
         <service android:name=".service.MusicService" />
-
-        <activity android:name=".activity.MusicDetailActivity">
+        <activity android:name=".activity.MusicDetailActivity"
+            android:launchMode="singleInstance">
         </activity>
     </application>
 

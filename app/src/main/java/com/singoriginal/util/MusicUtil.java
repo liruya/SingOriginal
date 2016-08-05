@@ -1,18 +1,11 @@
 package com.singoriginal.util;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v7.app.NotificationCompat;
-import android.widget.RemoteViews;
 
-import com.singoriginal.R;
 import com.singoriginal.constant.ConstVal;
 import com.singoriginal.model.AdvertSong;
 import com.singoriginal.model.DailyRecmd;
@@ -21,7 +14,6 @@ import com.singoriginal.model.NewSong;
 import com.singoriginal.model.PopularSong;
 import com.singoriginal.model.RankSong;
 import com.singoriginal.service.MusicService;
-import com.squareup.picasso.Picasso;
 
 /**
  * 音乐工具类
@@ -29,41 +21,9 @@ import com.squareup.picasso.Picasso;
  */
 public class MusicUtil
 {
+    private static final String TAG = "MusicUtil_TAG";
     private static MusicService.MyBinder binder;
     private static boolean unbindFlag = false;
-
-    public static void showNotification(Context context, Bundle bundle)
-    {
-        String imgurl = bundle.getString("imgurl");
-        String songid = bundle.getString("songid");
-        String songtype = bundle.getString("songtype");
-        String songname = bundle.getString("songname");
-        String author = bundle.getString("author");
-        NotificationManager notificationManager
-                = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
-        builder.setSmallIcon(R.mipmap.sing_icon_client);
-        builder.setTicker(songname + " - " + author);
-        RemoteViews remoteView = new RemoteViews(context.getPackageName(), R.layout.notification_music);
-        remoteView.setTextViewText(R.id.ntf_tv_song, songname);
-        remoteView.setTextViewText(R.id.ntf_tv_author, author);
-        Intent intent = new Intent(context.getPackageName() + ".MUSIC_PAUSE");
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
-                                                                 0,
-                                                                 intent,
-                                                                 PendingIntent.FLAG_UPDATE_CURRENT);
-        remoteView.setOnClickPendingIntent(R.id.ntf_ib_play, pendingIntent);
-        builder.setContentIntent(pendingIntent);
-
-        builder.setCustomBigContentView(remoteView).setOngoing(true).setAutoCancel(false);
-        Notification notification = builder.build();
-        Picasso.with(context)
-               .load(imgurl)
-               .resize(320, 320)
-               .centerCrop()
-               .into(remoteView, R.id.ntf_iv_show, ConstVal.NOTIFY_SHOW, notification);
-        notificationManager.notify(ConstVal.NOTIFY_SHOW, notification);
-    }
 
     public static void startMusicService(Context context)
     {
@@ -221,10 +181,117 @@ public class MusicUtil
         return msc;
     }
 
-    public static void sendBroadcast(Context context, int requestCode)
+    public static void sendBroadcast(Context context, int requestCode, String extFilter)
     {
-        Intent intent = new Intent(context.getPackageName() + ".MUSIC_RECEIVER.START");
+        Intent intent = new Intent(context.getPackageName() + extFilter);
         intent.putExtra("requestCode", requestCode);
         context.sendBroadcast(intent);
     }
+
+    /**
+     * 开始播放
+     * @param context
+     */
+    public static void playStart(Context context)
+    {
+        sendBroadcast(context, ConstVal.MUSIC_PLAY_START, ".MUSIC_RECEIVER");
+    }
+
+    /**
+     * 播放下一首
+     * @param context
+     */
+    public static void playNext(Context context)
+    {
+        sendBroadcast(context, ConstVal.MUSIC_PLAY_NEXT, ".MUSIC_RECEIVER");
+    }
+
+    /**
+     * 播放上一首
+     * @param context
+     */
+    public static void playPrev(Context context)
+    {
+        sendBroadcast(context, ConstVal.MUSIC_PLAY_PREV, ".MUSIC_RECEIVER");
+    }
+
+    /**
+     * 播放/暂停切换
+     * @param context
+     */
+    public static void playToggle(Context context)
+    {
+        sendBroadcast(context, ConstVal.MUSIC_PLAY_TOGGLE, ".MUSIC_RECEIVER");
+    }
+
+    /**
+     * 关闭
+     * @param context
+     */
+    public static void playClose(Context context)
+    {
+        sendBroadcast(context, ConstVal.MUSIC_PLAY_CLOSE, ".MUSIC_RECEIVER");
+    }
+
+    /**
+     * 获取详细信息
+     * @param context
+     */
+    public static void playGetDetail(Context context)
+    {
+        sendBroadcast(context, ConstVal.GET_CURRENT_MUSIC_DETAIL, ".MUSIC_RECEIVER");
+    }
+
+    /**
+     * 获取歌曲长度
+     * @param context
+     */
+    public static void playGetDuration(Context context)
+    {
+        sendBroadcast(context, ConstVal.GET_CURRENT_MUSIC_DURATION, ".MUSIC_RECEIVER");
+    }
+
+    /**
+     * 发送歌曲长度
+     * @param context
+     */
+    public static void playSendDuration(Context context, int duration)
+    {
+        Intent intent = new Intent(context.getPackageName() + ".DETAIL_RECEIVER");
+        intent.putExtra("requestCode", ConstVal.DETAIL_DURATION);
+        intent.putExtra("duration", duration);
+        context.sendBroadcast(intent);
+    }
+
+    /**
+     * 发送歌曲长度
+     * @param context
+     */
+    public static void playSendState(Context context)
+    {
+        Intent intent = new Intent(context.getPackageName() + ".DETAIL_RECEIVER");
+        intent.putExtra("requestCode", ConstVal.DETAIL_STATE);
+        context.sendBroadcast(intent);
+    }
+
+    /**
+     * 发送歌曲进度
+     * @param context
+     * @param progress
+     */
+    public static void playSendProgress(Context context, int progress)
+    {
+        Intent intent = new Intent(context.getPackageName() + ".DETAIL_RECEIVER");
+        intent.putExtra("requestCode", ConstVal.DETAIL_PROGRESS);
+        intent.putExtra("progress", progress);
+        context.sendBroadcast(intent);
+    }
+
+    public static void playShowItem(Context context)
+    {
+        Intent intent = new Intent(context.getPackageName() + ".SHOW_SELECT_RECEIVER");
+        intent.putExtra("requestCode", ConstVal.SHOW_SELECT_ITEM);
+        context.sendBroadcast(intent);
+    }
+
 }

@@ -6,13 +6,13 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableStringBuilder;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -81,8 +81,6 @@ public class SongListActivity extends AppCompatActivity
         initView();
         initData();
         initEvent();
-//        ServiceConnection svcConn = MusicUtil.creatServiceConnection(this);
-//        MusicUtil.bindMusicService(this, svcConn);
     }
 
     private void initView()
@@ -121,6 +119,7 @@ public class SongListActivity extends AppCompatActivity
         tv_title.setText(title);
         String sub;
         list = new ArrayList<>();
+
         if (intent.hasExtra("imgLink"))
         {
             Picasso.with(SongListActivity.this)
@@ -176,6 +175,7 @@ public class SongListActivity extends AppCompatActivity
                 switch (msg.what)
                 {
                     case ConstVal.ADVERT_DETAIL_CODE:
+                        Log.e("TAG", "handleMessage: " + json );
                         SongList songs = new Gson().fromJson(GsonUtil.getJsonArray(json), SongList.class);
                         Picasso.with(SongListActivity.this)
                                .load(songs.getP())
@@ -193,13 +193,12 @@ public class SongListActivity extends AppCompatActivity
                         break;
 
                     case ConstVal.SONGLIST_DETAIL_CODE:
+                        Log.e("TAG", "handleMessage: " + json );
                         list = new Gson().fromJson(GsonUtil.getJsonArray(json),
                                                          new TypeToken<ArrayList<AdvertSong>>(){}.getType());
                         adapter = new ListSongAdapter(SongListActivity.this, list, msg.what);
                         songlist_lv_show.setAdapter(adapter);
 
-                        int authorHeight = getViewHeight(vs_author);
-                        spcHeight = spcHeight - authorHeight;
                         str = null;
                         str = RtfUtil.getRtf(null, "全部歌曲", ConstVal.COLOR_SHALLOWBLACK, 42);
                         str = RtfUtil.getRtf(str, " (共" + adapter.getCount() + "首)", ConstVal.COLOR_GRAY, 36);
@@ -250,20 +249,6 @@ public class SongListActivity extends AppCompatActivity
                         str = RtfUtil.getRtf(str, " (共" + adapter.getCount() + "首)", ConstVal.COLOR_GRAY, 36);
                         tv_play.setText(str, TextView.BufferType.SPANNABLE);
                         break;
-
-//                    case ConstVal.SONGBRIEF_CODE:
-//                        SongBrief song = new Gson().fromJson(json, SongBrief.class);
-//                        String songurl = song.getData().getSqurl();
-//                        if (songurl == null || songurl.equals(""))
-//                        {
-//                            songurl = song.getData().getHqurl();
-//                            if (songurl == null || songurl.equals(""))
-//                            {
-//                                songurl = song.getData().getLqurl();
-//                            }
-//                        }
-//                        MusicService.prepareNetMedia(getApplicationContext(), songurl);
-//                        break;
                 }
                 if (list != null && list.size() > 0)
                 {
@@ -335,6 +320,11 @@ public class SongListActivity extends AppCompatActivity
                 songlist_tv_sub.setText(sub);
                 break;
         }
+        if (vs_author != null)
+        {
+            int authorHeight = getViewHeight(vs_author);
+            spcHeight = spcHeight - authorHeight;
+        }
         songlist_lv_show.addHeaderView(lv_header);
         ViewGroup.LayoutParams lpSpace = lvhdr_space.getLayoutParams();
         lpSpace.height = spcHeight;
@@ -358,26 +348,9 @@ public class SongListActivity extends AppCompatActivity
                 }
                 vsIdx = position;
                 view.findViewById(R.id.itemsong_view).setVisibility(View.VISIBLE);
-//                String songid = null;
-//                String songtype = null;
-//                String imgurl = null;
-//                String songname = null;
-//                String author = null;
-//                Music msc = MusicUtil.convertMusicType(SongListActivity.this, list.get((int) id));
-
-//                Bundle bundle = new Bundle();
-//                bundle.putString("imgurl", msc.getUserimg());
-//                bundle.putString("songid", msc.getSongid());
-//                bundle.putString("songtype", msc.getSongtype());
-//                bundle.putString("songname", msc.getSongname());
-//                bundle.putString("author", msc.getUsername());
-//                String path = ConstVal.GETSONGURL_LINK + "songid=" + msc.getSongid() + "&songtype=" + msc.getSongtype();
-//                Request request = new Request.Builder().url(path).build();
-//                OkHttpUtil.enqueue(SongListActivity.this, hdl, ConstVal.SONGBRIEF_CODE, request);
 
                 MusicData.music_play_idx = (int) id;
-                MusicUtil.sendBroadcast(SongListActivity.this, ConstVal.MUSIC_PLAY_START);
-//                MusicUtil.showNotification(SongListActivity.this, bundle);
+                MusicUtil.playStart(SongListActivity.this);
             }
         });
 
@@ -447,13 +420,25 @@ public class SongListActivity extends AppCompatActivity
             }
         });
 
-        ImageButton ib_back = (ImageButton) header.findViewById(R.id.tit_ib_back);
-        ib_back.setOnClickListener(new View.OnClickListener()
+        header.findViewById(R.id.tit_ib_back).setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
                 finish();
+            }
+        });
+
+        header.findViewById(R.id.tit_ib_msc).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if (MusicData.musicList != null && MusicData.musicList.size() > 0)
+                {
+                    Intent intent = new Intent(SongListActivity.this, MusicDetailActivity.class);
+                    startActivity(intent);
+                }
             }
         });
     }

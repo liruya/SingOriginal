@@ -71,6 +71,7 @@ public class SonglistFragment extends Fragment
         TextView tv_more = (TextView) song_inc_title.findViewById(R.id.recmd_item_more);
         tv_title.setText(R.string.recommend);
         tv_more.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.describe_more, 0);
+        tv_more.setMaxHeight(100);
         tv_more.setBackgroundResource(R.drawable.text_border);
         tv_more.setText(getString(R.string.select_category));
 

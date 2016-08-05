@@ -10,6 +10,8 @@ import android.net.NetworkInfo;
  */
 public class NetUtil
 {
+    private static String netType = null;
+
     public static boolean isNetworkAvailable(Context context)
     {
         ConnectivityManager connectManager
@@ -17,17 +19,26 @@ public class NetUtil
                                                .getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectManager == null)
         {
+            netType = null;
             return false;
         }
         NetworkInfo netInfo = connectManager.getActiveNetworkInfo();
         if (netInfo == null)
         {
+            netType = null;
             return false;
         }
         if (netInfo.getState() == NetworkInfo.State.CONNECTED)
         {
+            netType = netInfo.getTypeName();
             return true;
         }
+        netType = null;
         return false;
+    }
+
+    public static String getNetType()
+    {
+        return netType;
     }
 }

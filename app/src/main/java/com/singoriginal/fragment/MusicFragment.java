@@ -1,6 +1,7 @@
 package com.singoriginal.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -10,8 +11,10 @@ import android.view.ViewGroup;
 import android.widget.RadioGroup;
 
 import com.singoriginal.R;
+import com.singoriginal.activity.MusicDetailActivity;
 import com.singoriginal.adapter.MusicAdapter;
 import com.singoriginal.constant.ConstVal;
+import com.singoriginal.model.MusicData;
 
 import java.util.ArrayList;
 
@@ -61,6 +64,19 @@ public class MusicFragment extends Fragment
                     case R.id.hdr_rb_third:
                         msc_vp_show.setCurrentItem(2);
                         break;
+                }
+            }
+        });
+
+        incView.findViewById(R.id.hdr_ib_music).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if (MusicData.musicList != null && MusicData.musicList.size() > 0)
+                {
+                    Intent intent = new Intent(getContext(), MusicDetailActivity.class);
+                    startActivity(intent);
                 }
             }
         });

@@ -1,6 +1,7 @@
 package com.singoriginal.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -11,8 +12,10 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.singoriginal.R;
+import com.singoriginal.activity.MusicDetailActivity;
 import com.singoriginal.constant.CommanVal;
 import com.singoriginal.constant.ConstVal;
+import com.singoriginal.model.MusicData;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +48,18 @@ public class MyFragment extends Fragment {
         incView.findViewById(R.id.hdr_rb_third).setVisibility(View.GONE);
         int color = CommanVal.isLogin ? ConstVal.COLOR_HYALINE : ConstVal.COLOR_DARKGREEN;
         incView.setBackgroundColor(color);
+        incView.findViewById(R.id.hdr_ib_music).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if (MusicData.musicList != null && MusicData.musicList.size() > 0)
+                {
+                    Intent intent = new Intent(getContext(), MusicDetailActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
         Toast.makeText(getContext(), CommanVal.isLogin + "", Toast.LENGTH_SHORT).show();
         //"我的"主体页面
         FragmentTransaction beginTransaction = getActivity().getSupportFragmentManager()
