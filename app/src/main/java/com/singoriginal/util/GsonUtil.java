@@ -40,7 +40,7 @@ public class GsonUtil {
                                 if (dat.startsWith("{") && dat.endsWith("}"))
                                 {
                                     JSONObject jobj = new JSONObject(dat);
-                                    String js = null;
+                                    String js = dat;
                                     if (jobj.has(ConstVal.SONGS))
                                     {
                                         js = jobj.getString(ConstVal.SONGS);

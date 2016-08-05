@@ -46,7 +46,9 @@
         <activity android:name=".activity.AboutActivity" />
         <activity android:name=".activity.HelpCenterActivity" />
         <activity android:name=".activity.FeedbackActivity" />
-        <activity android:name=".activity.RealAuthenticationActivity"></activity>
+        <activity android:name=".activity.RealAuthenticationActivity" />
+        <activity android:name=".activity.SearchActivity" />
+        <activity android:name=".activity.HeadIconActivity"></activity>
     </application>
 
 </manifest>

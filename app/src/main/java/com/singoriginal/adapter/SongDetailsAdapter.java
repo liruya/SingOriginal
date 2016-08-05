@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.singoriginal.R;
+import com.singoriginal.activity.HeadIconActivity;
 import com.singoriginal.activity.SongCommentActivity;
 import com.singoriginal.constant.ConstVal;
 import com.singoriginal.model.Channel;
@@ -71,6 +72,17 @@ public class SongDetailsAdapter extends RecyclerView.Adapter<SongDetailsAdapter.
                 .placeholder(R.mipmap.default_image)
                 .error(R.mipmap.default_image)
                 .into(holder.item_song_icon);
+
+        holder.item_song_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, HeadIconActivity.class);
+                intent.putExtra("SIM", dataList.get(position).getSIM());
+                intent.putExtra("SU", dataList.get(position).getSU());
+                intent.putExtra("SUID", dataList.get(position).getSUID());
+                context.startActivity(intent);
+            }
+        });
 
         holder.item_song_llDown.setOnClickListener(new View.OnClickListener() {
             @Override

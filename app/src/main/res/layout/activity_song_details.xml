@@ -82,6 +82,7 @@
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/song_details_header"
         android:fadingEdge="none"
+        android:fillViewport="true"
         android:overScrollMode="never"
         android:scrollbars="none">
 

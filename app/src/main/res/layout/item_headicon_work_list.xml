@@ -15,7 +15,7 @@
         android:paddingTop="5dp">
 
         <View
-            android:id="@+id/itemsong_view"
+            android:id="@+id/item_headWork_view"
             android:layout_width="5dp"
             android:layout_height="match_parent"
             android:background="@color/colorDarkGreen"
@@ -30,33 +30,31 @@
             android:padding="5dp">
 
             <TextView
-                android:id="@+id/itemsong_tv_title"
+                android:id="@+id/item_headWork_songName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:lines="1"
                 android:padding="2dp"
-                android:text="title"
+                android:text="@string/songName"
                 android:textColor="@color/colorShallowBlack"
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/itemsong_tv_athor"
+                android:id="@+id/item_headWork_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:lines="1"
                 android:padding="2dp"
-                android:text="author"
-                android:textColor="@color/colorGray"
+                android:text="@string/time"
                 android:textSize="12sp" />
         </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/itemsong_ib_more"
+        <ImageView
+            android:id="@+id/item_headWork_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorHyaline"
             android:focusable="false"
             android:padding="10dp"
             android:scaleType="fitXY"

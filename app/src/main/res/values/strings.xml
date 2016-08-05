@@ -172,5 +172,10 @@
     <string name="isExitAccount">是否退出当前账号?</string>
     <string name="isClearCache">确定清除缓存?</string>
     <string name="isExitCommit">填了这么多 , 真的放弃提交吗?</string>
+    <string name="search">搜索</string>
+    <string name="searchRecord">搜索记录</string>
+    <string name="searchKey">搜索关键词</string>
+    <string name="headIconSong">这家伙很懒 , 还没有制作歌词哦</string>
+    <string name="reply">回复</string>
 
 </resources>
