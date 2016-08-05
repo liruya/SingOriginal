@@ -155,33 +155,33 @@ public class HeadIconActivity extends AppCompatActivity {
                         String json = (String) msg.obj;
                         HeadIconInfo infoList = new Gson().fromJson(GsonUtil.getJsonArray(json), HeadIconInfo.class);
 
-//                        info_page1_attention.setText(infoList.getTFD() + "");
-//                        info_page1_fans.setText(infoList.getTFS() + "");
+                        info_page1_attention.setText(infoList.getTFD() + "");
+                        info_page1_fans.setText(infoList.getTFS() + "");
 
-//                        Picasso.with(HeadIconActivity.this).load(infoList.getUBG())
-//                                .placeholder(R.mipmap.loading_picture216x150)
-//                                .error(R.mipmap.loading_picture216x150).into(new Target() {
-//                            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-//                            @Override
-//                            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-//                                headIcon_viewPager.setBackground(new BitmapDrawable(bitmap));
-//                            }
-//
-//                            @Override
-//                            public void onBitmapFailed(Drawable errorDrawable) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onPrepareLoad(Drawable placeHolderDrawable) {
-//
-//                            }
-//                        });
-//
-//                        if (infoList.getC() != null)
-//                            info_page2_city.setText("城市 : " + infoList.getC());
-//                        if (infoList.getM() != null)
-//                            info_page2_summary.setText("简介 : " + infoList.getM());
+                        Picasso.with(HeadIconActivity.this).load(infoList.getUBG())
+                                .placeholder(R.mipmap.loading_picture216x150)
+                                .error(R.mipmap.loading_picture216x150).into(new Target() {
+                            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+                            @Override
+                            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                                headIcon_viewPager.setBackground(new BitmapDrawable(bitmap));
+                            }
+
+                            @Override
+                            public void onBitmapFailed(Drawable errorDrawable) {
+
+                            }
+
+                            @Override
+                            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                            }
+                        });
+
+                        if (infoList.getC() != null)
+                            info_page2_city.setText("城市 : " + infoList.getC());
+                        if (infoList.getM() != null)
+                            info_page2_summary.setText("简介 : " + infoList.getM());
 
                         break;
                 }

@@ -67,6 +67,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginTop="5dp"
             android:autoLink="all"
+            android:ellipsize="end"
             android:text="@string/content"
             android:textColor="@color/colorBlack"
             android:textColorLink="@color/colorDarkGreen"
