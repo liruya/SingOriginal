@@ -67,7 +67,6 @@ public class ChannelInfoFragment extends Fragment {
                 intent.putExtra("NA", dataList.get(position).getNA());
                 intent.putExtra("NU", dataList.get(position).getNU());
                 intent.putExtra("LI", dataList.get(position).getLI());
-                Log.i("info", ConstVal.SONG_DETAILS_HTTP_PATH + dataList.get(position).getID() + "&version=" + ConstVal.VERSION2);
                 getContext().startActivity(intent);
             }
         });

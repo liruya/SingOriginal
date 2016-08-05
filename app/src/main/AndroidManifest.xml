@@ -23,6 +23,7 @@
         </activity>
         <activity
             android:name=".activity.IndexActivity"
+
             android:theme="@style/Theme.AppCompat.NoActionBar">
         </activity>
         <activity android:name=".activity.WebActivity">
@@ -48,11 +49,21 @@
         <activity android:name=".activity.MusicianActivity">
         </activity>
         <activity android:name=".activity.SongCommentActivity" />
-
         <service android:name=".service.MusicService" />
         <activity android:name=".activity.MusicDetailActivity"
             android:launchMode="singleInstance">
         </activity>
+        <activity android:name=".activity.AlterActivity" />
+        <activity android:name=".activity.BindActivity" />
+        <activity android:name=".activity.QualitySelectActivity" />
+        <activity android:name=".activity.CopyrightActivity" />
+        <activity android:name=".activity.AboutActivity" />
+        <activity android:name=".activity.HelpCenterActivity" />
+        <activity android:name=".activity.FeedbackActivity" />
+        <activity android:name=".activity.RealAuthenticationActivity" />
+        <activity android:name=".activity.SearchActivity" />
+        <activity android:name=".activity.HeadIconActivity"></activity>
+>>>>>>> c2ae16e6a4095a4d6e108e74293952f908d2acb0
     </application>
 
 </manifest>

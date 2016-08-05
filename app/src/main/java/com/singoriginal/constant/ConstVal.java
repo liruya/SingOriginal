@@ -15,6 +15,7 @@ public class ConstVal {
     public static final int COLOR_DARKGREEN = 0xFF00BB9C;
     public static final int COLOR_HYALINE = 0x00FFFFFF;
     public static final int COLOR_GRAY = 0xFFA9B7B7;
+    public static final int COLOR_BLACK = 0xFF000000;
     public static final int COLOR_SHALLOWBLACK = 0xFF333333;
     public static final int COLOR_LIGHT_BLACK = 0x55000000;
 
@@ -116,6 +117,14 @@ public class ConstVal {
     public static final String DYNAMIC_NEW_HTTP_PATH = "http://mobileapi.5sing.kugou.com/message/square?ordering=0&pageindex=0&pagesize=20";
     public static final String DYNAMIC_HTTP_PARAM = "&fields=ID%2CNN%2CI%2CB%2CP%2CC%2CSX%2CE%2CM%2CVT%2CCT%2CTYC%2CTFC%2CTBZ%2CTFD%2CTFS%2CSC%2CDJ";
     public static final String SONG_DETAILS_HTTP_PATH = "http://mobileapi.5sing.kugou.com/channel/song?limit=20&offset=0&cid=";
+    public static final String HEADICON_INFO_HTTP_PATH = "http://mobileapi.5sing.kugou.com/user/get?userid=";
+    public static final String HEADICON_INFO_HTTP_PARAM1 = "&fields=ID";
+    public static final String HEADICON_INFO_HTTP_PARAM2 = "%2CNN%2CI%2CVT%2CTYC%2CTFC%2CTBZ%2CM%2CTFD%2CTFS%2CYCRQ%2CFCRQ%2CSC%2CBG%2CCC%2CDJ%2CSX%2CP%2CC%2CVG%2CAU%2CSR%2CSG%2CRC%2CMC%2CISC%2CF%2CUBG";
+    public static final String HEADICON_WORK_HTTP_PATH = "http://mobileapi.5sing.kugou.com/song/user?userid=";
+    public static final String HEADICON_WORK_HTTP_PARAM1 = "&pageindex=1&pagesize=20&songfields=ID";
+    public static final String HEADICON_WORK_HTTP_PARAM2 = "%2CSN%2CSK%2CUID%2CST%2CDD%2CCT%2CGD%2CKM5&userfields=ID%2CNN%2CI";
+    public static final String HEADICON_MESSAGE_HTTP_PATH = "http://mobileapi.5sing.kugou.com/comments/list?maxId=0&limit=20&rootId=";
+    public static final String HEADICON_MESSAGE_HTTP_PARAM = "&rootKind=guestBook&fields=ID%2CNN%2CI";
 
     public static final String VERSION2 = "6.2.2";
 

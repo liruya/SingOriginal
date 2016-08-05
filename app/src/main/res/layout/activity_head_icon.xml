@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/headIcon_viewPager_up"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorHyaline" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/headIcon_viewPager_up"
+        android:layout_marginBottom="6dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/headIcon_pointLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:src="@mipmap/dot_f" />
+
+        <ImageView
+            android:id="@+id/headIcon_pointRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:src="@mipmap/dot_n" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/headIcon_viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/colorHyaline" />
+
+            <include
+                android:id="@+id/headIcon_scroll"
+                layout="@layout/item_head_icon"
+                android:layout_width="match_parent"
+                android:layout_height="800dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <include
+        android:id="@+id/headIcon_title"
+        layout="@layout/view_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
+
+    <ViewStub
+        android:id="@+id/headIcon_viewStub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/headIcon_title"
+        android:layout="@layout/item_headicon_tab" />
+
+    <!--<ScrollView-->
+    <!--android:id="@+id/headIcon_scrollView"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_below="@id/headIcon_title"-->
+    <!--android:clickable="false"-->
+    <!--android:fillViewport="true"-->
+    <!--android:focusable="false"-->
+    <!--android:focusableInTouchMode="false"-->
+    <!--android:nextFocusDown="@+id/headIcon_viewPager_up">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:clickable="false"-->
+    <!--android:focusable="false"-->
+    <!--android:focusableInTouchMode="false"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<Space-->
+    <!--android:id="@+id/headIcon_space"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="145dp"-->
+    <!--android:visibility="invisible" />-->
+
+    <!--</LinearLayout>-->
+
+    <!--</ScrollView>-->
+
+</RelativeLayout>

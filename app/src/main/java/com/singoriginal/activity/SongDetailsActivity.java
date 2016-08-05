@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Space;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -42,6 +43,7 @@ public class SongDetailsActivity extends AppCompatActivity {
     private SongDetailsAdapter adapter;
     private ImageView song_details_icon;
     private LinearLayout song_details_ll;
+    private LinearLayout song_details_attentionLL;
     private RadioButton tv_second;
     private Space song_details_space;
     private TextView song_details_few;
@@ -129,10 +131,18 @@ public class SongDetailsActivity extends AppCompatActivity {
                 finish();
             }
         });
+        song_details_attentionLL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(SongDetailsActivity.this, "可以点击", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void initView() {
 
+        song_details_attentionLL = (LinearLayout) findViewById(R.id.song_details_attentionLL);
         song_details_icon = (ImageView) findViewById(R.id.song_details_icon);
         song_details_ll = (LinearLayout) findViewById(R.id.song_details_ll);
         song_details_space = (Space) findViewById(R.id.song_details_space);

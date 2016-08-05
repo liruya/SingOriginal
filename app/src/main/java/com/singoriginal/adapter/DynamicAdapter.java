@@ -105,9 +105,9 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.ViewHold
 
         //判断获取内容的行数
         if (content.getContent() != null && !content.getContent().equals("")) {
-//            int lines = holder.item_dynamic_content.getLineCount();// 无用
             holder.item_dynamic_content.setText(content.getContent());
             if (content.getContent().trim().length() > 80) {
+                holder.item_dynamic_content.setEllipsize(TextUtils.TruncateAt.END);
                 holder.item_dynamic_content.setLines(3);
                 holder.item_dynamic_more.setVisibility(View.VISIBLE);
             } else
@@ -122,6 +122,7 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.ViewHold
                 holder.item_dynamic_content.setText(content.getContent());
                 holder.item_dynamic_more.setVisibility(View.GONE);
                 int lines = holder.item_dynamic_content.getLineCount();
+                holder.item_dynamic_content.setEllipsize(TextUtils.TruncateAt.END);
                 holder.item_dynamic_content.setLines(lines);
                 holder.item_dynamic_shrink.setVisibility(View.VISIBLE);
             }

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorLightGray"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/quality_select_header"
+        layout="@layout/view_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/selectOnline" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="8dp"
+        android:background="@color/colorDarkerGray" />
+
+    <RadioGroup
+        android:id="@+id/quality_rg_online"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/quality_rb_onlineAutomatic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:padding="8dp"
+            android:text="@string/automaticSelect"
+            android:textColor="@drawable/selector_quality_text" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="8dp"
+            android:background="@color/colorDarkerGray" />
+
+        <RadioButton
+            android:id="@+id/quality_rb_onlineSmooth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:padding="8dp"
+            android:text="@string/smoothQuality"
+            android:textColor="@drawable/selector_quality_text" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="8dp"
+            android:background="@color/colorDarkerGray" />
+
+        <RadioButton
+            android:id="@+id/quality_rb_onlineClear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:padding="8dp"
+            android:text="@string/clearQuality"
+            android:textColor="@drawable/selector_quality_text" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="8dp"
+            android:background="@color/colorDarkerGray" />
+
+        <RadioButton
+            android:id="@+id/quality_rb_onlineLive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:padding="8dp"
+            android:text="@string/liveQuality"
+            android:textColor="@drawable/selector_quality_text" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="8dp"
+            android:background="@color/colorDarkerGray" />
+
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/selectDefault" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="8dp"
+        android:background="@color/colorDarkerGray" />
+
+    <RadioGroup
+        android:id="@+id/quality_rg_default"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
+
+
+        <RadioButton
+            android:id="@+id/quality_rb_defaultAutomatic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:padding="8dp"
+            android:text="@string/automaticSelect"
+            android:textColor="@drawable/selector_quality_text" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="8dp"
+            android:background="@color/colorDarkerGray" />
+
+        <RadioButton
+            android:id="@+id/quality_rb_defaultSmooth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:padding="8dp"
+            android:text="@string/smoothQuality"
+            android:textColor="@drawable/selector_quality_text" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="8dp"
+            android:background="@color/colorDarkerGray" />
+
+        <RadioButton
+            android:id="@+id/quality_rb_defaultClear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:padding="8dp"
+            android:text="@string/clearQuality"
+            android:textColor="@drawable/selector_quality_text" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="8dp"
+            android:background="@color/colorDarkerGray" />
+
+        <RadioButton
+            android:id="@+id/quality_rb_defaultLive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:padding="8dp"
+            android:text="@string/liveQuality"
+            android:textColor="@drawable/selector_quality_text" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="8dp"
+            android:background="@color/colorDarkerGray" />
+
+    </RadioGroup>
+
+</LinearLayout>

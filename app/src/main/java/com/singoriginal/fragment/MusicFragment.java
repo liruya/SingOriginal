@@ -8,10 +8,12 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.RadioGroup;
 
 import com.singoriginal.R;
 import com.singoriginal.activity.MusicDetailActivity;
+import com.singoriginal.activity.SearchActivity;
 import com.singoriginal.adapter.MusicAdapter;
 import com.singoriginal.constant.ConstVal;
 import com.singoriginal.model.MusicData;
@@ -21,38 +23,39 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MusicFragment extends Fragment
-{
+public class MusicFragment extends Fragment {
     private ArrayList<Fragment> frags;
     private MusicAdapter mscAdapter;
+    private ImageButton imageSearch;
+    private ImageButton imageMusic;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
-    {
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_music, null);
 
         initView(view);
+        initEvent();
         return view;
     }
 
     /**
      * music页面组件初始化
+     *
      * @param view
      */
-    private void initView(View view)
-    {
+    private void initView(View view) {
         View incView = view.findViewById(R.id.msc_inc_hdr);
         incView.setBackgroundColor(ConstVal.COLOR_DARKGREEN);
+        imageSearch = (ImageButton) incView.findViewById(R.id.hdr_ib_srch);
+        imageMusic = (ImageButton) incView.findViewById(R.id.hdr_ib_music);
         final RadioGroup hdr_rg_show = (RadioGroup) incView.findViewById(R.id.hdr_rg_show);
         final ViewPager msc_vp_show = (ViewPager) view.findViewById(R.id.msc_vp_show);
         msc_vp_show.setOffscreenPageLimit(0);
-        hdr_rg_show.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-        {
+        hdr_rg_show.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId)
-            {
-                switch (checkedId)
-                {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
                     case R.id.hdr_rb_first:
                         msc_vp_show.setCurrentItem(0);
                         break;
@@ -81,19 +84,15 @@ public class MusicFragment extends Fragment
             }
         });
 
-        msc_vp_show.addOnPageChangeListener(new ViewPager.OnPageChangeListener()
-        {
+        msc_vp_show.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
-            {
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
 
             @Override
-            public void onPageSelected(int position)
-            {
-                switch (position)
-                {
+            public void onPageSelected(int position) {
+                switch (position) {
                     case 0:
                         hdr_rg_show.check(R.id.hdr_rb_first);
                         break;
@@ -109,8 +108,7 @@ public class MusicFragment extends Fragment
             }
 
             @Override
-            public void onPageScrollStateChanged(int state)
-            {
+            public void onPageScrollStateChanged(int state) {
 
             }
         });
@@ -127,8 +125,19 @@ public class MusicFragment extends Fragment
         msc_vp_show.setAdapter(mscAdapter);
     }
 
-    private void initEvent()
-    {
-    }
+    private void initEvent() {
+        imageSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), SearchActivity.class);
+                getContext().startActivity(intent);
+            }
+        });
+        imageMusic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
+    }
 }
