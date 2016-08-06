@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableStringBuilder;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -175,7 +174,6 @@ public class SongListActivity extends AppCompatActivity
                 switch (msg.what)
                 {
                     case ConstVal.ADVERT_DETAIL_CODE:
-                        Log.e("TAG", "handleMessage: " + json );
                         SongList songs = new Gson().fromJson(GsonUtil.getJsonArray(json), SongList.class);
                         Picasso.with(SongListActivity.this)
                                .load(songs.getP())
@@ -193,7 +191,6 @@ public class SongListActivity extends AppCompatActivity
                         break;
 
                     case ConstVal.SONGLIST_DETAIL_CODE:
-                        Log.e("TAG", "handleMessage: " + json );
                         list = new Gson().fromJson(GsonUtil.getJsonArray(json),
                                                          new TypeToken<ArrayList<AdvertSong>>(){}.getType());
                         adapter = new ListSongAdapter(SongListActivity.this, list, msg.what);

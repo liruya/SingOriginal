@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">SingOriginal</string>
 
+    <string name="place_holder">占位</string>
+
     <string name="music_lib">乐库</string>
     <string name="channel">频道</string>
     <string name="dynamic">动态</string>

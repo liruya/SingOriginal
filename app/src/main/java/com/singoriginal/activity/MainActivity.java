@@ -20,6 +20,7 @@ import com.singoriginal.util.MusicUtil;
 public class MainActivity extends FragmentActivity {
     private FrameLayout main_fl_show;
     private RadioGroup main_rg_show;
+    private ServiceConnection svcConn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,6 @@ public class MainActivity extends FragmentActivity {
     protected void onResume()
     {
         super.onResume();
-        initService();
     }
 
     /**
@@ -60,7 +60,7 @@ public class MainActivity extends FragmentActivity {
 
     private void initService()
     {
-        ServiceConnection svcConn = MusicUtil.creatServiceConnection(this);
+        svcConn = MusicUtil.creatServiceConnection(this);
         MusicUtil.bindMusicService(this, svcConn);
     }
 

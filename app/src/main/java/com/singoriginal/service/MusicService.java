@@ -17,7 +17,6 @@ import android.os.IBinder;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.NotificationCompat;
-import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.google.gson.Gson;
@@ -134,7 +133,6 @@ public class MusicService extends Service
                         break;
 
                     case ConstVal.GET_CURRENT_MUSIC_DETAIL:
-                        Log.e("TAG", "handleMessage: " + json );
                         MusicData.currentMusicDetail = new Gson().fromJson(json, MusicDetail.class);
                         Intent intent = new Intent(getPackageName() + ".DETAIL_RECEIVER");
                         intent.putExtra("requestCode", ConstVal.DETAIL_UPDATE);
