@@ -11,6 +11,7 @@ public class ConstVal {
     public static int SCREEN_WIDTH;
     public static int SCREEN_HEIGHT;
     //颜色值 ARGB格式
+    public static final int COLOR_WHITE = 0xFFFFFFFF;
     public static final int COLOR_DARKGREEN = 0xFF00BB9C;
     public static final int COLOR_HYALINE = 0x00FFFFFF;
     public static final int COLOR_GRAY = 0xFFA9B7B7;
@@ -42,6 +43,8 @@ public class ConstVal {
     public static final String NEW_MUSICIAN_LINK
             = "http://mobileapi.5sing.kugou.com/musician/latestList?songfields=ID%2CSN%2CSK%2CSW%2CSS%2CST%2CSI%2CCT%2CM%2CS%2CZQ%2CWO%2CZC%2CHY%2CYG%2CCK%2CD%2CRQ%2CDD%2CE%2CR%2CRC%2CSG%2CC%2CCS%2CLV%2CLG%2CSY%2CUID%2CPT%2CSCSR%2CSC&pageindex=1&pagesize=8";
     public static final String GETSONGURL_LINK = "http://mobileapi.5sing.kugou.com/song/getSongUrl?";
+    public static final String GETCURRENTDETAIL_LINK
+            = "http://mobileapi.5sing.kugou.com/song/newget?songfields=ID%2CSN%2CSK%2CSW%2CSS%2CST%2CSI%2CCT%2CM%2CS%2CZQ%2CWO%2CZC%2CHY%2CYG%2CCK%2CD%2CRQ%2CDD%2CE%2CR%2CRC%2CSG%2CC%2CCS%2CLV%2CLG%2CSY%2CUID%2CPT%2CSCSR%2CSC&userfields=ID%2CNN%2CI%2CYCRQ%2CFCRQ";
 
     /*id=yc&pagesize=20&pageindex=1*/
     /*&limit=20&maxid=0" pagesize=20&page=1*/
@@ -69,6 +72,7 @@ public class ConstVal {
     public static final int RANKPOP_CODE = 0x1044;
     public static final int DAILYRECMD_CODE = 0x1014;
     public static final int MUSICIAN_CODE = 0x1013;
+    public static final int SONGBRIEF_CODE = 0x1100;
 
     public static final int PAGESIZE = 20;
 
@@ -127,4 +131,32 @@ public class ConstVal {
     public static final int CHANNEL_CODE = 0x201;
 
     public static final int NOTIFY_SHOW = 0x10;
+
+    //播放/暂停切换,下一首,上一首命令码
+    public static final int MUSIC_PLAY_START = 0x10;
+    public static final int MUSIC_PLAY_TOGGLE = 0x11;
+    public static final int MUSIC_PLAY_NEXT = 0x12;
+    public static final int MUSIC_PLAY_PREV = 0x13;
+    public static final int MUSIC_PLAY_CLOSE = 0x14;
+    public static final int GET_CURRENT_MUSIC_DETAIL = 0x15;
+    public static final int SET_PLAY_POSITIN = 0x16;
+    public static final int GET_CURRENT_MUSIC_DURATION = 0x17;
+    //音乐播放模式:列表循环,单曲循环,顺序播放,随机播放
+    public static final int PLAY_MODE_LIST_LOOP = 0x20;
+    public static final int PLAY_MODE_SINGLE_LOOP = 0x21;
+    public static final int PLAY_MODE_RANDOM = 0x22;
+    //音乐播放状态:
+    public static final int PLAY_STATE_PREPARE = 0x30;
+    public static final int PLAY_STATE_PLAYING = 0x31;
+    public static final int PLAY_STATE_PAUSE = 0x32;
+    //音乐类型:
+    public static final int MUSIC_TYPE_NET = 0x40;
+    public static final int MUSIC_TYPE_LOCAL = 0x41;
+
+    public static final int DETAIL_UPDATE = 0x201;
+    public static final int DETAIL_PROGRESS = 0x202;
+    public static final int DETAIL_DURATION = 0x203;
+    public static final int DETAIL_STATE = 0x204;
+
+    public static final int SHOW_SELECT_ITEM = 0x301;
 }

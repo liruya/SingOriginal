@@ -61,6 +61,7 @@ public class SongBrief
 
     public static class Data
     {
+        private int songid;
         private String songtype;
         private String squrl;
         private int sqsize;
@@ -78,6 +79,7 @@ public class SongBrief
                     String lqext,
                     int lqsize,
                     String lqurl,
+                    int songid,
                     String songtype,
                     String sqext,
                     int sqsize,
@@ -89,10 +91,21 @@ public class SongBrief
             this.lqext = lqext;
             this.lqsize = lqsize;
             this.lqurl = lqurl;
+            this.songid = songid;
             this.songtype = songtype;
             this.sqext = sqext;
             this.sqsize = sqsize;
             this.squrl = squrl;
+        }
+
+        public int getSongid()
+        {
+            return songid;
+        }
+
+        public void setSongid(int songid)
+        {
+            this.songid = songid;
         }
 
         public String getHqext()

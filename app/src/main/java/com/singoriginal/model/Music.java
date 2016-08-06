@@ -17,8 +17,8 @@ public class Music
                  String songname,
                  String songtype,
                  int userid,
-                 String userimg,
-                 String username)
+                 String username,
+                 String userimg)
     {
         this.songid = songid;
         this.songname = songname;

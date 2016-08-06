@@ -31,6 +31,7 @@ import okhttp3.Request;
  */
 public class ToplistFragment extends Fragment
 {
+    private static boolean isDataLoaded;
     private RecyclerView top_rv_show;
     private ArrayList<TopRank> tops;
     private TopRankAdapter adapter;
@@ -44,7 +45,10 @@ public class ToplistFragment extends Fragment
         {
             view = inflater.inflate(R.layout.fragment_toplist, null);
             initView(view);
-            initData();
+            if (!isDataLoaded)
+            {
+                initData();
+            }
         }
         else
         {
