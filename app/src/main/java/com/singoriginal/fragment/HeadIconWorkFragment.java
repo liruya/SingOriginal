@@ -63,6 +63,7 @@ public class HeadIconWorkFragment extends Fragment {
     private ArrayList<HeadIconWork.Data> workList;
 
     private String SUID;
+    private boolean isPress = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,8 +76,59 @@ public class HeadIconWorkFragment extends Fragment {
 
         initView(view);
         setData();
+        initEvent();
 
         return view;
+    }
+
+    private void initEvent() {
+
+        //点击是否显示歌曲类型栏
+        headIcon_work_ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (isPress) {
+                    headIcon_work_rg.setVisibility(View.VISIBLE);
+                    headIcon_work_bracket.setImageResource(R.mipmap.visitor_zp_select_up);
+                } else {
+                    headIcon_work_rg.setVisibility(View.GONE);
+                    headIcon_work_bracket.setImageResource(R.mipmap.visitor_zp_select_down);
+                }
+
+                isPress = !isPress;
+            }
+        });
+
+        headIcon_work_rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.headIcon_work_rbOriginal:
+                        headIcon_work_tv.setText("原创");
+                        //创建OkHttpClient请求
+                        final Request request = new Request.Builder().url(ConstVal.HEADICON_WORK_HTTP_PATH + SUID + "&songtype=" + "yc" +
+                                ConstVal.HEADICON_WORK_HTTP_PARAM1 + ConstVal.HEADICON_WORK_HTTP_PARAM2).build();
+                        OkHttpUtil.enqueue(getContext(), handler, ConstVal.ADVERT_CODE, request);
+                        break;
+                    case R.id.headIcon_work_rbCover:
+                        headIcon_work_tv.setText("翻唱");
+                        //创建OkHttpClient请求
+                        final Request request2 = new Request.Builder().url(ConstVal.HEADICON_WORK_HTTP_PATH + SUID + "&songtype=" + "fc" +
+                                ConstVal.HEADICON_WORK_HTTP_PARAM1 + ConstVal.HEADICON_WORK_HTTP_PARAM2).build();
+                        OkHttpUtil.enqueue(getContext(), handler, ConstVal.ADVERT_CODE, request2);
+                        break;
+                    case R.id.headIcon_work_rbAccompaniment:
+                        headIcon_work_tv.setText("伴奏");
+                        //创建OkHttpClient请求
+                        final Request request3 = new Request.Builder().url(ConstVal.HEADICON_WORK_HTTP_PATH + SUID + "&songtype=" + "bz" +
+                                ConstVal.HEADICON_WORK_HTTP_PARAM1 + ConstVal.HEADICON_WORK_HTTP_PARAM2).build();
+                        OkHttpUtil.enqueue(getContext(), handler, ConstVal.ADVERT_CODE, request3);
+                        break;
+                }
+            }
+        });
+        headIcon_work_rg.check(R.id.headIcon_work_rbCover);
     }
 
     private void initView(View view) {
@@ -114,11 +166,6 @@ public class HeadIconWorkFragment extends Fragment {
                 }
             }
         };
-
-        //创建OkHttpClient请求
-        final Request request = new Request.Builder().url(ConstVal.HEADICON_WORK_HTTP_PATH + SUID + "&songtype=" + "fc" +
-                ConstVal.HEADICON_WORK_HTTP_PARAM1 + ConstVal.HEADICON_WORK_HTTP_PARAM2).build();
-        OkHttpUtil.enqueue(getContext(), handler, ConstVal.ADVERT_CODE, request);
 
     }
 

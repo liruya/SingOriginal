@@ -15,8 +15,8 @@ public class HeadIconInfo {
     private String M;
     private int TFD;
     private int TFS;
-    private int YCRQ;
-    private int FCRQ;
+    private long YCRQ;
+    private long FCRQ;
     private int SC;
     private String BG;
     private int CC;
@@ -114,19 +114,19 @@ public class HeadIconInfo {
         this.TFS = TFS;
     }
 
-    public int getYCRQ() {
+    public long getYCRQ() {
         return YCRQ;
     }
 
-    public void setYCRQ(int YCRQ) {
+    public void setYCRQ(long YCRQ) {
         this.YCRQ = YCRQ;
     }
 
-    public int getFCRQ() {
+    public long getFCRQ() {
         return FCRQ;
     }
 
-    public void setFCRQ(int FCRQ) {
+    public void setFCRQ(long FCRQ) {
         this.FCRQ = FCRQ;
     }
 

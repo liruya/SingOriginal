@@ -26,7 +26,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/colorGray" />
+        android:background="@color/colorLightGray" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/headIcon_viewPager_down"

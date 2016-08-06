@@ -64,17 +64,16 @@ public class HeadIconActivity extends AppCompatActivity {
     private View incView;
     private View headIconView;
     private ArrayList<View> list;//上方的viewpager中的view集合
-    private ViewPager headIcon_viewPager_up;//上方的viewpager
+    private ViewPager headIcon_viewPager;
     private HeadIconVpAdapter vpAdapter;//上方viewPager的adapter
     private List<String> LoList;//tabLayout上的文字集合
     private List<Fragment> fragments;//下方viewpager中的view集合，加入fragment
     private ViewPager headIcon_viewPager_down;//下方的viewpager
-    private ImageView headIcon_pointLeft;
-    private ImageView headIcon_pointRight;
     private TabLayout headIcon_tabLayout;
     private ViewStub headIcon_viewStub;
 
-    private ViewPager headIcon_viewPager;
+    private ImageView headIcon_iv_background;
+
 
     private ImageView info_iv_usr;
     private TextView info_tv_id;
@@ -101,7 +100,6 @@ public class HeadIconActivity extends AppCompatActivity {
         infoUrl = ConstVal.HEADICON_INFO_HTTP_PATH + SUID +
                 ConstVal.HEADICON_INFO_HTTP_PARAM1 + ConstVal.HEADICON_INFO_HTTP_PARAM2 + "&version=" + ConstVal.VERSION2;
 
-        Log.i("info", infoUrl);
         initView();
         initData();
         setDataToView();
@@ -120,8 +118,8 @@ public class HeadIconActivity extends AppCompatActivity {
         fragments = new ArrayList<Fragment>();
 
         fragments.add(NewInstanceOne(SUID));
-        fragments.add(NewInstanceTwo(SUID));
-        fragments.add(new HeadIconMessageFragment());
+        fragments.add(new HeadIconSongFragment());
+        fragments.add(HeadIconMessageFragment.NewInstanceTwo(SUID));
 
         String[] text = {"作品", "歌单", "留言板"};
 
@@ -132,13 +130,13 @@ public class HeadIconActivity extends AppCompatActivity {
             LoList.add(text[i]);
         }
 
-//        int iconHight = getViewHeight(headIcon_viewPager_up);
-//        int llHight = getViewHeight(incView);
-//        int spHight = iconHight - llHight;
-//        //创建一个layoutparams对象
-//        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) headIcon_space.getLayoutParams();
-//        linearParams.height = spHight;
-//        headIcon_space.setLayoutParams(linearParams);
+        int iconHight = getViewHeight(headIcon_iv_background);
+        int llHight = getViewHeight(incView);
+        int spHight = iconHight - llHight + 61;
+        //创建一个layoutparams对象
+        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) headIcon_viewPager.getLayoutParams();
+        linearParams.height = spHight;
+        headIcon_viewPager.setLayoutParams(linearParams);
 
         Picasso.with(this).load(SIM)
                 .placeholder(R.mipmap.default_image)
@@ -160,28 +158,34 @@ public class HeadIconActivity extends AppCompatActivity {
 
                         Picasso.with(HeadIconActivity.this).load(infoList.getUBG())
                                 .placeholder(R.mipmap.loading_picture216x150)
-                                .error(R.mipmap.loading_picture216x150).into(new Target() {
-                            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-                            @Override
-                            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                                headIcon_viewPager.setBackground(new BitmapDrawable(bitmap));
-                            }
+                                .error(R.mipmap.loading_picture216x150).into(headIcon_iv_background);
 
-                            @Override
-                            public void onBitmapFailed(Drawable errorDrawable) {
-
-                            }
-
-                            @Override
-                            public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-                            }
-                        });
+//                        //解析viewpager的背景图片
+//                        Picasso.with(HeadIconActivity.this).load(infoList.getUBG())
+//                                .placeholder(R.mipmap.loading_picture216x150)
+//                                .error(R.mipmap.loading_picture216x150).into(new Target() {
+//                            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+//                            @Override
+//                            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+//                                headIcon_viewPager.setBackground(new BitmapDrawable(bitmap));
+//                            }
+//
+//                            @Override
+//                            public void onBitmapFailed(Drawable errorDrawable) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onPrepareLoad(Drawable placeHolderDrawable) {
+//
+//                            }
+//                        });
 
                         if (infoList.getC() != null)
                             info_page2_city.setText("城市 : " + infoList.getC());
                         if (infoList.getM() != null)
                             info_page2_summary.setText("简介 : " + infoList.getM());
+                        Log.i("info", infoUrl);
 
                         break;
                 }
@@ -202,14 +206,6 @@ public class HeadIconActivity extends AppCompatActivity {
         return frag;
     }
 
-    public static HeadIconMessageFragment NewInstanceTwo(String SUID) {
-        HeadIconMessageFragment frag = new HeadIconMessageFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("SUID", SUID);
-        frag.setArguments(bundle);
-        return frag;
-    }
-
     @TargetApi(Build.VERSION_CODES.M)
     private void initEvent() {
 
@@ -217,33 +213,6 @@ public class HeadIconActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-            }
-        });
-
-        headIcon_viewPager_up.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-                switch (position) {
-                    case 0:
-                        headIcon_pointLeft.setImageResource(R.mipmap.dot_f);
-                        headIcon_pointRight.setImageResource(R.mipmap.dot_n);
-                        break;
-                    case 1:
-                        headIcon_pointLeft.setImageResource(R.mipmap.dot_n);
-                        headIcon_pointRight.setImageResource(R.mipmap.dot_f);
-                        break;
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
             }
         });
     }
@@ -254,11 +223,8 @@ public class HeadIconActivity extends AppCompatActivity {
         headIcon_viewPager_down = (ViewPager) headIconView.findViewById(R.id.headIcon_viewPager_down);
         headIcon_tabLayout = (TabLayout) headIconView.findViewById(R.id.headIcon_tabLayout);
 
-        headIcon_viewPager_up = (ViewPager) findViewById(R.id.headIcon_viewPager_up);
-        headIcon_pointLeft = (ImageView) findViewById(R.id.headIcon_pointLeft);
-        headIcon_pointRight = (ImageView) findViewById(R.id.headIcon_pointRight);
-
         headIcon_viewPager = (ViewPager) findViewById(R.id.headIcon_viewPager);
+        headIcon_iv_background = (ImageView) findViewById(R.id.headIcon_iv_background);
 
 //        headIcon_viewStub = (ViewStub) findViewById(R.id.headIcon_viewStub);
 
@@ -295,7 +261,6 @@ public class HeadIconActivity extends AppCompatActivity {
         list.add(view1);
         list.add(view2);
         InfoAdapter adapter = new InfoAdapter(list);
-//        headIcon_viewPager_up.setAdapter(adapter);
         headIcon_viewPager.setAdapter(adapter);
     }
 
