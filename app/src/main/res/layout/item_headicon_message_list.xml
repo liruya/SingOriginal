@@ -5,8 +5,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/item_headMessage_icon"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_margin="12dp"
         android:src="@mipmap/default_image" />
 
@@ -20,7 +20,8 @@
         android:ellipsize="end"
         android:lines="1"
         android:text="@string/nickname"
-        android:textColor="@color/colorShallowBlack" />
+        android:textColor="@color/colorShallowBlack"
+        android:textSize="13sp" />
 
     <TextView
         android:id="@+id/item_headMessage_time"
@@ -52,7 +53,8 @@
         android:layout_alignTop="@id/item_headMessage_nickname"
         android:layout_marginRight="10dp"
         android:text="@string/reply"
-        android:textColor="@color/colorShallowBlack" />
+        android:textColor="@color/colorShallowBlack"
+        android:textSize="13sp" />
 
     <View
         android:layout_width="match_parent"

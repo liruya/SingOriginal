@@ -127,7 +127,7 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
         InfoAdapter adapter = new InfoAdapter(list);
         ViewPager my_vp_info = (ViewPager) view.findViewById(R.id.my_vp_info);
         my_vp_info.setAdapter(adapter);
-        int h = getViewHeight(view1);
+        int h = getViewHeight(view1) + 100;
         //创建一个layoutparams对象
         LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) my_vp_info.getLayoutParams();
         linearParams.height = h;

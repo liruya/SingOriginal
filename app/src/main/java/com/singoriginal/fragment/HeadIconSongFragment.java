@@ -14,12 +14,6 @@ import com.singoriginal.R;
  */
 public class HeadIconSongFragment extends Fragment {
 
-
-    public HeadIconSongFragment() {
-        // Required empty public constructor
-    }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
