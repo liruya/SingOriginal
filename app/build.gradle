@@ -46,4 +46,7 @@ dependencies {
     compile files('/Users/lanouhn/Desktop/OSChinaGit/SingOriginal/libs/ShareSDK-Yixin-2.7.4.jar')
     compile files('/Users/lanouhn/Desktop/OSChinaGit/SingOriginal/libs/ShareSDK-Yixin-Core-2.7.4.jar')
     compile files('/Users/lanouhn/Desktop/OSChinaGit/SingOriginal/libs/ShareSDK-Yixin-Moments-2.7.4.jar')
+    compile 'com.jakewharton:butterknife:8.2.1'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
 }

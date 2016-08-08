@@ -38,7 +38,6 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
 {
     private static final String KEY_PLAYMODE = "播放模式";
     private SharedPreferences defaultSet;
-    private int loop_mode;
 
     private View msc_dtl_hdr;
     private TextView tit_tv_title;
@@ -232,7 +231,7 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
     private void initData()
     {
         defaultSet = PreferenceManager.getDefaultSharedPreferences(this);
-        loop_mode = defaultSet.getInt(KEY_PLAYMODE, ConstVal.PLAY_MODE_LIST_LOOP);
+        MusicData.music_play_mode = defaultSet.getInt(KEY_PLAYMODE, ConstVal.PLAY_MODE_LIST_LOOP);
         frags = new ArrayList<>();
         frags.add(new PlaylistFragment());
         MusicDetail detail = MusicData.currentMusicDetail;
@@ -337,7 +336,6 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
                     msc_dtl_loop.setImageResource(R.mipmap.player_cycle_pressed);
                     Toast.makeText(MusicDetailActivity.this, "循环播放", Toast.LENGTH_SHORT).show();
                 }
-                defaultSet = PreferenceManager.getDefaultSharedPreferences(this);
                 SharedPreferences.Editor editor = defaultSet.edit();
                 editor.putInt(KEY_PLAYMODE, MusicData.music_play_mode);
                 editor.commit();

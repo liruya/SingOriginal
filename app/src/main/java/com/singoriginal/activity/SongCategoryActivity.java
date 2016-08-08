@@ -95,7 +95,6 @@ public class SongCategoryActivity extends AppCompatActivity
                 selectView = cate_inc_recmd;
                 selectTextView = tv_recmd;
                 selectImageView = iv_sel;
-                defaultSet = PreferenceManager.getDefaultSharedPreferences(SongCategoryActivity.this);
                 SharedPreferences.Editor editor = defaultSet.edit();
                 editor.putString(KEY_SONGTYPE, tv_recmd.getText().toString());
                 editor.commit();
@@ -104,7 +103,7 @@ public class SongCategoryActivity extends AppCompatActivity
         });
         tv_recmd.setBackgroundResource(R.drawable.text_border_dkgrn);
         iv_sel.setImageResource(R.mipmap.sing_songlist_type_selected);
-        selectView = header;
+        selectView = cate_inc_recmd;
         selectTextView = tv_recmd;
         selectImageView = iv_sel;
     }
@@ -141,7 +140,7 @@ public class SongCategoryActivity extends AppCompatActivity
                 if (i < cate.getItems().length)
                 {
                     tv.setText(cate.getItems()[i]);
-                    if (defaultSet.getString(KEY_SONGTYPE, getString(R.string.recommend)) == cate.getItems()[i])
+                    if (cate.getItems()[i].equals(selectItem))
                     {
                         selectTextView.setBackgroundResource(R.drawable.text_border);
                         selectImageView.setImageResource(0);
@@ -171,7 +170,6 @@ public class SongCategoryActivity extends AppCompatActivity
                         selectView = view;
                         selectTextView = tv;
                         selectImageView = iv;
-                        defaultSet = PreferenceManager.getDefaultSharedPreferences(SongCategoryActivity.this);
                         SharedPreferences.Editor editor = defaultSet.edit();
                         editor.putString(KEY_SONGTYPE, tv.getText().toString());
                         editor.commit();

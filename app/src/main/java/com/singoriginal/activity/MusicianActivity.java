@@ -1,5 +1,6 @@
 package com.singoriginal.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -13,6 +14,7 @@ import com.singoriginal.R;
 import com.singoriginal.adapter.MusicianViewAdapter;
 import com.singoriginal.constant.ConstVal;
 import com.singoriginal.fragment.MusicianFragment;
+import com.singoriginal.model.MusicData;
 
 import java.util.ArrayList;
 
@@ -40,6 +42,7 @@ public class MusicianActivity extends AppCompatActivity
 
         musician_inc_hdr.setBackgroundColor(ConstVal.colorDKGreen);
         final ImageButton ib_back = (ImageButton) musician_inc_hdr.findViewById(R.id.hdr_ib_srch);
+        ImageButton ib_msc = (ImageButton) musician_inc_hdr.findViewById(R.id.hdr_ib_music);
         final RadioGroup rg_show = (RadioGroup) musician_inc_hdr.findViewById(R.id.hdr_rg_show);
         RadioButton rb_first = (RadioButton) musician_inc_hdr.findViewById(R.id.hdr_rb_first);
         musician_inc_hdr.findViewById(R.id.hdr_rb_second).setVisibility(View.GONE);
@@ -54,6 +57,19 @@ public class MusicianActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 finish();
+            }
+        });
+
+        ib_msc.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if (MusicData.musicList != null && MusicData.musicList.size() > 0)
+                {
+                    Intent intent = new Intent(MusicianActivity.this, MusicDetailActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 

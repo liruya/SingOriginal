@@ -10,6 +10,7 @@ import com.singoriginal.constant.ConstVal;
 import com.singoriginal.model.AdvertSong;
 import com.singoriginal.model.DailyRecmd;
 import com.singoriginal.model.Music;
+import com.singoriginal.model.Musician;
 import com.singoriginal.model.NewSong;
 import com.singoriginal.model.PopularSong;
 import com.singoriginal.model.RankSong;
@@ -177,6 +178,16 @@ public class MusicUtil
                                 ds.getNickName(),
                                 ds.getImage());
                 break;
+
+            case "Musician":
+                Musician mscian = (Musician) object;
+                msc = new Music(mscian.getSong().getID() + "",
+                                mscian.getSong().getSN(),
+                                mscian.getSong().getSK(),
+                                mscian.getID(),
+                                mscian.getNN(),
+                                mscian.getI());
+                break;
         }
         return msc;
     }
@@ -264,13 +275,23 @@ public class MusicUtil
     }
 
     /**
-     * 发送歌曲长度
+     * 发送播放状态
      * @param context
      */
     public static void playSendState(Context context)
     {
         Intent intent = new Intent(context.getPackageName() + ".DETAIL_RECEIVER");
         intent.putExtra("requestCode", ConstVal.DETAIL_STATE);
+        context.sendBroadcast(intent);
+    }
+
+    /**
+     * 发送播放状态
+     * @param context
+     */
+    public static void playSendMusicianState(Context context)
+    {
+        Intent intent = new Intent(context.getPackageName() + ".MUSICIAN_RECEIVER");
         context.sendBroadcast(intent);
     }
 

@@ -159,4 +159,6 @@ public class ConstVal {
     public static final int DETAIL_STATE = 0x204;
 
     public static final int SHOW_SELECT_ITEM = 0x301;
+
+    public static final int MUSICIAN_STATE = 0x400;
 }

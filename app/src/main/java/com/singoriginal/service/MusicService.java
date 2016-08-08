@@ -168,7 +168,7 @@ public class MusicService extends Service
         super.onDestroy();
     }
 
-    public static void prepareLocalMedia(String path)
+    private void prepareLocalMedia(String path)
     {
         if (path != null && mediaPlayer != null)
         {
@@ -185,7 +185,7 @@ public class MusicService extends Service
         }
     }
 
-    public static void prepareNetMedia(String url)
+    private void prepareNetMedia(String url)
     {
         Uri uri = Uri.parse(url);
         if (uri != null && mediaPlayer != null)
@@ -196,6 +196,7 @@ public class MusicService extends Service
                 mediaPlayer.setDataSource(url);
                 mediaPlayer.prepareAsync();
                 MusicData.music_play_state = ConstVal.PLAY_STATE_PREPARE;
+                MusicUtil.playSendMusicianState(MusicService.this);
             } catch (IOException e)
             {
                 e.printStackTrace();
@@ -226,6 +227,7 @@ public class MusicService extends Service
         }).start();
         MusicData.music_play_state = ConstVal.PLAY_STATE_PLAYING;
         MusicUtil.playSendState(MusicService.this);
+        MusicUtil.playSendMusicianState(MusicService.this);
     }
 
     private void pausePlay()
@@ -235,6 +237,7 @@ public class MusicService extends Service
             mediaPlayer.pause();
             MusicData.music_play_state = ConstVal.PLAY_STATE_PAUSE;
             MusicUtil.playSendState(MusicService.this);
+            MusicUtil.playSendMusicianState(MusicService.this);
         }
     }
 
@@ -327,6 +330,19 @@ public class MusicService extends Service
             switch (resultCode)
             {
                 case ConstVal.MUSIC_PLAY_START:
+                    if (mediaPlayer.isPlaying())
+                    {
+                        pausePlay();
+                        if (mediaPlayer != null)
+                        {
+                            pausePlay();
+                            if (remoteView != null)
+                            {
+                                remoteView.setImageViewResource(R.id.ntf_ib_play, R.mipmap.note_btn_play);
+                                notificationManager.notify(ConstVal.NOTIFY_SHOW, notification);
+                            }
+                        }
+                    }
                     msc = MusicData.musicList.get(MusicData.music_play_idx);
                     url = ConstVal.GETSONGURL_LINK
                                  + "songid=" + msc.getSongid()
