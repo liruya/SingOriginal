@@ -73,7 +73,6 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
 
         initView();
         MusicUtil.playGetDetail(MusicDetailActivity.this);
-        MusicUtil.playGetDuration(MusicDetailActivity.this);
     }
 
     private void initView()
@@ -256,6 +255,7 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
         tit_tv_title.setText(detail.getData().getSN());
         Picasso.with(MusicDetailActivity.this)
                .load(detail.getData().getUser().getI())
+               .error(R.mipmap.default_image)
                .resize(192, 192)
                .centerCrop()
                .into(msc_dtl_civ_icon);

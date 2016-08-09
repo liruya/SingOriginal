@@ -1,56 +1,38 @@
 package com.singoriginal.activity;
 
 import android.annotation.TargetApi;
-import android.app.usage.UsageEvents;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.DragEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.ScrollView;
-import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.singoriginal.R;
 import com.singoriginal.adapter.HeadIconVpAdapter;
 import com.singoriginal.adapter.InfoAdapter;
-import com.singoriginal.adapter.MySongAdapter;
-import com.singoriginal.adapter.SongDetailsAdapter;
 import com.singoriginal.constant.ConstVal;
-import com.singoriginal.fragment.CollectionSongFragment;
 import com.singoriginal.fragment.HeadIconMessageFragment;
 import com.singoriginal.fragment.HeadIconSongFragment;
 import com.singoriginal.fragment.HeadIconWorkFragment;
-import com.singoriginal.fragment.MusicianFragment;
-import com.singoriginal.fragment.MySongFragment;
 import com.singoriginal.model.HeadIconInfo;
-import com.singoriginal.model.HeadIconWork;
-import com.singoriginal.model.SongDetails;
 import com.singoriginal.util.GsonUtil;
 import com.singoriginal.util.OkHttpUtil;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.RequestCreator;
-import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,7 +80,7 @@ public class HeadIconActivity extends AppCompatActivity {
         SU = intent.getStringExtra("SU");
         SUID = intent.getStringExtra("SUID");
         infoUrl = ConstVal.HEADICON_INFO_HTTP_PATH + SUID +
-                ConstVal.HEADICON_INFO_HTTP_PARAM1 + ConstVal.HEADICON_INFO_HTTP_PARAM2 + "&version=" + ConstVal.VERSION2;
+                ConstVal.HEADICON_INFO_HTTP_PARAM1 + ConstVal.HEADICON_INFO_HTTP_PARAM2 + "&from=androidPhone";
 
         initView();
         initData();

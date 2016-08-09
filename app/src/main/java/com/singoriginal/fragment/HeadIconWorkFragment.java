@@ -1,20 +1,14 @@
 package com.singoriginal.fragment;
 
 
-import android.annotation.TargetApi;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.hardware.Camera;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -23,23 +17,16 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.singoriginal.R;
-import com.singoriginal.activity.HeadIconActivity;
-import com.singoriginal.activity.SongDetailsActivity;
 import com.singoriginal.adapter.HeadIconWorkAdapter;
-import com.singoriginal.adapter.SongDetailsAdapter;
 import com.singoriginal.constant.ConstVal;
-import com.singoriginal.model.HeadIconInfo;
 import com.singoriginal.model.HeadIconWork;
-import com.singoriginal.model.SongDetails;
-import com.singoriginal.util.GsonUtil;
+import com.singoriginal.model.Music;
+import com.singoriginal.model.MusicData;
+import com.singoriginal.util.MusicUtil;
 import com.singoriginal.util.OkHttpUtil;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import okhttp3.Request;
 
@@ -142,6 +129,28 @@ public class HeadIconWorkFragment extends Fragment {
         headIcon_work_rbOriginal = (RadioButton) view.findViewById(R.id.headIcon_work_rbOriginal);
         headIcon_work_rbCover = (RadioButton) view.findViewById(R.id.headIcon_work_rbCover);
         headIcon_work_rbAccompaniment = (RadioButton) view.findViewById(R.id.headIcon_work_rbAccompaniment);
+
+        headIcon_work_listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                if (workList != null && workList.size() > 0)
+                {
+                    if (MusicData.musicList == null)
+                    {
+                        MusicData.musicList = new ArrayList<Music>();
+                    }
+                    MusicData.musicList.clear();
+                    for (HeadIconWork.Data data : workList)
+                    {
+                        MusicData.musicList.add(MusicUtil.convertMusicType(getContext(), data));
+                    }
+                    MusicData.music_play_idx = (int) id;
+                    MusicUtil.playStart(getContext());
+                }
+            }
+        });
     }
 
     private void setData() {

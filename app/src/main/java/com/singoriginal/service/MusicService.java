@@ -17,6 +17,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.NotificationCompat;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.google.gson.Gson;
@@ -80,8 +81,8 @@ public class MusicService extends Service
                 @Override
                 public void onPrepared(MediaPlayer mp)
                 {
-                    MusicUtil.playSendDuration(MusicService.this, mediaPlayer.getDuration());
                     MusicUtil.playShowItem(MusicService.this);
+                    MusicUtil.playShowSelect(MusicService.this);
                     startPlay();
                     if (remoteView != null)
                     {
@@ -101,6 +102,7 @@ public class MusicService extends Service
                     }
                     else
                     {
+                        Log.e("TAG", "onCompletion: ");
                         MusicUtil.playNext(MusicService.this);
                     }
                 }
@@ -216,6 +218,7 @@ public class MusicService extends Service
                 {
                     try
                     {
+                        MusicUtil.playSendDuration(MusicService.this, mediaPlayer.getDuration());
                         Thread.sleep(1000);
                         MusicUtil.playSendProgress(MusicService.this, mediaPlayer.getCurrentPosition());
                     } catch (InterruptedException e)
@@ -232,7 +235,7 @@ public class MusicService extends Service
 
     private void pausePlay()
     {
-        if (mediaPlayer != null)
+        if (mediaPlayer != null && mediaPlayer.isPlaying())
         {
             mediaPlayer.pause();
             MusicData.music_play_state = ConstVal.PLAY_STATE_PAUSE;
@@ -330,18 +333,11 @@ public class MusicService extends Service
             switch (resultCode)
             {
                 case ConstVal.MUSIC_PLAY_START:
-                    if (mediaPlayer.isPlaying())
+                    pausePlay();
+                    if (remoteView != null)
                     {
-                        pausePlay();
-                        if (mediaPlayer != null)
-                        {
-                            pausePlay();
-                            if (remoteView != null)
-                            {
-                                remoteView.setImageViewResource(R.id.ntf_ib_play, R.mipmap.note_btn_play);
-                                notificationManager.notify(ConstVal.NOTIFY_SHOW, notification);
-                            }
-                        }
+                        remoteView.setImageViewResource(R.id.ntf_ib_play, R.mipmap.note_btn_play);
+                        notificationManager.notify(ConstVal.NOTIFY_SHOW, notification);
                     }
                     msc = MusicData.musicList.get(MusicData.music_play_idx);
                     url = ConstVal.GETSONGURL_LINK
@@ -502,13 +498,6 @@ public class MusicService extends Service
                     if (mediaPlayer != null)
                     {
                         mediaPlayer.seekTo(position);
-                    }
-                    break;
-
-                case ConstVal.GET_CURRENT_MUSIC_DURATION:
-                    if (mediaPlayer != null)
-                    {
-                        MusicUtil.playSendDuration(MusicService.this, mediaPlayer.getDuration());
                     }
                     break;
             }

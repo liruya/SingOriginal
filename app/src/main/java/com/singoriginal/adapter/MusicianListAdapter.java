@@ -36,6 +36,8 @@ public class MusicianListAdapter extends BaseAdapter
 {
     private Context context;
     private ArrayList<Musician> list;
+    private int page;
+    private int pg = -1;
     private int idx = -1;
     private static ImageButton selectItem;
     private static ImageButton nextItem;
@@ -66,10 +68,11 @@ public class MusicianListAdapter extends BaseAdapter
         MusicianListAdapter.selectItem = selectItem;
     }
 
-    public MusicianListAdapter(Context context, ArrayList<Musician> list)
+    public MusicianListAdapter(Context context, ArrayList<Musician> list, int page)
     {
         this.context = context;
         this.list = list;
+        this.page = page;
         receiver = new MuscianReceiver();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(context.getPackageName() + ".MUSICIAN_RECEIVER");
@@ -95,7 +98,7 @@ public class MusicianListAdapter extends BaseAdapter
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent)
+    public View getView(final int position, View convertView, final ViewGroup parent)
     {
         final ViewHolder holder;
         if (convertView == null)
@@ -147,7 +150,7 @@ public class MusicianListAdapter extends BaseAdapter
             public void onClick(View v)
             {
                 //没有播放的歌曲
-                if (idx != position)
+                if (idx != position || pg != page)
                 {
                     if (msc.getSong().getSK() == null || msc.getSong().getID() == 0)
                     {
@@ -164,6 +167,7 @@ public class MusicianListAdapter extends BaseAdapter
                     nextItem = holder.tb_play;
                     MusicUtil.playStart(context);
                     idx = position;
+                    pg = page;
 //                    if (selectItem != null)
 //                    {
 //                        selectItem.getAnimation().cancel();
@@ -208,9 +212,11 @@ public class MusicianListAdapter extends BaseAdapter
 //                    }
                     if (MusicData.music_play_state != ConstVal.PLAY_STATE_PREPARE)
                     {
+
                         nextItem = holder.tb_play;
                         MusicUtil.playToggle(context);
                         idx = position;
+                        pg = page;
                     }
                 }
 

@@ -1,6 +1,9 @@
 package com.singoriginal.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -25,6 +29,7 @@ import com.singoriginal.adapter.ListSongAdapter;
 import com.singoriginal.constant.ConstVal;
 import com.singoriginal.model.AdvertSong;
 import com.singoriginal.model.DailyRecmd;
+import com.singoriginal.model.Music;
 import com.singoriginal.model.MusicData;
 import com.singoriginal.model.NewSong;
 import com.singoriginal.model.PopularSong;
@@ -65,12 +70,17 @@ public class SongListActivity extends AppCompatActivity
 
     private ListSongAdapter adapter;
     private ArrayList<Object> list;
+    private ArrayList<Music> musicList;
     private Handler hdl;
 
     private int vsIdx = -1;
     private int lvHdrheight;
     private int spcHeight;
     private int code;
+    //文字是否展开
+    private boolean isExpan;
+    //
+    private PlayingItemReceiver receiver;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -78,8 +88,23 @@ public class SongListActivity extends AppCompatActivity
         setContentView(R.layout.activity_song_list);
 
         initView();
+        receiver = new PlayingItemReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(getPackageName() + ".PLAYING_ITEM_RECEIVER");
+        registerReceiver(receiver, filter);
         initData();
         initEvent();
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        isExpan = false;
+        if (receiver != null)
+        {
+            unregisterReceiver(receiver);
+        }
+        super.onDestroy();
     }
 
     private void initView()
@@ -111,14 +136,14 @@ public class SongListActivity extends AppCompatActivity
     private void initData()
     {
         Intent intent = getIntent();
-        String link = intent.getStringExtra("LinkUrl");
+        final String link = intent.getStringExtra("LinkUrl");
         String title = intent.getStringExtra("title");
         code = intent.getIntExtra("code", 0);
         TextView tv_title = (TextView) header.findViewById(R.id.tit_tv_tit);
         tv_title.setText(title);
         String sub;
         list = new ArrayList<>();
-
+        musicList = new ArrayList<>();
         if (intent.hasExtra("imgLink"))
         {
             Picasso.with(SongListActivity.this)
@@ -182,12 +207,31 @@ public class SongListActivity extends AppCompatActivity
                                .into(songlist_iv_show);
                         TextView tv_author = (TextView) vs_author.findViewById(R.id.songlist_tv_author);
                         CircleImageView songlist_civ_icon = (CircleImageView) vs_author.findViewById(R.id.songlist_civ_icon);
-                        TextView tv_desc = (TextView) vs_desc.findViewById(R.id.songlist_tv_desc);
+                        final TextView tv_desc = (TextView) vs_desc.findViewById(R.id.songlist_tv_desc);
                         TextView tv_tag = (TextView) vs_desc.findViewById(R.id.songlist_tv_tag);
+                        final ImageButton tb = (ImageButton) vs_desc.findViewById(R.id.songlist_tb_expan);
                         Picasso.with(SongListActivity.this).load(songs.getUser().getI()).resize(96, 96).into(songlist_civ_icon);
                         tv_author.setText(songs.getUser().getNN());
                         tv_desc.setText(songs.getC());
                         tv_tag.setText(songs.getL());
+                        tb.setOnClickListener(new View.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(View v)
+                            {
+                                isExpan = !isExpan;
+                                if (isExpan)
+                                {
+                                    tv_desc.setMaxLines(tv_desc.getLineCount());
+                                    tb.setImageResource(R.mipmap.affas_shou);
+                                }
+                                else
+                                {
+                                    tv_desc.setMaxLines(2);
+                                    tb.setImageResource(R.mipmap.affas_suo);
+                                }
+                            }
+                        });
                         break;
 
                     case ConstVal.SONGLIST_DETAIL_CODE:
@@ -195,6 +239,9 @@ public class SongListActivity extends AppCompatActivity
                                                          new TypeToken<ArrayList<AdvertSong>>(){}.getType());
                         adapter = new ListSongAdapter(SongListActivity.this, list, msg.what);
                         songlist_lv_show.setAdapter(adapter);
+                        musicList.clear();
+                        musicList = convertList(list);
+                        MusicUtil.playShowSelect(SongListActivity.this);
 
                         str = null;
                         str = RtfUtil.getRtf(null, "全部歌曲", ConstVal.COLOR_SHALLOWBLACK, 42);
@@ -208,6 +255,9 @@ public class SongListActivity extends AppCompatActivity
                                                    new TypeToken<ArrayList<RankSong>>(){}.getType());
                         adapter = new ListSongAdapter(SongListActivity.this, list, msg.what);
                         songlist_lv_show.setAdapter(adapter);
+                        musicList.clear();
+                        musicList = convertList(list);
+
                         str = null;
                         str = RtfUtil.getRtf(null, "全部歌曲", ConstVal.COLOR_SHALLOWBLACK, 42);
                         str = RtfUtil.getRtf(str, " (共" + adapter.getCount() + "首)", ConstVal.COLOR_GRAY, 36);
@@ -219,6 +269,9 @@ public class SongListActivity extends AppCompatActivity
                                                    new TypeToken<ArrayList<NewSong>>(){}.getType());
                         adapter = new ListSongAdapter(SongListActivity.this, list, msg.what);
                         songlist_lv_show.setAdapter(adapter);
+                        musicList.clear();
+                        musicList = convertList(list);
+
                         str = null;
                         str = RtfUtil.getRtf(null, "全部歌曲", ConstVal.COLOR_SHALLOWBLACK, 42);
                         str = RtfUtil.getRtf(str, " (共" + adapter.getCount() + "首)", ConstVal.COLOR_GRAY, 36);
@@ -230,6 +283,9 @@ public class SongListActivity extends AppCompatActivity
                                                    new TypeToken<ArrayList<PopularSong>>(){}.getType());
                         adapter = new ListSongAdapter(SongListActivity.this, list, msg.what);
                         songlist_lv_show.setAdapter(adapter);
+                        musicList.clear();
+                        musicList = convertList(list);
+
                         str = null;
                         str = RtfUtil.getRtf(null, "全部歌曲", ConstVal.COLOR_SHALLOWBLACK, 42);
                         str = RtfUtil.getRtf(str, " (共" + adapter.getCount() + "首)", ConstVal.COLOR_GRAY, 36);
@@ -241,23 +297,14 @@ public class SongListActivity extends AppCompatActivity
                                                    new TypeToken<ArrayList<DailyRecmd>>(){}.getType());
                         adapter = new ListSongAdapter(SongListActivity.this, list, msg.what);
                         songlist_lv_show.setAdapter(adapter);
+                        musicList.clear();
+                        musicList = convertList(list);
+
                         str = null;
                         str = RtfUtil.getRtf(null, "全部歌曲", ConstVal.COLOR_SHALLOWBLACK, 42);
                         str = RtfUtil.getRtf(str, " (共" + adapter.getCount() + "首)", ConstVal.COLOR_GRAY, 36);
                         tv_play.setText(str, TextView.BufferType.SPANNABLE);
                         break;
-                }
-                if (list != null && list.size() > 0)
-                {
-                    if (MusicData.musicList == null)
-                    {
-                        MusicData.musicList = new ArrayList<>();
-                    }
-                    MusicData.musicList.clear();
-                    for (int i = 0; i < list.size(); i++)
-                    {
-                        MusicData.musicList.add(MusicUtil.convertMusicType(SongListActivity.this, list.get(i)));
-                    }
                 }
             }
         };
@@ -337,17 +384,14 @@ public class SongListActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                if (vsIdx >= parent.getFirstVisiblePosition() && vsIdx <= parent.getLastVisiblePosition())
-                {
-                    parent.getChildAt(vsIdx - parent.getFirstVisiblePosition())
-                          .findViewById(R.id.itemsong_view)
-                          .setVisibility(View.INVISIBLE);
-                }
-                vsIdx = position;
-                view.findViewById(R.id.itemsong_view).setVisibility(View.VISIBLE);
-
+                loadMusicList();
                 MusicData.music_play_idx = (int) id;
                 MusicUtil.playStart(SongListActivity.this);
+                int first = songlist_lv_show.getFirstVisiblePosition();
+                int last = songlist_lv_show.getLastVisiblePosition();
+                showItemSelect(first, last, vsIdx, false);
+                vsIdx = position;
+                showItemSelect(first, last, vsIdx, true);
             }
         });
 
@@ -365,12 +409,34 @@ public class SongListActivity extends AppCompatActivity
                                  int visibleItemCount,
                                  int totalItemCount)
             {
-                if (vsIdx >= firstVisibleItem && vsIdx <= view.getLastVisiblePosition())
+//                if (vsIdx >= firstVisibleItem && vsIdx <= view.getLastVisiblePosition())
+//                {
+//                    view.getChildAt(vsIdx - firstVisibleItem)
+//                        .findViewById(R.id.itemsong_view)
+//                        .setVisibility(View.VISIBLE);
+//                }
+
+                int first = songlist_lv_show.getFirstVisiblePosition();
+                int last = songlist_lv_show.getLastVisiblePosition();
+                if (vsIdx >= first && vsIdx <= last)
                 {
-                    view.getChildAt(vsIdx - firstVisibleItem)
-                        .findViewById(R.id.itemsong_view)
-                        .setVisibility(View.VISIBLE);
+                    for (int i = first; i <= last; i++)
+                    {
+                        if (first == 0)
+                        {
+                            break;
+                        }
+                        if (vsIdx == i)
+                        {
+                            showItemSelect(first, last, i, true);
+                        }
+                        else
+                        {
+                            showItemSelect(first, last, i, false);
+                        }
+                    }
                 }
+
                 int scrollY;
                 if (visibleItemCount == 0)
                 {
@@ -397,6 +463,18 @@ public class SongListActivity extends AppCompatActivity
                     if (vs_play == null)
                     {
                         vs_play = songlist_vs_play.inflate();
+                        vs_play.findViewById(R.id.item_play_tv).setOnClickListener(new View.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(View v)
+                            {
+                                loadMusicList();
+                                MusicData.music_play_idx = 0;
+                                MusicUtil.playStart(SongListActivity.this);
+                                Intent intent = new Intent(SongListActivity.this, MusicDetailActivity.class);
+                                startActivity(intent);
+                            }
+                        });
                         SpannableStringBuilder str = RtfUtil.getRtf(null, "全部歌曲", ConstVal.COLOR_SHALLOWBLACK, 42);
                         str = RtfUtil.getRtf(str, " (共" + adapter.getCount() + "首)", ConstVal.COLOR_GRAY, 36);
                         TextView tv_play = (TextView) vs_play.findViewById(R.id.item_play_tv);
@@ -438,6 +516,49 @@ public class SongListActivity extends AppCompatActivity
                 }
             }
         });
+
+        inc_play.findViewById(R.id.item_play_tv).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                loadMusicList();
+                MusicData.music_play_idx = 0;
+                MusicUtil.playStart(SongListActivity.this);
+                Intent intent = new Intent(SongListActivity.this, MusicDetailActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private ArrayList<Music> convertList(ArrayList<Object> list)
+    {
+        ArrayList<Music> musicList = new ArrayList<>();
+        if (list != null)
+        {
+            for (int i = 0; i < list.size(); i++)
+            {
+                musicList.add(MusicUtil.convertMusicType(SongListActivity.this, list.get(i)));
+            }
+        }
+        return musicList;
+    }
+
+    private void loadMusicList()
+    {
+        if (musicList != null && musicList.size() > 0)
+        {
+            if (MusicData.musicList == null)
+            {
+                MusicData.musicList = new ArrayList<>();
+            }
+            if (MusicData.musicList.equals(musicList))
+            {
+                return;
+            }
+            MusicData.musicList.clear();
+            MusicData.musicList.addAll(musicList);
+        }
     }
 
     /**
@@ -452,5 +573,87 @@ public class SongListActivity extends AppCompatActivity
         view.measure(w, h);
         int height = view.getMeasuredHeight();
         return height;
+    }
+
+    private void showItemSelect(int first, int last, int position, boolean selected)
+    {
+        if (position >= first && position <= last)
+        {
+            View view = songlist_lv_show.getChildAt(position - first);
+            TextView tv_song = (TextView) view.findViewById(R.id.itemsong_tv_title);
+            TextView tv_author = (TextView) view.findViewById(R.id.itemsong_tv_athor);
+            if (selected)
+            {
+                view.findViewById(R.id.itemsong_view).setVisibility(View.VISIBLE);
+                tv_song.setTextColor(ConstVal.COLOR_DARKGREEN);
+                tv_author.setTextColor(ConstVal.COLOR_DARKGREEN);
+            }
+            else
+            {
+                view.findViewById(R.id.itemsong_view).setVisibility(View.INVISIBLE);
+                tv_song.setTextColor(ConstVal.COLOR_SHALLOWBLACK);
+                tv_author.setTextColor(ConstVal.COLOR_GRAY);
+            }
+
+        }
+    }
+
+    private boolean isEqual(ArrayList<Music> src, ArrayList<Music> des)
+    {
+        if (src == null || src.size() == 0
+            || des == null || des.size() == 0
+            || src.size() != src.size())
+        {
+            return  false;
+        }
+        for (int i = 0; i < src.size(); i++)
+        {
+            if (!src.get(i).getSongid().equals(des.get(i).getSongid()))
+            {
+                return false;
+            }
+            if (!src.get(i).getSongtype().equals(des.get(i).getSongtype()))
+            {
+                return false;
+            }
+            if (!src.get(i).getSongname().equals(des.get(i).getSongname()))
+            {
+                return false;
+            }
+            if (src.get(i).getUserid() != des.get(i).getUserid())
+            {
+                return false;
+            }
+            if (!src.get(i).getUsername().equals(des.get(i).getUsername()))
+            {
+                return false;
+            }
+            if (!src.get(i).getUserimg().equals(des.get(i).getUserimg()))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    class PlayingItemReceiver extends BroadcastReceiver
+    {
+
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+            int result = intent.getIntExtra("requestCode", -1);
+            if (result >= 0)
+            {
+                if (isEqual(MusicData.musicList, musicList))
+                {
+                    int first = songlist_lv_show.getFirstVisiblePosition();
+                    int last = songlist_lv_show.getLastVisiblePosition();
+                    showItemSelect(first, last, vsIdx, false);
+                    vsIdx = result+1;
+                    showItemSelect(first, last, vsIdx, true);
+                }
+            }
+        }
     }
 }

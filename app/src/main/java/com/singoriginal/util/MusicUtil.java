@@ -5,11 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+import android.util.Log;
 
 import com.singoriginal.constant.ConstVal;
 import com.singoriginal.model.AdvertSong;
 import com.singoriginal.model.DailyRecmd;
+import com.singoriginal.model.HeadIconWork;
 import com.singoriginal.model.Music;
+import com.singoriginal.model.MusicData;
 import com.singoriginal.model.Musician;
 import com.singoriginal.model.NewSong;
 import com.singoriginal.model.PopularSong;
@@ -127,6 +130,7 @@ public class MusicUtil
         Music msc = null;
         String pkg = object.getClass().getName();
         String classtype = pkg.substring(pkg.lastIndexOf(".")+1);
+        Log.e(TAG, "convertMusicType: " + classtype);
         switch (classtype)
         {
             case "AdvertSong":
@@ -187,6 +191,16 @@ public class MusicUtil
                                 mscian.getID(),
                                 mscian.getNN(),
                                 mscian.getI());
+                break;
+
+            case "HeadIconWork$Data":
+                HeadIconWork.Data data = (HeadIconWork.Data) object;
+                msc = new Music(data.getID() + "",
+                                data.getSN(),
+                                data.getSK(),
+                                data.getUser().getID(),
+                                data.getUser().getNN(),
+                                data.getUser().getI());
                 break;
         }
         return msc;
@@ -254,15 +268,6 @@ public class MusicUtil
     }
 
     /**
-     * 获取歌曲长度
-     * @param context
-     */
-    public static void playGetDuration(Context context)
-    {
-        sendBroadcast(context, ConstVal.GET_CURRENT_MUSIC_DURATION, ".MUSIC_RECEIVER");
-    }
-
-    /**
      * 发送歌曲长度
      * @param context
      */
@@ -312,6 +317,13 @@ public class MusicUtil
     {
         Intent intent = new Intent(context.getPackageName() + ".SHOW_SELECT_RECEIVER");
         intent.putExtra("requestCode", ConstVal.SHOW_SELECT_ITEM);
+        context.sendBroadcast(intent);
+    }
+
+    public static void playShowSelect(Context context)
+    {
+        Intent intent = new Intent(context.getPackageName() + ".PLAYING_ITEM_RECEIVER");
+        intent.putExtra("requestCode", MusicData.music_play_idx);
         context.sendBroadcast(intent);
     }
 

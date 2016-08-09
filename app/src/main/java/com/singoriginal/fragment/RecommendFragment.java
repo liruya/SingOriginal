@@ -149,7 +149,12 @@ public class RecommendFragment extends Fragment
                             final Hotlist hot = hotList.get(i);
                             ImageView iv_show = (ImageView) rec.findViewById(R.id.rec_iv_show);
                             TextView tv_num = (TextView) rec.findViewById(R.id.rec_tv_num);
-                            Picasso.with(getContext()).load(hot.getPicture()).resize(width, height).centerCrop().into(iv_show);
+                            Picasso.with(getContext())
+                                   .load(hot.getPicture())
+                                   .placeholder(R.mipmap.default_image_6_0)
+                                   .resize(width, height)
+                                   .centerCrop()
+                                   .into(iv_show);
                             tv_num.setText(hot.getPlayCount()+"");
                             tv_num.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.dj_listener, 0, 0, 0);
                             rec.setOnClickListener(new View.OnClickListener()

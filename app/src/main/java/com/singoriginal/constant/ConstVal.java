@@ -140,7 +140,6 @@ public class ConstVal {
     public static final int MUSIC_PLAY_CLOSE = 0x14;
     public static final int GET_CURRENT_MUSIC_DETAIL = 0x15;
     public static final int SET_PLAY_POSITIN = 0x16;
-    public static final int GET_CURRENT_MUSIC_DURATION = 0x17;
     //音乐播放模式:列表循环,单曲循环,顺序播放,随机播放
     public static final int PLAY_MODE_LIST_LOOP = 0x20;
     public static final int PLAY_MODE_SINGLE_LOOP = 0x21;

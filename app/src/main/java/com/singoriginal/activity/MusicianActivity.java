@@ -127,8 +127,8 @@ public class MusicianActivity extends AppCompatActivity
     private void initData()
     {
         frags = new ArrayList<>();
-        frags.add(MusicianFragment.NewInstance(ConstVal.RECMD_MUSICIAN_LINK + ConstVal.VERSION));
-        frags.add(MusicianFragment.NewInstance(ConstVal.NEW_MUSICIAN_LINK + ConstVal.VERSION));
+        frags.add(MusicianFragment.NewInstance(ConstVal.RECMD_MUSICIAN_LINK + ConstVal.VERSION, 0));
+        frags.add(MusicianFragment.NewInstance(ConstVal.NEW_MUSICIAN_LINK + ConstVal.VERSION, 1));
         adapter = new MusicianViewAdapter(getSupportFragmentManager(), frags);
         musician_vp_show.setAdapter(adapter);
     }

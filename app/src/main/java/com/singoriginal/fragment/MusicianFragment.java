@@ -1,6 +1,7 @@
 package com.singoriginal.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,6 +15,7 @@ import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.singoriginal.R;
+import com.singoriginal.activity.HeadIconActivity;
 import com.singoriginal.adapter.MusicianListAdapter;
 import com.singoriginal.constant.ConstVal;
 import com.singoriginal.model.Musician;
@@ -34,14 +36,16 @@ public class MusicianFragment extends Fragment
 {
     private ListView musician_lv_show;
     private String link;
+    private int page;
     private ArrayList<Musician> list;
     private MusicianListAdapter adapter;
 
-    public static MusicianFragment NewInstance(String link)
+    public static MusicianFragment NewInstance(String link, int page)
     {
         MusicianFragment frag = new MusicianFragment();
         Bundle bundle = new Bundle();
         bundle.putString("link", link);
+        bundle.putInt("page", page);
         frag.setArguments(bundle);
         return frag;
     }
@@ -52,6 +56,7 @@ public class MusicianFragment extends Fragment
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
         link = bundle.getString("link");
+        page = bundle.getInt("page");
     }
 
     @Override
@@ -84,7 +89,12 @@ public class MusicianFragment extends Fragment
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-
+                Musician msc = list.get((int) id);
+                Intent intent = new Intent(getContext(), HeadIconActivity.class);
+                intent.putExtra("SIM", msc.getI());
+                intent.putExtra("SU", msc.getNN());
+                intent.putExtra("SUID", msc.getID() + "");
+                startActivity(intent);
             }
         });
     }
@@ -111,7 +121,7 @@ public class MusicianFragment extends Fragment
                                 Musician msc = new Gson().fromJson(ary.get(i).toString().replace("[]", "{}"), Musician.class);
                                 list.add(msc);
                             }
-                            adapter = new MusicianListAdapter(getContext(), list);
+                            adapter = new MusicianListAdapter(getContext(), list, page);
                             musician_lv_show.setAdapter(adapter);
                         } catch (JSONException e)
                         {
