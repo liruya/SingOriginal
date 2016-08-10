@@ -83,6 +83,7 @@ public class MusicService extends Service
                 {
                     MusicUtil.playShowItem(MusicService.this);
                     MusicUtil.playShowSelect(MusicService.this);
+                    MusicUtil.playAuthorSelect(MusicService.this);
                     startPlay();
                     if (remoteView != null)
                     {

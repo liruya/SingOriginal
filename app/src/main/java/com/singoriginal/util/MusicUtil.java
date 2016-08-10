@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
-import android.util.Log;
 
 import com.singoriginal.constant.ConstVal;
 import com.singoriginal.model.AdvertSong;
@@ -130,7 +129,6 @@ public class MusicUtil
         Music msc = null;
         String pkg = object.getClass().getName();
         String classtype = pkg.substring(pkg.lastIndexOf(".")+1);
-        Log.e(TAG, "convertMusicType: " + classtype);
         switch (classtype)
         {
             case "AdvertSong":
@@ -327,4 +325,12 @@ public class MusicUtil
         context.sendBroadcast(intent);
     }
 
+    public static void playAuthorSelect(Context context)
+    {
+        Intent intent = new Intent(context.getPackageName() + ".AUTHOR_ITEM_RECEIVER");
+        intent.putExtra("requestCode", MusicData.music_play_idx);
+        context.sendBroadcast(intent);
+    }
 }
+
+

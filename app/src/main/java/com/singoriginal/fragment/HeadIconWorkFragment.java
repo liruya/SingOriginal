@@ -1,6 +1,10 @@
 package com.singoriginal.fragment;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -8,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -48,9 +53,12 @@ public class HeadIconWorkFragment extends Fragment {
     private HeadIconWorkAdapter adapter;
     private HeadIconWork work;
     private ArrayList<HeadIconWork.Data> workList;
+    private ArrayList<Music> musicList;
 
     private String SUID;
     private boolean isPress = true;
+    private int vsIdx = -1;
+    private AuthorItemReceiver receiver;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,8 +72,22 @@ public class HeadIconWorkFragment extends Fragment {
         initView(view);
         setData();
         initEvent();
+        receiver = new AuthorItemReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(getContext().getPackageName() + ".AUTHOR_ITEM_RECEIVER");
+        getContext().registerReceiver(receiver, filter);
 
         return view;
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        if (receiver != null)
+        {
+            getContext().unregisterReceiver(receiver);
+        }
+        super.onDestroy();
     }
 
     private void initEvent() {
@@ -139,7 +161,7 @@ public class HeadIconWorkFragment extends Fragment {
                 {
                     if (MusicData.musicList == null)
                     {
-                        MusicData.musicList = new ArrayList<Music>();
+                        MusicData.musicList = new ArrayList<>();
                     }
                     MusicData.musicList.clear();
                     for (HeadIconWork.Data data : workList)
@@ -148,6 +170,44 @@ public class HeadIconWorkFragment extends Fragment {
                     }
                     MusicData.music_play_idx = (int) id;
                     MusicUtil.playStart(getContext());
+                }
+                int first = parent.getFirstVisiblePosition();
+                int last = parent.getLastVisiblePosition();
+                showItemSelect(first, last, vsIdx, false);
+                vsIdx = position;
+                showItemSelect(first, last, vsIdx, true);
+            }
+        });
+
+        headIcon_work_listView.setOnScrollListener(new AbsListView.OnScrollListener()
+        {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState)
+            {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view,
+                                 int firstVisibleItem,
+                                 int visibleItemCount,
+                                 int totalItemCount)
+            {
+                int first = headIcon_work_listView.getFirstVisiblePosition();
+                int last = headIcon_work_listView.getLastVisiblePosition();
+                if (vsIdx >= first && vsIdx <= last)
+                {
+                    for (int i = first; i <= last; i++)
+                    {
+                        if (vsIdx == i)
+                        {
+                            showItemSelect(first, last, i, true);
+                        }
+                        else
+                        {
+                            showItemSelect(first, last, i, false);
+                        }
+                    }
                 }
             }
         });
@@ -170,12 +230,99 @@ public class HeadIconWorkFragment extends Fragment {
                         }
                         adapter = new HeadIconWorkAdapter(getContext(), workList);
                         headIcon_work_listView.setAdapter(adapter);
-
+                        musicList = new ArrayList<>();
+                        for (HeadIconWork.Data data : workList)
+                        {
+                            musicList.add(MusicUtil.convertMusicType(getContext(), data));
+                        }
+                        MusicUtil.playAuthorSelect(getContext());
                         break;
                 }
             }
         };
 
+    }
+
+    private boolean isEqual(ArrayList<Music> src, ArrayList<Music> des)
+    {
+        if (src == null || src.size() == 0
+            || des == null || des.size() == 0
+            || src.size() != src.size())
+        {
+            return  false;
+        }
+        for (int i = 0; i < src.size(); i++)
+        {
+            if (!src.get(i).getSongid().equals(des.get(i).getSongid()))
+            {
+                return false;
+            }
+            if (!src.get(i).getSongtype().equals(des.get(i).getSongtype()))
+            {
+                return false;
+            }
+            if (!src.get(i).getSongname().equals(des.get(i).getSongname()))
+            {
+                return false;
+            }
+            if (src.get(i).getUserid() != des.get(i).getUserid())
+            {
+                return false;
+            }
+            if (!src.get(i).getUsername().equals(des.get(i).getUsername()))
+            {
+                return false;
+            }
+            if (!src.get(i).getUserimg().equals(des.get(i).getUserimg()))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void showItemSelect(int first, int last, int position, boolean selected)
+    {
+        if (position >= first && position <= last)
+        {
+            View view = headIcon_work_listView.getChildAt(position - first);
+            TextView tv_song = (TextView) view.findViewById(R.id.item_headWork_songName);
+            TextView tv_time = (TextView) view.findViewById(R.id.item_headWork_time);
+            if (selected)
+            {
+                view.findViewById(R.id.item_headWork_view).setVisibility(View.VISIBLE);
+                tv_song.setTextColor(ConstVal.COLOR_DARKGREEN);
+                tv_time.setTextColor(ConstVal.COLOR_DARKGREEN);
+            }
+            else
+            {
+                view.findViewById(R.id.item_headWork_view).setVisibility(View.INVISIBLE);
+                tv_song.setTextColor(ConstVal.COLOR_SHALLOWBLACK);
+                tv_time.setTextColor(ConstVal.COLOR_GRAY);
+            }
+
+        }
+    }
+
+    class AuthorItemReceiver extends BroadcastReceiver
+    {
+
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+            int result = intent.getIntExtra("requestCode", -1);
+            if (result >= 0)
+            {
+                if (isEqual(MusicData.musicList, musicList))
+                {
+                    int first = headIcon_work_listView.getFirstVisiblePosition();
+                    int last = headIcon_work_listView.getLastVisiblePosition();
+                    showItemSelect(first, last, vsIdx, false);
+                    vsIdx = result;
+                    showItemSelect(first, last, vsIdx, true);
+                }
+            }
+        }
     }
 
 }

@@ -257,6 +257,7 @@ public class SongListActivity extends AppCompatActivity
                         songlist_lv_show.setAdapter(adapter);
                         musicList.clear();
                         musicList = convertList(list);
+                        MusicUtil.playShowSelect(SongListActivity.this);
 
                         str = null;
                         str = RtfUtil.getRtf(null, "全部歌曲", ConstVal.COLOR_SHALLOWBLACK, 42);
@@ -271,6 +272,7 @@ public class SongListActivity extends AppCompatActivity
                         songlist_lv_show.setAdapter(adapter);
                         musicList.clear();
                         musicList = convertList(list);
+                        MusicUtil.playShowSelect(SongListActivity.this);
 
                         str = null;
                         str = RtfUtil.getRtf(null, "全部歌曲", ConstVal.COLOR_SHALLOWBLACK, 42);
@@ -285,6 +287,7 @@ public class SongListActivity extends AppCompatActivity
                         songlist_lv_show.setAdapter(adapter);
                         musicList.clear();
                         musicList = convertList(list);
+                        MusicUtil.playShowSelect(SongListActivity.this);
 
                         str = null;
                         str = RtfUtil.getRtf(null, "全部歌曲", ConstVal.COLOR_SHALLOWBLACK, 42);
@@ -299,6 +302,7 @@ public class SongListActivity extends AppCompatActivity
                         songlist_lv_show.setAdapter(adapter);
                         musicList.clear();
                         musicList = convertList(list);
+                        MusicUtil.playShowSelect(SongListActivity.this);
 
                         str = null;
                         str = RtfUtil.getRtf(null, "全部歌曲", ConstVal.COLOR_SHALLOWBLACK, 42);
@@ -409,12 +413,6 @@ public class SongListActivity extends AppCompatActivity
                                  int visibleItemCount,
                                  int totalItemCount)
             {
-//                if (vsIdx >= firstVisibleItem && vsIdx <= view.getLastVisiblePosition())
-//                {
-//                    view.getChildAt(vsIdx - firstVisibleItem)
-//                        .findViewById(R.id.itemsong_view)
-//                        .setVisibility(View.VISIBLE);
-//                }
 
                 int first = songlist_lv_show.getFirstVisiblePosition();
                 int last = songlist_lv_show.getLastVisiblePosition();
