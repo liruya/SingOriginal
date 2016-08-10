@@ -10,11 +10,14 @@ import android.widget.TextView;
 
 import com.singoriginal.R;
 import com.singoriginal.constant.ConstVal;
+import com.singoriginal.dialog.SongmoreDialog;
 import com.singoriginal.model.AdvertSong;
 import com.singoriginal.model.DailyRecmd;
+import com.singoriginal.model.Music;
 import com.singoriginal.model.NewSong;
 import com.singoriginal.model.PopularSong;
 import com.singoriginal.model.RankSong;
+import com.singoriginal.util.MusicUtil;
 
 import java.util.ArrayList;
 
@@ -72,6 +75,7 @@ public class  ListSongAdapter extends BaseAdapter
             holder = (SongViewHolder) convertView.getTag();
         }
         Object object = advertSongs.get(position);
+        final Music msc = MusicUtil.convertMusicType(context, object);
         String title = "";
         String author = "";
         switch (code)
@@ -118,7 +122,8 @@ public class  ListSongAdapter extends BaseAdapter
             @Override
             public void onClick(View v)
             {
-
+                SongmoreDialog.showDialog(context,
+                                          msc);
             }
         });
         return convertView;
