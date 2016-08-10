@@ -64,15 +64,17 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="30dp"
-                android:src="@drawable/selector_song_details_collected" />
+                android:src="@mipmap/my_collect" />
 
             <ImageView
                 android:id="@+id/item_song_top"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="-12dp"
                 android:src="@mipmap/be_top"
-                android:visibility="gone" />
+                android:visibility="visible" />
 
         </RelativeLayout>
 

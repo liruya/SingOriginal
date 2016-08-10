@@ -1,8 +1,12 @@
 package com.singoriginal.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 
@@ -12,11 +16,17 @@ import com.singoriginal.constant.ConstVal;
 public class HelpCenterActivity extends AppCompatActivity {
 
     private ImageButton image;
+    private WebView helpCenter_webView;
+    private String link;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help_center);
+
+        Intent intent = getIntent();
+        link = intent.getStringExtra("SURL");
 
         initView();
         initEvent();
@@ -33,6 +43,8 @@ public class HelpCenterActivity extends AppCompatActivity {
 
     private void initView() {
 
+        helpCenter_webView = (WebView) findViewById(R.id.helpCenter_webView);
+        showWebView(helpCenter_webView, link);
         //页面公用标题头初始化
         View incView = findViewById(R.id.help_center_header);
 
@@ -51,5 +63,35 @@ public class HelpCenterActivity extends AppCompatActivity {
 
         int color = ConstVal.colorDKGreen;
         incView.setBackgroundColor(color);
+    }
+
+    private void showWebView(final WebView web, String url) {
+
+        web.getSettings().setJavaScriptEnabled(true);
+        web.getSettings().setLoadWithOverviewMode(true);
+        web.getSettings().setDefaultTextEncodingName("utf-8");
+        web.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+        web.loadUrl(url);
+
+        web.setWebViewClient(new WebViewClient() {
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+            }
+
+            /**
+             * 使用webview组件来响应url加载事件 而不是默认浏览器加载
+             * @param view
+             * @param url
+             * @return
+             */
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
+                web.loadUrl(url);
+                return true;
+            }
+        });
     }
 }

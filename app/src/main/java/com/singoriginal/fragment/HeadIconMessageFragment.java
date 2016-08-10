@@ -1,16 +1,24 @@
 package com.singoriginal.fragment;
 
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.singoriginal.R;
@@ -22,6 +30,8 @@ import com.singoriginal.model.HeadIconWork;
 import com.singoriginal.util.OkHttpUtil;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import okhttp3.Request;
 
@@ -101,5 +111,4 @@ public class HeadIconMessageFragment extends Fragment {
 
         headIcon_message_listView = (ListView) view.findViewById(R.id.headIcon_message_listView);
     }
-
 }

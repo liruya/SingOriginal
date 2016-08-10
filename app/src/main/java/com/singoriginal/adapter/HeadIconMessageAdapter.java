@@ -1,6 +1,13 @@
 package com.singoriginal.adapter;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +20,8 @@ import com.singoriginal.model.HeadIconMessage;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by lanouhn on 16/8/4.
@@ -81,7 +90,6 @@ public class HeadIconMessageAdapter extends BaseAdapter {
         private TextView item_headMessage_nickname;
         private TextView item_headMessage_time;
         private TextView item_headMessage_content;
-
     }
 
 }

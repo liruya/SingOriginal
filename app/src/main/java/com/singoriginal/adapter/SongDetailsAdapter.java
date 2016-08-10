@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.singoriginal.R;
 import com.singoriginal.activity.HeadIconActivity;
 import com.singoriginal.activity.SongCommentActivity;
+import com.singoriginal.activity.SongListActivity;
 import com.singoriginal.constant.ConstVal;
 import com.singoriginal.model.Channel;
 import com.singoriginal.model.SongDetails;
@@ -29,6 +30,7 @@ public class SongDetailsAdapter extends RecyclerView.Adapter<SongDetailsAdapter.
 
     private Context context;
     private List<SongDetails> dataList;
+    private boolean isLike = true;
 
     public SongDetailsAdapter(Context context, List<SongDetails> dataList) {
         this.context = context;
@@ -42,7 +44,7 @@ public class SongDetailsAdapter extends RecyclerView.Adapter<SongDetailsAdapter.
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
 
         SongDetails sDetails = dataList.get(position);
         holder.item_song_songName.setText(sDetails.getSN());
@@ -92,6 +94,25 @@ public class SongDetailsAdapter extends RecyclerView.Adapter<SongDetailsAdapter.
                 context.startActivity(intent);
             }
         });
+        holder.item_song_heart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isLike) {
+                    holder.item_song_heart.setImageResource(R.mipmap.new_collection);
+                } else {
+                    holder.item_song_heart.setImageResource(R.mipmap.my_collect);
+                }
+                isLike = !isLike;
+            }
+        });
+
+        holder.item_song_rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(context, SongListActivity.class);
+//                intent.putExtra("",);
+            }
+        });
     }
 
     @Override
@@ -105,7 +126,9 @@ public class SongDetailsAdapter extends RecyclerView.Adapter<SongDetailsAdapter.
         private TextView item_song_songName;
         private TextView item_song_nickname;
         private LinearLayout item_song_llDown;
+        private RelativeLayout item_song_rl;
         private ImageView item_song_top;
+        private ImageView item_song_heart;
         private TextView item_song_comment;
         private TextView item_song_comment2;
         private TextView item_song_comment3;
@@ -116,7 +139,6 @@ public class SongDetailsAdapter extends RecyclerView.Adapter<SongDetailsAdapter.
         private LinearLayout item_song_llTwo;
         private LinearLayout item_song_llThree;
 
-
         public ViewHolder(View itemView) {
             super(itemView);
 
@@ -124,7 +146,9 @@ public class SongDetailsAdapter extends RecyclerView.Adapter<SongDetailsAdapter.
             item_song_songName = (TextView) itemView.findViewById(R.id.item_song_songName);
             item_song_nickname = (TextView) itemView.findViewById(R.id.item_song_nickname);
             item_song_llDown = (LinearLayout) itemView.findViewById(R.id.item_song_llDown);
+            item_song_rl = (RelativeLayout) itemView.findViewById(R.id.item_song_rl);
             item_song_top = (ImageView) itemView.findViewById(R.id.item_song_top);
+            item_song_heart = (ImageView) itemView.findViewById(R.id.item_song_heart);
             item_song_comment = (TextView) itemView.findViewById(R.id.item_song_comment);
             item_song_comment2 = (TextView) itemView.findViewById(R.id.item_song_comment2);
             item_song_comment3 = (TextView) itemView.findViewById(R.id.item_song_comment3);

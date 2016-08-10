@@ -125,6 +125,8 @@ public class ConstVal {
     public static final String HEADICON_WORK_HTTP_PARAM2 = "%2CSN%2CSK%2CUID%2CST%2CDD%2CCT%2CGD%2CKM5&userfields=ID%2CNN%2CI";
     public static final String HEADICON_MESSAGE_HTTP_PATH = "http://mobileapi.5sing.kugou.com/comments/list?maxId=0&limit=20&rootId=";
     public static final String HEADICON_MESSAGE_HTTP_PARAM = "&rootKind=guestBook&fields=ID%2CNN%2CI";
+    public static final String PROTECT_HTTP_PATH = "http://5sing.kugou.com/topic/help/copyright.html";
+    public static final String HELPCENTER_HTTP_PATH = "http://5sing.kugou.com/topic/help/index.html";
 
     public static final String VERSION2 = "6.2.2";
 

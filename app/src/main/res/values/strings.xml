@@ -176,6 +176,8 @@
     <string name="searchRecord">搜索记录</string>
     <string name="searchKey">搜索关键词</string>
     <string name="headIconSong">这家伙很懒 , 还没有制作歌词哦</string>
+    <string name="mySongText">赶紧创建喜欢的歌单吧</string>
     <string name="reply">回复</string>
+    <string name="downloadText">心动不如行动 , 有喜欢的歌曲就快下载吧</string>
 
 </resources>

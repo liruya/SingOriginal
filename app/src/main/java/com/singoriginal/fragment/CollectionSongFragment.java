@@ -13,13 +13,7 @@ import com.singoriginal.R;
  * A simple {@link Fragment} subclass.
  */
 public class CollectionSongFragment extends Fragment {
-
-
-    public CollectionSongFragment() {
-        // Required empty public constructor
-    }
-
-
+    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
