@@ -590,10 +590,10 @@ public class MusicDetail
             private int ID;
             private String NN;
             private String I;
-            private int YCRQ;
-            private int FCRQ;
+            private long YCRQ;
+            private long FCRQ;
 
-            public User(int FCRQ, String i, int ID, String NN, int YCRQ)
+            public User(long FCRQ, String i, int ID, String NN, long YCRQ)
             {
                 this.FCRQ = FCRQ;
                 I = i;
@@ -602,12 +602,12 @@ public class MusicDetail
                 this.YCRQ = YCRQ;
             }
 
-            public int getFCRQ()
+            public long getFCRQ()
             {
                 return FCRQ;
             }
 
-            public void setFCRQ(int FCRQ)
+            public void setFCRQ(long FCRQ)
             {
                 this.FCRQ = FCRQ;
             }
@@ -642,12 +642,12 @@ public class MusicDetail
                 this.NN = NN;
             }
 
-            public int getYCRQ()
+            public long getYCRQ()
             {
                 return YCRQ;
             }
 
-            public void setYCRQ(int YCRQ)
+            public void setYCRQ(long YCRQ)
             {
                 this.YCRQ = YCRQ;
             }

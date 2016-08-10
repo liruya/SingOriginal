@@ -81,8 +81,9 @@ public class MusicService extends Service
                 @Override
                 public void onPrepared(MediaPlayer mp)
                 {
-                    MusicUtil.playSendDuration(MusicService.this, mediaPlayer.getDuration());
                     MusicUtil.playShowItem(MusicService.this);
+                    MusicUtil.playShowSelect(MusicService.this);
+                    MusicUtil.playAuthorSelect(MusicService.this);
                     startPlay();
                     if (remoteView != null)
                     {
@@ -102,6 +103,7 @@ public class MusicService extends Service
                     }
                     else
                     {
+                        Log.e("TAG", "onCompletion: ");
                         MusicUtil.playNext(MusicService.this);
                     }
                 }
@@ -134,7 +136,6 @@ public class MusicService extends Service
                         break;
 
                     case ConstVal.GET_CURRENT_MUSIC_DETAIL:
-                        Log.e("TAG", "handleMessage: " + json );
                         MusicData.currentMusicDetail = new Gson().fromJson(json, MusicDetail.class);
                         Intent intent = new Intent(getPackageName() + ".DETAIL_RECEIVER");
                         intent.putExtra("requestCode", ConstVal.DETAIL_UPDATE);
@@ -170,7 +171,7 @@ public class MusicService extends Service
         super.onDestroy();
     }
 
-    public static void prepareLocalMedia(String path)
+    private void prepareLocalMedia(String path)
     {
         if (path != null && mediaPlayer != null)
         {
@@ -187,7 +188,7 @@ public class MusicService extends Service
         }
     }
 
-    public static void prepareNetMedia(String url)
+    private void prepareNetMedia(String url)
     {
         Uri uri = Uri.parse(url);
         if (uri != null && mediaPlayer != null)
@@ -198,6 +199,7 @@ public class MusicService extends Service
                 mediaPlayer.setDataSource(url);
                 mediaPlayer.prepareAsync();
                 MusicData.music_play_state = ConstVal.PLAY_STATE_PREPARE;
+                MusicUtil.playSendMusicianState(MusicService.this);
             } catch (IOException e)
             {
                 e.printStackTrace();
@@ -217,6 +219,7 @@ public class MusicService extends Service
                 {
                     try
                     {
+                        MusicUtil.playSendDuration(MusicService.this, mediaPlayer.getDuration());
                         Thread.sleep(1000);
                         MusicUtil.playSendProgress(MusicService.this, mediaPlayer.getCurrentPosition());
                     } catch (InterruptedException e)
@@ -228,15 +231,17 @@ public class MusicService extends Service
         }).start();
         MusicData.music_play_state = ConstVal.PLAY_STATE_PLAYING;
         MusicUtil.playSendState(MusicService.this);
+        MusicUtil.playSendMusicianState(MusicService.this);
     }
 
     private void pausePlay()
     {
-        if (mediaPlayer != null)
+        if (mediaPlayer != null && mediaPlayer.isPlaying())
         {
             mediaPlayer.pause();
             MusicData.music_play_state = ConstVal.PLAY_STATE_PAUSE;
             MusicUtil.playSendState(MusicService.this);
+            MusicUtil.playSendMusicianState(MusicService.this);
         }
     }
 
@@ -329,6 +334,12 @@ public class MusicService extends Service
             switch (resultCode)
             {
                 case ConstVal.MUSIC_PLAY_START:
+                    pausePlay();
+                    if (remoteView != null)
+                    {
+                        remoteView.setImageViewResource(R.id.ntf_ib_play, R.mipmap.note_btn_play);
+                        notificationManager.notify(ConstVal.NOTIFY_SHOW, notification);
+                    }
                     msc = MusicData.musicList.get(MusicData.music_play_idx);
                     url = ConstVal.GETSONGURL_LINK
                                  + "songid=" + msc.getSongid()
@@ -488,13 +499,6 @@ public class MusicService extends Service
                     if (mediaPlayer != null)
                     {
                         mediaPlayer.seekTo(position);
-                    }
-                    break;
-
-                case ConstVal.GET_CURRENT_MUSIC_DURATION:
-                    if (mediaPlayer != null)
-                    {
-                        MusicUtil.playSendDuration(MusicService.this, mediaPlayer.getDuration());
                     }
                     break;
             }

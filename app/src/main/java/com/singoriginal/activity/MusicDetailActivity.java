@@ -4,8 +4,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +36,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MusicDetailActivity extends AppCompatActivity implements View.OnClickListener
 {
+    private static final String KEY_PLAYMODE = "播放模式";
+    private SharedPreferences defaultSet;
+
     private View msc_dtl_hdr;
     private TextView tit_tv_title;
     private ViewPager msc_dtl_vp_show;
@@ -68,7 +73,6 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
 
         initView();
         MusicUtil.playGetDetail(MusicDetailActivity.this);
-        MusicUtil.playGetDuration(MusicDetailActivity.this);
     }
 
     private void initView()
@@ -225,6 +229,8 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
 
     private void initData()
     {
+        defaultSet = PreferenceManager.getDefaultSharedPreferences(this);
+        MusicData.music_play_mode = defaultSet.getInt(KEY_PLAYMODE, ConstVal.PLAY_MODE_LIST_LOOP);
         frags = new ArrayList<>();
         frags.add(new PlaylistFragment());
         MusicDetail detail = MusicData.currentMusicDetail;
@@ -249,6 +255,7 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
         tit_tv_title.setText(detail.getData().getSN());
         Picasso.with(MusicDetailActivity.this)
                .load(detail.getData().getUser().getI())
+               .error(R.mipmap.default_image)
                .resize(192, 192)
                .centerCrop()
                .into(msc_dtl_civ_icon);
@@ -323,12 +330,15 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
                     msc_dtl_loop.setImageResource(R.mipmap.player_round_pressed);
                     Toast.makeText(MusicDetailActivity.this, "随机播放", Toast.LENGTH_SHORT).show();
                 }
-                else if (MusicData.music_play_mode == ConstVal.PLAY_MODE_RANDOM)
+                else
                 {
                     MusicData.music_play_mode = ConstVal.PLAY_MODE_LIST_LOOP;
                     msc_dtl_loop.setImageResource(R.mipmap.player_cycle_pressed);
                     Toast.makeText(MusicDetailActivity.this, "循环播放", Toast.LENGTH_SHORT).show();
                 }
+                SharedPreferences.Editor editor = defaultSet.edit();
+                editor.putInt(KEY_PLAYMODE, MusicData.music_play_mode);
+                editor.commit();
                 break;
 
             case R.id.msc_dtl_ib_like:

@@ -1,6 +1,7 @@
 package com.singoriginal.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.singoriginal.R;
+import com.singoriginal.activity.SongCategoryActivity;
 import com.singoriginal.adapter.SonglistAdapter;
 import com.singoriginal.constant.ConstVal;
 import com.singoriginal.model.Hotlist;
@@ -71,9 +73,18 @@ public class SonglistFragment extends Fragment
         TextView tv_more = (TextView) song_inc_title.findViewById(R.id.recmd_item_more);
         tv_title.setText(R.string.recommend);
         tv_more.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.describe_more, 0);
-        tv_more.setMaxHeight(100);
+        tv_more.setMaxHeight(180);
         tv_more.setBackgroundResource(R.drawable.text_border);
         tv_more.setText(getString(R.string.select_category));
+        tv_more.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(getContext(), SongCategoryActivity.class);
+                startActivity(intent);
+            }
+        });
 
         GridLayoutManager glm = new GridLayoutManager(getContext(), 2);
         song_rv_show.setLayoutManager(glm);

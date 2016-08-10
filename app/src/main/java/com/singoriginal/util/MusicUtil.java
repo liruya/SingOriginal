@@ -9,7 +9,10 @@ import android.os.IBinder;
 import com.singoriginal.constant.ConstVal;
 import com.singoriginal.model.AdvertSong;
 import com.singoriginal.model.DailyRecmd;
+import com.singoriginal.model.HeadIconWork;
 import com.singoriginal.model.Music;
+import com.singoriginal.model.MusicData;
+import com.singoriginal.model.Musician;
 import com.singoriginal.model.NewSong;
 import com.singoriginal.model.PopularSong;
 import com.singoriginal.model.RankSong;
@@ -177,6 +180,26 @@ public class MusicUtil
                                 ds.getNickName(),
                                 ds.getImage());
                 break;
+
+            case "Musician":
+                Musician mscian = (Musician) object;
+                msc = new Music(mscian.getSong().getID() + "",
+                                mscian.getSong().getSN(),
+                                mscian.getSong().getSK(),
+                                mscian.getID(),
+                                mscian.getNN(),
+                                mscian.getI());
+                break;
+
+            case "HeadIconWork$Data":
+                HeadIconWork.Data data = (HeadIconWork.Data) object;
+                msc = new Music(data.getID() + "",
+                                data.getSN(),
+                                data.getSK(),
+                                data.getUser().getID(),
+                                data.getUser().getNN(),
+                                data.getUser().getI());
+                break;
         }
         return msc;
     }
@@ -243,15 +266,6 @@ public class MusicUtil
     }
 
     /**
-     * 获取歌曲长度
-     * @param context
-     */
-    public static void playGetDuration(Context context)
-    {
-        sendBroadcast(context, ConstVal.GET_CURRENT_MUSIC_DURATION, ".MUSIC_RECEIVER");
-    }
-
-    /**
      * 发送歌曲长度
      * @param context
      */
@@ -264,13 +278,23 @@ public class MusicUtil
     }
 
     /**
-     * 发送歌曲长度
+     * 发送播放状态
      * @param context
      */
     public static void playSendState(Context context)
     {
         Intent intent = new Intent(context.getPackageName() + ".DETAIL_RECEIVER");
         intent.putExtra("requestCode", ConstVal.DETAIL_STATE);
+        context.sendBroadcast(intent);
+    }
+
+    /**
+     * 发送播放状态
+     * @param context
+     */
+    public static void playSendMusicianState(Context context)
+    {
+        Intent intent = new Intent(context.getPackageName() + ".MUSICIAN_RECEIVER");
         context.sendBroadcast(intent);
     }
 
@@ -294,4 +318,19 @@ public class MusicUtil
         context.sendBroadcast(intent);
     }
 
+    public static void playShowSelect(Context context)
+    {
+        Intent intent = new Intent(context.getPackageName() + ".PLAYING_ITEM_RECEIVER");
+        intent.putExtra("requestCode", MusicData.music_play_idx);
+        context.sendBroadcast(intent);
+    }
+
+    public static void playAuthorSelect(Context context)
+    {
+        Intent intent = new Intent(context.getPackageName() + ".AUTHOR_ITEM_RECEIVER");
+        intent.putExtra("requestCode", MusicData.music_play_idx);
+        context.sendBroadcast(intent);
+    }
 }
+
+

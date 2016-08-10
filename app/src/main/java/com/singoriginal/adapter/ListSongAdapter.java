@@ -57,7 +57,6 @@ public class  ListSongAdapter extends BaseAdapter
     public View getView(int position, View convertView, ViewGroup parent)
     {
         SongViewHolder holder;
-        int convertIdx;
         if (convertView == null)
         {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_songlist, null);
@@ -65,7 +64,7 @@ public class  ListSongAdapter extends BaseAdapter
             holder.tv_title = (TextView) convertView.findViewById(R.id.itemsong_tv_title);
             holder.tv_author = (TextView) convertView.findViewById(R.id.itemsong_tv_athor);
             holder.ib_more = (ImageButton) convertView.findViewById(R.id.itemsong_ib_more);
-            holder.v = convertView.findViewById(R.id.itemsong_view);
+            holder.cb = convertView.findViewById(R.id.itemsong_view);
             convertView.setTag(holder);
         }
         else
@@ -109,9 +108,11 @@ public class  ListSongAdapter extends BaseAdapter
                 break;
         }
         holder.tv_title.setText(title);
+        holder.tv_title.setTextColor(ConstVal.COLOR_SHALLOWBLACK);
         holder.tv_author.setText(author);
+        holder.tv_author.setTextColor(ConstVal.COLOR_GRAY);
         holder.ib_more.setImageResource(R.mipmap.player_more_selected);
-        holder.v.setVisibility(View.INVISIBLE);
+        holder.cb.setVisibility(View.INVISIBLE);
         holder.ib_more.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -128,6 +129,6 @@ public class  ListSongAdapter extends BaseAdapter
         private TextView tv_title;
         private TextView tv_author;
         private ImageButton ib_more;
-        private View v;
+        private View cb;
     }
 }

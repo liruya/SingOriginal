@@ -11,12 +11,12 @@ public class Musician
     private String NN;
     private String I;
     private int TFS;
-    private int YCRQ;
-    private int FCRQ;
+    private long YCRQ;
+    private long FCRQ;
     private String M;
     private Song Song;
 
-    public Musician(int FCRQ,
+    public Musician(long FCRQ,
                     int follow,
                     String i,
                     int ID,
@@ -24,7 +24,7 @@ public class Musician
                     String NN,
                     Song song,
                     int TFS,
-                    int YCRQ)
+                    long YCRQ)
     {
         this.FCRQ = FCRQ;
         this.follow = follow;
@@ -37,12 +37,12 @@ public class Musician
         this.YCRQ = YCRQ;
     }
 
-    public int getFCRQ()
+    public long getFCRQ()
     {
         return FCRQ;
     }
 
-    public void setFCRQ(int FCRQ)
+    public void setFCRQ(long FCRQ)
     {
         this.FCRQ = FCRQ;
     }
@@ -117,12 +117,12 @@ public class Musician
         this.TFS = TFS;
     }
 
-    public int getYCRQ()
+    public long getYCRQ()
     {
         return YCRQ;
     }
 
-    public void setYCRQ(int YCRQ)
+    public void setYCRQ(long YCRQ)
     {
         this.YCRQ = YCRQ;
     }

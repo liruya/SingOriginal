@@ -12,7 +12,6 @@ import org.json.JSONObject;
  */
 public class GsonUtil {
     private static final Gson gson = new Gson();
-
     /**
      * 从获取的字符串格式json中提取出所需的对象集合(字符串格式)
      *
@@ -20,7 +19,6 @@ public class GsonUtil {
      * @return
      */
     public static String getJsonArray(String json) {
-
         if (json.startsWith("{") && json.endsWith("}")) {
 
             try {

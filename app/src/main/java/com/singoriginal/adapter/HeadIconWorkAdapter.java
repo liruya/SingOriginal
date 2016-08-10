@@ -56,7 +56,7 @@ public class HeadIconWorkAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.item_headWork_songName = (TextView) convertView.findViewById(R.id.item_headWork_songName);
             holder.item_headWork_time = (TextView) convertView.findViewById(R.id.item_headWork_time);
-
+            holder.sel = convertView.findViewById(R.id.item_headWork_view);
             convertView.setTag(holder);
         } else {
 
@@ -79,6 +79,7 @@ public class HeadIconWorkAdapter extends BaseAdapter {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        holder.sel.setVisibility(View.INVISIBLE);
 
         return convertView;
     }
@@ -151,6 +152,7 @@ public class HeadIconWorkAdapter extends BaseAdapter {
 
         private TextView item_headWork_songName;
         private TextView item_headWork_time;
+        private View sel;
     }
 
 }
