@@ -148,6 +148,10 @@ public class MusicService extends Service {
         if (musicReceiver != null) {
             unregisterReceiver(musicReceiver);
         }
+        if (remoteView != null)
+        {
+            notificationManager.cancel(ConstVal.NOTIFY_SHOW);
+        }
         super.onDestroy();
     }
 
