@@ -39,6 +39,7 @@ import com.singoriginal.util.GsonUtil;
 import com.singoriginal.util.MusicUtil;
 import com.singoriginal.util.OkHttpUtil;
 import com.singoriginal.util.RtfUtil;
+import com.singoriginal.util.ShareUtil;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -68,6 +69,9 @@ public class SongListActivity extends AppCompatActivity
     private ViewStub lvhdr_vs_desc;
     private Space lvhdr_space;
 
+    private String title;
+    private String link;
+    private SongList songs;
     private ListSongAdapter adapter;
     private ArrayList<Object> list;
     private ArrayList<Music> musicList;
@@ -80,6 +84,7 @@ public class SongListActivity extends AppCompatActivity
     //文字是否展开
     private boolean isExpan;
     //
+    private boolean isLike;
     private PlayingItemReceiver receiver;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -94,6 +99,7 @@ public class SongListActivity extends AppCompatActivity
         registerReceiver(receiver, filter);
         initData();
         initEvent();
+//        ShareSDK.initSDK(SongListActivity.this);
     }
 
     @Override
@@ -114,7 +120,8 @@ public class SongListActivity extends AppCompatActivity
         songlist_vs_play = (ViewStub) findViewById(R.id.songlist_vs_play);
         songlist_tv_day = (TextView) findViewById(R.id.songlist_tv_day);
         songlist_tv_sub = (TextView) findViewById(R.id.songlist_tv_sub);
-        lv_header = LayoutInflater.from(SongListActivity.this).inflate(R.layout.item_lv_header, songlist_lv_show, false);
+        lv_header = LayoutInflater.from(SongListActivity.this)
+                                  .inflate(R.layout.item_lv_header, songlist_lv_show, false);
         lvhdr_vs_author = (ViewStub) lv_header.findViewById(R.id.lvhdr_vs_author);
         lvhdr_vs_desc = (ViewStub) lv_header.findViewById(R.id.lvhdr_vs_desc);
         lvhdr_space = (Space) lv_header.findViewById(R.id.lvhdr_space);
@@ -136,8 +143,8 @@ public class SongListActivity extends AppCompatActivity
     private void initData()
     {
         Intent intent = getIntent();
-        final String link = intent.getStringExtra("LinkUrl");
-        String title = intent.getStringExtra("title");
+        link = intent.getStringExtra("LinkUrl");
+        title = intent.getStringExtra("title");
         code = intent.getIntExtra("code", 0);
         TextView tv_title = (TextView) header.findViewById(R.id.tit_tv_tit);
         tv_title.setText(title);
@@ -146,8 +153,9 @@ public class SongListActivity extends AppCompatActivity
         musicList = new ArrayList<>();
         if (intent.hasExtra("imgLink"))
         {
+            String imgLink = intent.getStringExtra("imgLink");
             Picasso.with(SongListActivity.this)
-                   .load(intent.getStringExtra("imgLink"))
+                   .load(imgLink)
                    .resize(ConstVal.SCREEN_WIDTH, (int) (ConstVal.SCREEN_WIDTH*0.64))
                    .centerCrop()
                    .into(songlist_iv_show);
@@ -199,7 +207,7 @@ public class SongListActivity extends AppCompatActivity
                 switch (msg.what)
                 {
                     case ConstVal.ADVERT_DETAIL_CODE:
-                        SongList songs = new Gson().fromJson(GsonUtil.getJsonArray(json), SongList.class);
+                        songs = new Gson().fromJson(GsonUtil.getJsonArray(json), SongList.class);
                         Picasso.with(SongListActivity.this)
                                .load(songs.getP())
                                .resize(ConstVal.SCREEN_WIDTH, (int) (ConstVal.SCREEN_WIDTH*0.64))
@@ -318,6 +326,46 @@ public class SongListActivity extends AppCompatActivity
         {
             case ConstVal.SONGLIST_DETAIL_CODE:
                 vs_author = lvhdr_vs_author.inflate();
+                vs_author.findViewById(R.id.songlist_civ_icon).setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        Intent intent = new Intent(SongListActivity.this, HeadIconActivity.class);
+                        intent.putExtra("SIM", songs.getUser().getI());
+                        intent.putExtra("SU", songs.getUser().getNN());
+                        intent.putExtra("SUID", songs.getUser().getID() + "");
+                        startActivity(intent);
+                    }
+                });
+                vs_author.findViewById(R.id.songlist_ib_share).setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        String text = "我正在SingOriginal听 " + songs.getUser().getNN() + " 制作的歌单" + title
+                                      + ConstVal.SONGLIST_INFO + link + ".html,你也快来听听吧.";
+                        ShareUtil.showShare(SongListActivity.this, text, songs.getP());
+//                        SongmoreDialog.showShareDialog(SongListActivity.this, null);
+                    }
+                });
+                final ImageButton ib_like = (ImageButton) vs_author.findViewById(R.id.songlist_ib_colc);
+                ib_like.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        isLike = !isLike;
+                        if (isLike)
+                        {
+                            ib_like.setImageResource(R.mipmap.dj_sc);
+                        }
+                        else
+                        {
+                            ib_like.setImageResource(R.mipmap.dj_wsc);
+                        }
+                    }
+                });
                 vs_desc = lvhdr_vs_desc.inflate();
                 request = new Request.Builder().url(ConstVal.SONGLIST_URL + link).build();
                 OkHttpUtil.enqueue(SongListActivity.this, hdl, ConstVal.ADVERT_DETAIL_CODE, request);

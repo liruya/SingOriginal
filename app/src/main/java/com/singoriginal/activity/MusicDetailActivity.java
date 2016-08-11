@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.singoriginal.R;
 import com.singoriginal.adapter.MusicDetailAdapter;
 import com.singoriginal.constant.ConstVal;
+import com.singoriginal.dialog.SongmoreDialog;
 import com.singoriginal.fragment.PlaycontentFragment;
 import com.singoriginal.fragment.PlaylistFragment;
 import com.singoriginal.model.MusicData;
@@ -32,6 +33,7 @@ import com.squareup.picasso.Picasso;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import cn.sharesdk.framework.ShareSDK;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MusicDetailActivity extends AppCompatActivity implements View.OnClickListener
@@ -65,6 +67,8 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
     private GetDetailReceiver detailReceiver;
     private int duration;
     private int progress;
+
+    private boolean isLike;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -73,6 +77,7 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
 
         initView();
         MusicUtil.playGetDetail(MusicDetailActivity.this);
+        ShareSDK.initSDK(MusicDetailActivity.this);
     }
 
     private void initView()
@@ -197,20 +202,6 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
             }
         });
 
-        msc_dtl_download.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                MusicDetail msc = MusicData.currentMusicDetail;
-                String title = msc.getData().getSN() + " - " + msc.getData().getUser().getNN();
-                DownloadUtil.showDownloadDialog(MusicDetailActivity.this,
-                                                title,
-                                                MusicData.brief);
-
-            }
-        });
-
         detailReceiver = new GetDetailReceiver();
         IntentFilter filter = new IntentFilter();
         filter.addAction(getPackageName() + ".DETAIL_RECEIVER");
@@ -255,6 +246,7 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
         tit_tv_title.setText(detail.getData().getSN());
         Picasso.with(MusicDetailActivity.this)
                .load(detail.getData().getUser().getI())
+               .placeholder(R.mipmap.default_image)
                .error(R.mipmap.default_image)
                .resize(192, 192)
                .centerCrop()
@@ -341,16 +333,37 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
                 editor.commit();
                 break;
 
-            case R.id.msc_dtl_ib_like:
+            case R.id.msc_dtl_civ_icon:
+                MusicDetail detail = MusicData.currentMusicDetail;
+                Intent intent = new Intent(MusicDetailActivity.this, HeadIconActivity.class);
+                intent.putExtra("SIM", detail.getData().getUser().getI());
+                intent.putExtra("SU", detail.getData().getUser().getNN());
+                intent.putExtra("SUID", detail.getData().getUser().getID() + "");
+                startActivity(intent);
+                break;
 
+            case R.id.msc_dtl_ib_like:
+                isLike = !isLike;
+                if (isLike)
+                {
+                    msc_dtl_like.setImageResource(R.mipmap.dj_sc);
+                }
+                else
+                {
+                    msc_dtl_like.setImageResource(R.mipmap.dj_wsc);
+                }
                 break;
 
             case R.id.msc_dtl_ib_download:
-
+                MusicDetail msc = MusicData.currentMusicDetail;
+                String title = msc.getData().getSN() + " - " + msc.getData().getUser().getNN();
+                DownloadUtil.showDownloadDialog(MusicDetailActivity.this,
+                                                title,
+                                                MusicData.brief);
                 break;
 
             case R.id.msc_dtl_ib_share:
-
+                SongmoreDialog.showShareDialog(MusicDetailActivity.this, MusicData.musicList.get(MusicData.music_play_idx));
                 break;
         }
     }

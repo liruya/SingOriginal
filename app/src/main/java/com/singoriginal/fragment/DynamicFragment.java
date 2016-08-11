@@ -3,25 +3,19 @@ package com.singoriginal.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.transition.Transition;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.singoriginal.R;
 import com.singoriginal.activity.PublishDynamicActivity;
 import com.singoriginal.constant.CommanVal;
 import com.singoriginal.constant.ConstVal;
-import com.singoriginal.util.OkHttpUtil;
-
-import okhttp3.Request;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -129,7 +123,6 @@ public class DynamicFragment extends Fragment {
 
         int color = ConstVal.colorDKGreen;
         incView.setBackgroundColor(color);
-        Toast.makeText(getContext(), CommanVal.isLogin + "", Toast.LENGTH_SHORT).show();
         //"频道"主体页面
         FragmentTransaction beginTransaction = getActivity().getSupportFragmentManager()
                 .beginTransaction();

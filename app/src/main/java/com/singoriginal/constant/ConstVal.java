@@ -45,6 +45,8 @@ public class ConstVal {
     public static final String GETSONGURL_LINK = "http://mobileapi.5sing.kugou.com/song/getSongUrl?";
     public static final String GETCURRENTDETAIL_LINK
             = "http://mobileapi.5sing.kugou.com/song/newget?songfields=ID%2CSN%2CSK%2CSW%2CSS%2CST%2CSI%2CCT%2CM%2CS%2CZQ%2CWO%2CZC%2CHY%2CYG%2CCK%2CD%2CRQ%2CDD%2CE%2CR%2CRC%2CSG%2CC%2CCS%2CLV%2CLG%2CSY%2CUID%2CPT%2CSCSR%2CSC&userfields=ID%2CNN%2CI%2CYCRQ%2CFCRQ";
+    public static final String SONGLIST_INFO = "http://5sing.kugou.com/m/songlist/info/";
+    public static final String SONG_INFO = "http://5sing.kugou.com/";
 
     /*id=yc&pagesize=20&pageindex=1*/
     /*&limit=20&maxid=0" pagesize=20&page=1*/

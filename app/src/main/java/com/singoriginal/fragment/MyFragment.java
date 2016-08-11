@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import com.singoriginal.R;
 import com.singoriginal.activity.MusicDetailActivity;
@@ -60,7 +59,6 @@ public class MyFragment extends Fragment {
                 }
             }
         });
-        Toast.makeText(getContext(), CommanVal.isLogin + "", Toast.LENGTH_SHORT).show();
         //"我的"主体页面
         FragmentTransaction beginTransaction = getActivity().getSupportFragmentManager()
                 .beginTransaction();

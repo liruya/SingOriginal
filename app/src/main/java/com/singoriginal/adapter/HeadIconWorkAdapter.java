@@ -5,10 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.singoriginal.R;
+import com.singoriginal.constant.ConstVal;
+import com.singoriginal.dialog.SongmoreDialog;
 import com.singoriginal.model.HeadIconWork;
+import com.singoriginal.util.MusicUtil;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -57,15 +61,17 @@ public class HeadIconWorkAdapter extends BaseAdapter {
             holder.item_headWork_songName = (TextView) convertView.findViewById(R.id.item_headWork_songName);
             holder.item_headWork_time = (TextView) convertView.findViewById(R.id.item_headWork_time);
             holder.sel = convertView.findViewById(R.id.item_headWork_view);
+            holder.iv_more = (ImageView) convertView.findViewById(R.id.item_headWork_more);
             convertView.setTag(holder);
         } else {
 
             holder = (ViewHolder) convertView.getTag();
         }
 
-        HeadIconWork.Data work = workList.get(position);
+        final HeadIconWork.Data work = workList.get(position);
 
         holder.item_headWork_songName.setText(work.getSN());
+        holder.item_headWork_songName.setTextColor(ConstVal.COLOR_SHALLOWBLACK);
         //获取时间并且转换时间格式
         Date date = fromDnetTicksToJdate(work.getCT());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -76,10 +82,19 @@ public class HeadIconWorkAdapter extends BaseAdapter {
         try {
             long millionSeconds = sdf.parse(time).getTime();
             holder.item_headWork_time.setText(getStandardDate(millionSeconds, tm));
+            holder.item_headWork_time.setTextColor(ConstVal.COLOR_GRAY);
         } catch (ParseException e) {
             e.printStackTrace();
         }
         holder.sel.setVisibility(View.INVISIBLE);
+        holder.iv_more.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                SongmoreDialog.showDialog(context, MusicUtil.convertMusicType(context, work));
+            }
+        });
 
         return convertView;
     }
@@ -153,6 +168,7 @@ public class HeadIconWorkAdapter extends BaseAdapter {
         private TextView item_headWork_songName;
         private TextView item_headWork_time;
         private View sel;
+        private ImageView iv_more;
     }
 
 }
