@@ -6,7 +6,7 @@
     <ImageView
         android:id="@+id/headIcon_iv_background"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="230dp"
         android:layout_alignParentTop="true"
         android:scaleType="fitXY"
         android:src="@mipmap/loading_picture216x150" />
@@ -40,7 +40,7 @@
             <android.support.v4.view.ViewPager
                 android:id="@+id/headIcon_viewPager"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="180dp"
                 android:background="@color/colorHyaline" />
 
             <include

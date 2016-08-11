@@ -42,8 +42,7 @@ import okhttp3.Request;
  * 音乐服务类
  * Created by lanouhn on 16/7/30.
  */
-public class MusicService extends Service
-{
+public class MusicService extends Service {
     private static MediaPlayer mediaPlayer;
     private static MusicReceiver musicReceiver;
     private MyBinder myBinder;
@@ -55,14 +54,12 @@ public class MusicService extends Service
 
     @Nullable
     @Override
-    public IBinder onBind(Intent intent)
-    {
+    public IBinder onBind(Intent intent) {
         return myBinder;
     }
 
     @Override
-    public void onCreate()
-    {
+    public void onCreate() {
         super.onCreate();
         myBinder = new MyBinder();
 
@@ -74,36 +71,27 @@ public class MusicService extends Service
         MusicData.musicList = new ArrayList<>();
 
         //创建MediaPlay对象,并设置准备,完成监听事件
-        if (mediaPlayer == null)
-        {
+        if (mediaPlayer == null) {
             mediaPlayer = new MediaPlayer();
-            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener()
-            {
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
-                public void onPrepared(MediaPlayer mp)
-                {
+                public void onPrepared(MediaPlayer mp) {
                     MusicUtil.playShowItem(MusicService.this);
                     MusicUtil.playShowSelect(MusicService.this);
                     MusicUtil.playAuthorSelect(MusicService.this);
                     startPlay();
-                    if (remoteView != null)
-                    {
+                    if (remoteView != null) {
                         remoteView.setImageViewResource(R.id.ntf_ib_play, R.mipmap.note_btn_pause);
                         notificationManager.notify(ConstVal.NOTIFY_SHOW, notification);
                     }
                 }
             });
-            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
-            {
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
-                public void onCompletion(MediaPlayer mp)
-                {
-                    if (MusicData.music_play_mode == ConstVal.PLAY_MODE_SINGLE_LOOP)
-                    {
+                public void onCompletion(MediaPlayer mp) {
+                    if (MusicData.music_play_mode == ConstVal.PLAY_MODE_SINGLE_LOOP) {
                         startPlay();
-                    }
-                    else
-                    {
+                    } else {
                         Log.e("TAG", "onCompletion: ");
                         MusicUtil.playNext(MusicService.this);
                     }
@@ -111,25 +99,20 @@ public class MusicService extends Service
             });
         }
 
-        hdl = new Handler()
-        {
+        hdl = new Handler() {
             @Override
-            public void handleMessage(Message msg)
-            {
+            public void handleMessage(Message msg) {
                 super.handleMessage(msg);
                 String json = (String) msg.obj;
-                switch (msg.what)
-                {
+                switch (msg.what) {
                     case ConstVal.SONGBRIEF_CODE:
                         SongBrief brief = new Gson().fromJson(json, SongBrief.class);
                         MusicData.brief = brief;
                         String songurl = MusicData.brief.getData().getSqurl();
 
-                        if (songurl == null || songurl.equals(""))
-                        {
+                        if (songurl == null || songurl.equals("")) {
                             songurl = MusicData.brief.getData().getHqurl();
-                            if (songurl == null || songurl.equals(""))
-                            {
+                            if (songurl == null || songurl.equals("")) {
                                 songurl = MusicData.brief.getData().getLqurl();
                             }
                         }
@@ -153,78 +136,60 @@ public class MusicService extends Service
     }
 
     @Override
-    public boolean onUnbind(Intent intent)
-    {
+    public boolean onUnbind(Intent intent) {
         return super.onUnbind(intent);
     }
 
     @Override
-    public void onDestroy()
-    {
-        if (mediaPlayer != null)
-        {
+    public void onDestroy() {
+        if (mediaPlayer != null) {
             mediaPlayer.release();
         }
-        if (musicReceiver != null)
-        {
+        if (musicReceiver != null) {
             unregisterReceiver(musicReceiver);
         }
         super.onDestroy();
     }
 
-    private void prepareLocalMedia(String path)
-    {
-        if (path != null && mediaPlayer != null)
-        {
+    private void prepareLocalMedia(String path) {
+        if (path != null && mediaPlayer != null) {
             mediaPlayer.reset();
-            try
-            {
+            try {
                 mediaPlayer.setDataSource(path);
                 mediaPlayer.prepareAsync();
                 MusicData.music_play_state = ConstVal.PLAY_STATE_PREPARE;
-            } catch (IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    private void prepareNetMedia(String url)
-    {
+    private void prepareNetMedia(String url) {
         Uri uri = Uri.parse(url);
-        if (uri != null && mediaPlayer != null)
-        {
+        if (uri != null && mediaPlayer != null) {
             mediaPlayer.reset();
-            try
-            {
+            try {
                 mediaPlayer.setDataSource(url);
                 mediaPlayer.prepareAsync();
                 MusicData.music_play_state = ConstVal.PLAY_STATE_PREPARE;
                 MusicUtil.playSendMusicianState(MusicService.this);
-            } catch (IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    private void startPlay()
-    {
+    private void startPlay() {
         mediaPlayer.start();
-        new Thread(new Runnable()
-        {
+        new Thread(new Runnable() {
             @Override
-            public void run()
-            {
-                while (mediaPlayer.isPlaying())
-                {
-                    try
-                    {
+            public void run() {
+                while (mediaPlayer.isPlaying()) {
+                    try {
                         MusicUtil.playSendDuration(MusicService.this, mediaPlayer.getDuration());
                         Thread.sleep(1000);
                         MusicUtil.playSendProgress(MusicService.this, mediaPlayer.getCurrentPosition());
-                    } catch (InterruptedException e)
-                    {
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
@@ -235,10 +200,8 @@ public class MusicService extends Service
         MusicUtil.playSendMusicianState(MusicService.this);
     }
 
-    private void pausePlay()
-    {
-        if (mediaPlayer != null && mediaPlayer.isPlaying())
-        {
+    private void pausePlay() {
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
             mediaPlayer.pause();
             MusicData.music_play_state = ConstVal.PLAY_STATE_PAUSE;
             MusicUtil.playSendState(MusicService.this);
@@ -246,8 +209,7 @@ public class MusicService extends Service
         }
     }
 
-    private void showNotification(Bundle bundle)
-    {
+    private void showNotification(Bundle bundle) {
         String imgurl = bundle.getString("imgurl");
         String songname = bundle.getString("songname");
         String author = bundle.getString("author");
@@ -264,27 +226,27 @@ public class MusicService extends Service
         Intent toggleIntent = new Intent(getPackageName() + ".MUSIC_RECEIVER");
         toggleIntent.putExtra("requestCode", ConstVal.MUSIC_PLAY_TOGGLE);
         PendingIntent togglePendingIntent = PendingIntent.getBroadcast(this,
-                                                                       1,
-                                                                       toggleIntent,
-                                                                       PendingIntent.FLAG_UPDATE_CURRENT);
+                1,
+                toggleIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
         remoteView.setOnClickPendingIntent(R.id.ntf_ib_play, togglePendingIntent);
 
         //点击下一首
         Intent nextIntent = new Intent(getPackageName() + ".MUSIC_RECEIVER");
         nextIntent.putExtra("requestCode", ConstVal.MUSIC_PLAY_NEXT);
         PendingIntent nextPendingIntent = PendingIntent.getBroadcast(this,
-                                                                     2,
-                                                                     nextIntent,
-                                                                     PendingIntent.FLAG_UPDATE_CURRENT);
+                2,
+                nextIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
         remoteView.setOnClickPendingIntent(R.id.ntf_ib_next, nextPendingIntent);
 
         //点击上一首
         Intent prevIntent = new Intent(getPackageName() + ".MUSIC_RECEIVER");
         prevIntent.putExtra("requestCode", ConstVal.MUSIC_PLAY_PREV);
         PendingIntent prevPendingIntent = PendingIntent.getBroadcast(this,
-                                                                     3,
-                                                                     prevIntent,
-                                                                     PendingIntent.FLAG_UPDATE_CURRENT);
+                3,
+                prevIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
         remoteView.setOnClickPendingIntent(R.id.ntf_ib_prev, prevPendingIntent);
 
         //关闭
@@ -299,9 +261,9 @@ public class MusicService extends Service
         //
         Intent detailIntent = new Intent(this, MusicDetailActivity.class);
         PendingIntent detailPendingIntent = PendingIntent.getActivity(this,
-                                                                      5,
-                                                                      detailIntent,
-                                                                      PendingIntent.FLAG_UPDATE_CURRENT);
+                5,
+                detailIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
         remoteView.setOnClickPendingIntent(R.id.ntf_iv_show, detailPendingIntent);
         remoteView.setOnClickPendingIntent(R.id.ntf_tv_song, detailPendingIntent);
         remoteView.setOnClickPendingIntent(R.id.ntf_tv_author, detailPendingIntent);
@@ -309,12 +271,13 @@ public class MusicService extends Service
         builder.setCustomBigContentView(remoteView).setOngoing(true).setAutoCancel(false);
         notification = builder.build();
         Picasso.with(this)
-               .load(imgurl)
-               .resize(320, 320)
-               .centerCrop()
-               .into(remoteView, R.id.ntf_iv_show, ConstVal.NOTIFY_SHOW, notification);
+                .load(imgurl)
+                .resize(320, 320)
+                .centerCrop()
+                .into(remoteView, R.id.ntf_iv_show, ConstVal.NOTIFY_SHOW, notification);
         notificationManager.notify(ConstVal.NOTIFY_SHOW, notification);
     }
+
 
     public class MyBinder extends Binder
     {
@@ -324,30 +287,27 @@ public class MusicService extends Service
         }
     }
 
-    public class MusicReceiver extends BroadcastReceiver
-    {
+    public class MusicReceiver extends BroadcastReceiver {
 
         @Override
-        public void onReceive(Context context, Intent intent)
-        {
+        public void onReceive(Context context, Intent intent) {
             int resultCode = intent.getIntExtra("requestCode", 0);
             Request request;
             Music msc;
             String url;
             Bundle bundle;
-            switch (resultCode)
-            {
+            switch (resultCode) {
                 case ConstVal.MUSIC_PLAY_START:
                     pausePlay();
-                    if (remoteView != null)
-                    {
+                    if (remoteView != null) {
                         remoteView.setImageViewResource(R.id.ntf_ib_play, R.mipmap.note_btn_play);
                         notificationManager.notify(ConstVal.NOTIFY_SHOW, notification);
                     }
                     msc = MusicData.musicList.get(MusicData.music_play_idx);
                     url = ConstVal.GETSONGURL_LINK
-                                 + "songid=" + msc.getSongid()
-                                 + "&songtype=" + msc.getSongtype();
+                            + "songid=" + msc.getSongid()
+                            + "&songtype=" + msc.getSongtype();
+
                     request = new Request.Builder().url(url).build();
                     OkHttpUtil.enqueue(context, hdl, ConstVal.SONGBRIEF_CODE, request);
                     bundle = new Bundle();
@@ -358,25 +318,18 @@ public class MusicService extends Service
                     break;
 
                 case ConstVal.MUSIC_PLAY_TOGGLE:
-                    if (MusicData.music_play_state == ConstVal.PLAY_STATE_PLAYING)
-                    {
-                        if (mediaPlayer != null)
-                        {
+                    if (MusicData.music_play_state == ConstVal.PLAY_STATE_PLAYING) {
+                        if (mediaPlayer != null) {
                             pausePlay();
-                            if (remoteView != null)
-                            {
+                            if (remoteView != null) {
                                 remoteView.setImageViewResource(R.id.ntf_ib_play, R.mipmap.note_btn_play);
                                 notificationManager.notify(ConstVal.NOTIFY_SHOW, notification);
                             }
                         }
-                    }
-                    else if (MusicData.music_play_state == ConstVal.PLAY_STATE_PAUSE)
-                    {
-                        if (mediaPlayer != null)
-                        {
+                    } else if (MusicData.music_play_state == ConstVal.PLAY_STATE_PAUSE) {
+                        if (mediaPlayer != null) {
                             startPlay();
-                            if (remoteView != null)
-                            {
+                            if (remoteView != null) {
                                 remoteView.setImageViewResource(R.id.ntf_ib_play, R.mipmap.note_btn_pause);
                                 notificationManager.notify(ConstVal.NOTIFY_SHOW, notification);
                             }
@@ -385,48 +338,39 @@ public class MusicService extends Service
                     break;
 
                 case ConstVal.MUSIC_PLAY_NEXT:
-                    if (MusicData.musicList != null && MusicData.musicList.size() > 0)
-                    {
-                        if (mediaPlayer != null)
-                        {
+                    if (MusicData.musicList != null && MusicData.musicList.size() > 0) {
+                        if (mediaPlayer != null) {
                             pausePlay();
                             MusicUtil.playSendProgress(MusicService.this, 0);
-                            if (MusicData.music_play_mode == ConstVal.PLAY_MODE_RANDOM)
-                            {
+                            if (MusicData.music_play_mode == ConstVal.PLAY_MODE_RANDOM) {
                                 MusicData.music_play_idx = new Random().nextInt(MusicData.musicList.size());
-                            }
-                            else
-                            {
-                                if (MusicData.music_play_idx < MusicData.musicList.size() - 1)
-                                {
-                                    MusicData.music_play_idx ++;
-                                }
-                                else
-                                {
+                            } else {
+                                if (MusicData.music_play_idx < MusicData.musicList.size() - 1) {
+                                    MusicData.music_play_idx++;
+                                } else {
                                     MusicData.music_play_idx = 0;
                                 }
                             }
                             msc = MusicData.musicList.get(MusicData.music_play_idx);
-                            if (remoteView != null)
-                            {
+                            if (remoteView != null) {
                                 remoteView.setImageViewResource(R.id.ntf_ib_play, R.mipmap.note_btn_play);
                                 remoteView.setTextViewText(R.id.ntf_tv_song, msc.getSongname());
                                 remoteView.setTextViewText(R.id.ntf_tv_author, msc.getUsername());
                                 Picasso.with(MusicService.this)
-                                       .load(msc.getUserimg())
-                                       .resize(320, 320)
-                                       .into(remoteView, R.id.ntf_iv_show, ConstVal.NOTIFY_SHOW, notification);
+                                        .load(msc.getUserimg())
+                                        .resize(320, 320)
+                                        .into(remoteView, R.id.ntf_iv_show, ConstVal.NOTIFY_SHOW, notification);
                                 notificationManager.notify(ConstVal.NOTIFY_SHOW, notification);
                             }
                             url = ConstVal.GETSONGURL_LINK
-                                  + "songid=" + msc.getSongid()
-                                  + "&songtype=" + msc.getSongtype();
+                                    + "songid=" + msc.getSongid()
+                                    + "&songtype=" + msc.getSongtype();
                             request = new Request.Builder().url(url).build();
                             OkHttpUtil.enqueue(context, hdl, ConstVal.SONGBRIEF_CODE, request);
                             url = ConstVal.GETCURRENTDETAIL_LINK
-                                  + "&songid=" + msc.getSongid()
-                                  + "&songtype=" + msc.getSongtype()
-                                  + "&version=" + ConstVal.VERSION;
+                                    + "&songid=" + msc.getSongid()
+                                    + "&songtype=" + msc.getSongtype()
+                                    + "&version=" + ConstVal.VERSION;
                             request = new Request.Builder().url(url).build();
                             OkHttpUtil.enqueue(context, hdl, ConstVal.GET_CURRENT_MUSIC_DETAIL, request);
                         }
@@ -434,45 +378,38 @@ public class MusicService extends Service
                     break;
 
                 case ConstVal.MUSIC_PLAY_PREV:
-                    if (MusicData.musicList != null && MusicData.musicList.size() > 0)
-                    {
-                        if (mediaPlayer != null)
-                        {
+                    if (MusicData.musicList != null && MusicData.musicList.size() > 0) {
+                        if (mediaPlayer != null) {
                             pausePlay();
                             MusicUtil.playSendProgress(MusicService.this, 0);
-                            if (remoteView != null)
-                            {
+                            if (remoteView != null) {
                                 remoteView.setImageViewResource(R.id.ntf_ib_play, R.mipmap.note_btn_play);
                             }
-                            if (MusicData.music_play_idx > 0)
-                            {
-                                MusicData.music_play_idx --;
-                            }
-                            else
-                            {
+                            if (MusicData.music_play_idx > 0) {
+                                MusicData.music_play_idx--;
+                            } else {
                                 MusicData.music_play_idx = MusicData.musicList.size() - 1;
                             }
                             msc = MusicData.musicList.get(MusicData.music_play_idx);
-                            if (remoteView != null)
-                            {
+                            if (remoteView != null) {
                                 remoteView.setImageViewResource(R.id.ntf_ib_play, R.mipmap.note_btn_play);
                                 remoteView.setTextViewText(R.id.ntf_tv_song, msc.getSongname());
                                 remoteView.setTextViewText(R.id.ntf_tv_author, msc.getUsername());
                                 Picasso.with(MusicService.this)
-                                       .load(msc.getUserimg())
-                                       .resize(320, 320)
-                                       .into(remoteView, R.id.ntf_iv_show, ConstVal.NOTIFY_SHOW, notification);
+                                        .load(msc.getUserimg())
+                                        .resize(320, 320)
+                                        .into(remoteView, R.id.ntf_iv_show, ConstVal.NOTIFY_SHOW, notification);
                                 notificationManager.notify(ConstVal.NOTIFY_SHOW, notification);
                             }
                             url = ConstVal.GETSONGURL_LINK
-                                  + "songid=" + msc.getSongid()
-                                  + "&songtype=" + msc.getSongtype();
+                                    + "songid=" + msc.getSongid()
+                                    + "&songtype=" + msc.getSongtype();
                             request = new Request.Builder().url(url).build();
                             OkHttpUtil.enqueue(context, hdl, ConstVal.SONGBRIEF_CODE, request);
                             url = ConstVal.GETCURRENTDETAIL_LINK
-                                  + "&songid=" + msc.getSongid()
-                                  + "&songtype=" + msc.getSongtype()
-                                  + "&version=" + ConstVal.VERSION;
+                                    + "&songid=" + msc.getSongid()
+                                    + "&songtype=" + msc.getSongtype()
+                                    + "&version=" + ConstVal.VERSION;
                             request = new Request.Builder().url(url).build();
                             OkHttpUtil.enqueue(context, hdl, ConstVal.GET_CURRENT_MUSIC_DETAIL, request);
                         }
@@ -480,8 +417,7 @@ public class MusicService extends Service
                     break;
 
                 case ConstVal.MUSIC_PLAY_CLOSE:
-                    if (mediaPlayer != null)
-                    {
+                    if (mediaPlayer != null) {
                         pausePlay();
                         mediaPlayer.reset();
                         notificationManager.cancel(ConstVal.NOTIFY_SHOW);
@@ -491,17 +427,16 @@ public class MusicService extends Service
                 case ConstVal.GET_CURRENT_MUSIC_DETAIL:
                     msc = MusicData.musicList.get(MusicData.music_play_idx);
                     url = ConstVal.GETCURRENTDETAIL_LINK
-                          + "&songid=" + msc.getSongid()
-                          + "&songtype=" + msc.getSongtype()
-                          + "&version=" + ConstVal.VERSION;
+                            + "&songid=" + msc.getSongid()
+                            + "&songtype=" + msc.getSongtype()
+                            + "&version=" + ConstVal.VERSION;
                     request = new Request.Builder().url(url).build();
                     OkHttpUtil.enqueue(context, hdl, ConstVal.GET_CURRENT_MUSIC_DETAIL, request);
                     break;
 
                 case ConstVal.SET_PLAY_POSITIN:
                     int position = intent.getIntExtra("position", 0);
-                    if (mediaPlayer != null)
-                    {
+                    if (mediaPlayer != null) {
                         mediaPlayer.seekTo(position);
                     }
                     break;

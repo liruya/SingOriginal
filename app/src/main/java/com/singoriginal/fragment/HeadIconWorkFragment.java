@@ -141,22 +141,22 @@ public class HeadIconWorkFragment extends Fragment {
         });
         headIcon_work_rg.check(R.id.headIcon_work_rbCover);
 
-        //ListView的Item点击事件
-        headIcon_work_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (vsIdx >= parent.getFirstVisiblePosition() && vsIdx <= parent.getLastVisiblePosition()) {
-                    parent.getChildAt(vsIdx - parent.getFirstVisiblePosition())
-                            .findViewById(R.id.item_headWork_view)
-                            .setVisibility(View.INVISIBLE);
-                }
-                vsIdx = position;
-                view.findViewById(R.id.item_headWork_view).setVisibility(View.VISIBLE);
-
-                MusicData.music_play_idx = (int) id;
-                MusicUtil.playStart(getContext());
-            }
-        });
+//        //ListView的Item点击事件
+//        headIcon_work_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                if (vsIdx >= parent.getFirstVisiblePosition() && vsIdx <= parent.getLastVisiblePosition()) {
+//                    parent.getChildAt(vsIdx - parent.getFirstVisiblePosition())
+//                            .findViewById(R.id.item_headWork_view)
+//                            .setVisibility(View.INVISIBLE);
+//                }
+//                vsIdx = position;
+//                view.findViewById(R.id.item_headWork_view).setVisibility(View.VISIBLE);
+//
+//                MusicData.music_play_idx = (int) id;
+//                MusicUtil.playStart(getContext());
+//            }
+//        });
     }
 
     private void initView(View view) {

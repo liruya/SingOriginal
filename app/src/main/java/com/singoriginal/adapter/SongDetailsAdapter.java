@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +19,13 @@ import com.singoriginal.activity.SongCommentActivity;
 import com.singoriginal.activity.SongListActivity;
 import com.singoriginal.constant.ConstVal;
 import com.singoriginal.model.Channel;
+import com.singoriginal.model.HeadIconWork;
+import com.singoriginal.model.MusicData;
 import com.singoriginal.model.SongDetails;
+import com.singoriginal.util.MusicUtil;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,6 +36,8 @@ public class SongDetailsAdapter extends RecyclerView.Adapter<SongDetailsAdapter.
     private Context context;
     private List<SongDetails> dataList;
     private boolean isLike = true;
+    private int vsIdx = -1;
+    private boolean isPlay = true;
 
     public SongDetailsAdapter(Context context, List<SongDetails> dataList) {
         this.context = context;
@@ -90,7 +97,7 @@ public class SongDetailsAdapter extends RecyclerView.Adapter<SongDetailsAdapter.
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, SongCommentActivity.class);
-                intent.putExtra("SURL", dataList.get(position).getSURL());
+                intent.putExtra("SID", dataList.get(position).getSID());
                 context.startActivity(intent);
             }
         });
@@ -109,8 +116,36 @@ public class SongDetailsAdapter extends RecyclerView.Adapter<SongDetailsAdapter.
         holder.item_song_rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(context, SongListActivity.class);
-//                intent.putExtra("",);
+
+                TextView tv_song = (TextView) v.findViewById(R.id.item_song_songName);
+                TextView tv_name = (TextView) v.findViewById(R.id.item_song_nickname);
+                TextView tv_singer = (TextView) v.findViewById(R.id.item_song_singer);
+                tv_song.setTextColor(ConstVal.COLOR_DARKGREEN);
+                tv_name.setTextColor(ConstVal.COLOR_DARKGREEN);
+                tv_singer.setTextColor(ConstVal.COLOR_DARKGREEN);
+
+//                if (vsIdx == position) {
+//                    tv_song.setTextColor(ConstVal.COLOR_DARKGREEN);
+//                    tv_name.setTextColor(ConstVal.COLOR_DARKGREEN);
+//                    tv_singer.setTextColor(ConstVal.COLOR_DARKGREEN);
+//                } else {
+//                    tv_song.setTextColor(ConstVal.COLOR_BLACK);
+//                    tv_name.setTextColor(ConstVal.COLOR_BLACK);
+//                    tv_singer.setTextColor(ConstVal.COLOR_BLACK);
+//                }
+
+                if (dataList != null && dataList.size() > 0) {
+                    if (MusicData.musicList == null) {
+                        MusicData.musicList = new ArrayList<>();
+                    }
+                    MusicData.musicList.clear();
+                    for (SongDetails sd : dataList) {
+                        MusicData.musicList.add(MusicUtil.convertMusicType(context, sd));
+                    }
+                    MusicData.music_play_idx = position;
+                    MusicUtil.playStart(context);
+                }
+                vsIdx = position;
             }
         });
     }
