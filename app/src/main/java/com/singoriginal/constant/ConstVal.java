@@ -127,10 +127,10 @@ public class ConstVal {
     public static final String HEADICON_MESSAGE_HTTP_PARAM = "&rootKind=guestBook&fields=ID%2CNN%2CI";
     public static final String PROTECT_HTTP_PATH = "http://5sing.kugou.com/topic/help/copyright.html";
     public static final String HELPCENTER_HTTP_PATH = "http://5sing.kugou.com/topic/help/index.html";
+    public static final String SONGCOMMENT_HTTP_PATH = "http://mobileapi.5sing.kugou.com/comments/list?maxId=0&limit=30&rootId=";
+    public static final String SONGCOMMENT_HTTP_PARAM = "&rootKind=fc&fields=ID%2CNN%2CI";
 
     public static final String VERSION2 = "6.2.2";
-
-    public static final int CHANNEL_CODE = 0x201;
 
     public static final int NOTIFY_SHOW = 0x10;
 

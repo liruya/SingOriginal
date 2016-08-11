@@ -14,23 +14,19 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.MainActivity"></activity>
+        <activity
+            android:name=".activity.IndexActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity.IndexActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
-        </activity>
-        <activity android:name=".activity.WebActivity">
-        </activity>
-        <activity android:name=".activity.SongListActivity">
-        </activity>
-        <activity android:name=".activity.TopicActivity">
-        </activity>
+        <activity android:name=".activity.WebActivity" />
+        <activity android:name=".activity.SongListActivity" />
+        <activity android:name=".activity.TopicActivity"></activity>
         <activity android:name=".activity.FirstLandingIndexActivity" />
         <activity android:name=".activity.InfoActivity" />
         <activity android:name=".activity.FortuneCenterActivity" />
@@ -43,18 +39,15 @@
         <activity android:name=".activity.SetUpActivity" />
         <activity android:name=".activity.PublishDynamicActivity" />
         <activity android:name=".activity.SongDetailsActivity" />
-        <activity android:name=".activity.RankActivity">
-        </activity>
-        <activity android:name=".activity.MusicianActivity">
-        </activity>
+        <activity android:name=".activity.RankActivity"></activity>
+        <activity android:name=".activity.MusicianActivity"></activity>
         <activity android:name=".activity.SongCommentActivity" />
 
         <service android:name=".service.MusicService" />
 
         <activity
             android:name=".activity.MusicDetailActivity"
-            android:launchMode="singleInstance">
-        </activity>
+            android:launchMode="singleInstance"></activity>
         <activity android:name=".activity.AlterActivity" />
         <activity android:name=".activity.BindActivity" />
         <activity android:name=".activity.QualitySelectActivity" />
@@ -65,9 +58,7 @@
         <activity android:name=".activity.RealAuthenticationActivity" />
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.HeadIconActivity" />
->>>>>>> c2ae16e6a4095a4d6e108e74293952f908d2acb0
-        <activity android:name=".activity.SongCategoryActivity">
-        </activity>
+        <activity android:name=".activity.SongCategoryActivity" />
     </application>
 
 </manifest>

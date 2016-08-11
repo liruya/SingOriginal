@@ -1,8 +1,6 @@
 package com.singoriginal.activity;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,13 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +22,6 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.singoriginal.R;
 import com.singoriginal.adapter.HeadIconVpAdapter;
-import com.singoriginal.adapter.HeadIconWorkAdapter;
 import com.singoriginal.adapter.InfoAdapter;
 import com.singoriginal.constant.ConstVal;
 import com.singoriginal.fragment.HeadIconMessageFragment;
@@ -70,6 +64,7 @@ public class HeadIconActivity extends AppCompatActivity {
     private String SU;
     private String SUID;
     private String infoUrl;
+    private String SUIDUrl;
 
     private Handler handler;
 
@@ -84,6 +79,8 @@ public class HeadIconActivity extends AppCompatActivity {
         SUID = intent.getStringExtra("SUID");
         infoUrl = ConstVal.HEADICON_INFO_HTTP_PATH + SUID +
                 ConstVal.HEADICON_INFO_HTTP_PARAM1 + ConstVal.HEADICON_INFO_HTTP_PARAM2 + "&from=androidPhone";
+        SUIDUrl = ConstVal.HEADICON_MESSAGE_HTTP_PATH +
+                SUID + ConstVal.HEADICON_MESSAGE_HTTP_PARAM + "&version" + ConstVal.VERSION2;
 
         initView();
         initData();
@@ -104,7 +101,7 @@ public class HeadIconActivity extends AppCompatActivity {
 
         fragments.add(NewInstanceOne(SUID));
         fragments.add(new HeadIconSongFragment());
-        fragments.add(HeadIconMessageFragment.NewInstanceTwo(SUID));
+        fragments.add(HeadIconMessageFragment.NewInstanceTwo(SUIDUrl));
 
         String[] text = {"作品", "歌单", "留言板"};
 
@@ -191,7 +188,6 @@ public class HeadIconActivity extends AppCompatActivity {
         return frag;
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
     private void initEvent() {
 
         imageBack.setOnClickListener(new View.OnClickListener() {

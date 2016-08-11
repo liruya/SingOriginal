@@ -45,14 +45,12 @@ public class HeadIconMessageFragment extends Fragment {
     private HeadIconMessageAdapter adapter;
     private HeadIconMessage message;
     private ArrayList<HeadIconMessage.Data> messageList;
+    private String Url;
 
-    private String SUID;
-
-
-    public static HeadIconMessageFragment NewInstanceTwo(String SUID) {
+    public static HeadIconMessageFragment NewInstanceTwo(String Url) {
         HeadIconMessageFragment frag = new HeadIconMessageFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("SUID", SUID);
+        bundle.putString("Url", Url);
         frag.setArguments(bundle);
         return frag;
     }
@@ -64,9 +62,7 @@ public class HeadIconMessageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_head_icon_message, null);
 
         Bundle bundle = this.getArguments();
-        SUID = bundle.getString("SUID");
-
-        Log.i("suid", SUID);
+        Url = bundle.getString("Url");
 
         initView(view);
         setData();
@@ -98,13 +94,8 @@ public class HeadIconMessageFragment extends Fragment {
         };
 
         //创建OkHttpClient请求
-        final Request request = new Request.Builder().url(ConstVal.HEADICON_MESSAGE_HTTP_PATH +
-                SUID + ConstVal.HEADICON_MESSAGE_HTTP_PARAM + "&version" + ConstVal.VERSION2).build();
-
-        Log.i("request", ConstVal.HEADICON_MESSAGE_HTTP_PATH +
-                SUID + ConstVal.HEADICON_MESSAGE_HTTP_PARAM + "&version" + ConstVal.VERSION2);
+        final Request request = new Request.Builder().url(Url).build();
         OkHttpUtil.enqueue(getContext(), handler, ConstVal.ADVERT_CODE, request);
-
     }
 
     private void initView(View view) {
