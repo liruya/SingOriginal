@@ -234,7 +234,10 @@ public class SetUpActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.set_ll_help:
                 intent.setClass(this, HelpCenterActivity.class);
+                intent.putExtra("SURL", ConstVal.HELPCENTER_HTTP_PATH);
                 startActivity(intent);
+//                intent.setClass(this, HelpCenterActivity.class);
+//                startActivity(intent);
                 break;
             case R.id.set_ll_about:
                 intent.setClass(this, AboutActivity.class);
@@ -242,7 +245,10 @@ public class SetUpActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.set_ll_protect:
                 intent.setClass(this, CopyrightActivity.class);
+                intent.putExtra("SURL", ConstVal.PROTECT_HTTP_PATH);
                 startActivity(intent);
+//                intent.setClass(this, CopyrightActivity.class);
+//                startActivity(intent);
                 break;
             case R.id.set_tv_exit:
                 View view2 = LayoutInflater.from(this).inflate(R.layout.dialog_custom, null);

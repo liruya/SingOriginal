@@ -14,12 +14,6 @@ import com.singoriginal.R;
  */
 public class CoverFragment extends Fragment {
 
-
-    public CoverFragment() {
-        // Required empty public constructor
-    }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

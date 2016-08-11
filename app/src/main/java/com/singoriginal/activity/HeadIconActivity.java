@@ -13,10 +13,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +27,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.singoriginal.R;
 import com.singoriginal.adapter.HeadIconVpAdapter;
+import com.singoriginal.adapter.HeadIconWorkAdapter;
 import com.singoriginal.adapter.InfoAdapter;
 import com.singoriginal.constant.ConstVal;
 import com.singoriginal.fragment.HeadIconMessageFragment;
@@ -55,7 +59,6 @@ public class HeadIconActivity extends AppCompatActivity {
     private ViewStub headIcon_viewStub;
 
     private ImageView headIcon_iv_background;
-
 
     private ImageView info_iv_usr;
     private TextView info_tv_id;

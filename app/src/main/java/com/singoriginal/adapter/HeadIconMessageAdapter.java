@@ -95,7 +95,6 @@ public class HeadIconMessageAdapter extends BaseAdapter {
         private TextView item_headMessage_nickname;
         private TextView item_headMessage_time;
         private TextView item_headMessage_content;
-
     }
 
 }

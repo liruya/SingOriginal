@@ -135,7 +135,7 @@ public class SongDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(SongDetailsActivity.this, "可以点击", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SongDetailsActivity.this, "你好", Toast.LENGTH_SHORT).show();
             }
         });
     }

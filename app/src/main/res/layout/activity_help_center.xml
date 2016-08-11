@@ -11,70 +11,75 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <TextView
+    <WebView
+        android:id="@+id/helpCenter_webView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:background="@color/colorWhite"
-        android:drawableRight="@mipmap/arrow"
-        android:padding="8dp"
-        android:text="@string/recordUpload" />
+        android:layout_height="match_parent" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/colorLightGray" />
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="15dp"-->
+    <!--android:background="@color/colorWhite"-->
+    <!--android:drawableRight="@mipmap/arrow"-->
+    <!--android:padding="8dp"-->
+    <!--android:text="@string/recordUpload" />-->
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
-        android:drawableRight="@mipmap/arrow"
-        android:padding="8dp"
-        android:text="@string/browsePublish" />
+    <!--<View-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0.5dp"-->
+    <!--android:background="@color/colorLightGray" />-->
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/colorLightGray" />
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@color/colorWhite"-->
+    <!--android:drawableRight="@mipmap/arrow"-->
+    <!--android:padding="8dp"-->
+    <!--android:text="@string/browsePublish" />-->
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
-        android:drawableRight="@mipmap/arrow"
-        android:padding="8dp"
-        android:text="@string/supportCard" />
+    <!--<View-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0.5dp"-->
+    <!--android:background="@color/colorLightGray" />-->
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/colorLightGray" />
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@color/colorWhite"-->
+    <!--android:drawableRight="@mipmap/arrow"-->
+    <!--android:padding="8dp"-->
+    <!--android:text="@string/supportCard" />-->
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
-        android:drawableRight="@mipmap/arrow"
-        android:padding="8dp"
-        android:text="@string/accountSafe" />
+    <!--<View-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0.5dp"-->
+    <!--android:background="@color/colorLightGray" />-->
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/colorLightGray" />
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@color/colorWhite"-->
+    <!--android:drawableRight="@mipmap/arrow"-->
+    <!--android:padding="8dp"-->
+    <!--android:text="@string/accountSafe" />-->
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
-        android:drawableRight="@mipmap/arrow"
-        android:padding="8dp"
-        android:text="@string/lrcKrc" />
+    <!--<View-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0.5dp"-->
+    <!--android:background="@color/colorLightGray" />-->
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/colorLightGray" />
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@color/colorWhite"-->
+    <!--android:drawableRight="@mipmap/arrow"-->
+    <!--android:padding="8dp"-->
+    <!--android:text="@string/lrcKrc" />-->
+
+    <!--<View-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0.5dp"-->
+    <!--android:background="@color/colorLightGray" />-->
 
 </LinearLayout>

@@ -10,8 +10,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -26,8 +28,8 @@ import com.singoriginal.R;
 import com.singoriginal.adapter.HeadIconWorkAdapter;
 import com.singoriginal.constant.ConstVal;
 import com.singoriginal.model.HeadIconWork;
-import com.singoriginal.model.Music;
 import com.singoriginal.model.MusicData;
+import com.singoriginal.model.Music;
 import com.singoriginal.util.MusicUtil;
 import com.singoriginal.util.OkHttpUtil;
 
@@ -138,6 +140,23 @@ public class HeadIconWorkFragment extends Fragment {
             }
         });
         headIcon_work_rg.check(R.id.headIcon_work_rbCover);
+
+        //ListView的Item点击事件
+        headIcon_work_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (vsIdx >= parent.getFirstVisiblePosition() && vsIdx <= parent.getLastVisiblePosition()) {
+                    parent.getChildAt(vsIdx - parent.getFirstVisiblePosition())
+                            .findViewById(R.id.item_headWork_view)
+                            .setVisibility(View.INVISIBLE);
+                }
+                vsIdx = position;
+                view.findViewById(R.id.item_headWork_view).setVisibility(View.VISIBLE);
+
+                MusicData.music_play_idx = (int) id;
+                MusicUtil.playStart(getContext());
+            }
+        });
     }
 
     private void initView(View view) {
@@ -240,7 +259,6 @@ public class HeadIconWorkFragment extends Fragment {
                 }
             }
         };
-
     }
 
     private boolean isEqual(ArrayList<Music> src, ArrayList<Music> des)
