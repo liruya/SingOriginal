@@ -46,7 +46,7 @@ public class MusicService extends Service
 {
     private static MediaPlayer mediaPlayer;
     private static MusicReceiver musicReceiver;
-    private MyBinder myBinder = new MyBinder();
+    private MyBinder myBinder;
     private Handler hdl;
 
     private NotificationManager notificationManager;
@@ -64,6 +64,7 @@ public class MusicService extends Service
     public void onCreate()
     {
         super.onCreate();
+        myBinder = new MyBinder();
 
         //播放器参数设置
         MusicData.music_play_idx = 0;
@@ -317,7 +318,10 @@ public class MusicService extends Service
 
     public class MyBinder extends Binder
     {
-
+        public MusicService getService()
+        {
+            return MusicService.this;
+        }
     }
 
     public class MusicReceiver extends BroadcastReceiver

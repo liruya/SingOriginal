@@ -27,7 +27,6 @@ import com.google.gson.reflect.TypeToken;
 import com.singoriginal.R;
 import com.singoriginal.adapter.ListSongAdapter;
 import com.singoriginal.constant.ConstVal;
-import com.singoriginal.dialog.SongmoreDialog;
 import com.singoriginal.model.AdvertSong;
 import com.singoriginal.model.DailyRecmd;
 import com.singoriginal.model.Music;
@@ -40,6 +39,7 @@ import com.singoriginal.util.GsonUtil;
 import com.singoriginal.util.MusicUtil;
 import com.singoriginal.util.OkHttpUtil;
 import com.singoriginal.util.RtfUtil;
+import com.singoriginal.util.ShareUtil;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -69,6 +69,8 @@ public class SongListActivity extends AppCompatActivity
     private ViewStub lvhdr_vs_desc;
     private Space lvhdr_space;
 
+    private String title;
+    private String link;
     private SongList songs;
     private ListSongAdapter adapter;
     private ArrayList<Object> list;
@@ -141,8 +143,8 @@ public class SongListActivity extends AppCompatActivity
     private void initData()
     {
         Intent intent = getIntent();
-        final String link = intent.getStringExtra("LinkUrl");
-        String title = intent.getStringExtra("title");
+        link = intent.getStringExtra("LinkUrl");
+        title = intent.getStringExtra("title");
         code = intent.getIntExtra("code", 0);
         TextView tv_title = (TextView) header.findViewById(R.id.tit_tv_tit);
         tv_title.setText(title);
@@ -151,8 +153,9 @@ public class SongListActivity extends AppCompatActivity
         musicList = new ArrayList<>();
         if (intent.hasExtra("imgLink"))
         {
+            String imgLink = intent.getStringExtra("imgLink");
             Picasso.with(SongListActivity.this)
-                   .load(intent.getStringExtra("imgLink"))
+                   .load(imgLink)
                    .resize(ConstVal.SCREEN_WIDTH, (int) (ConstVal.SCREEN_WIDTH*0.64))
                    .centerCrop()
                    .into(songlist_iv_show);
@@ -340,7 +343,10 @@ public class SongListActivity extends AppCompatActivity
                     @Override
                     public void onClick(View v)
                     {
-                        SongmoreDialog.showShareDialog(SongListActivity.this, null);
+                        String text = "我正在SingOriginal听 " + songs.getUser().getNN() + " 制作的歌单" + title
+                                      + ConstVal.SONGLIST_INFO + link + ".html,你也快来听听吧.";
+                        ShareUtil.showShare(SongListActivity.this, text, songs.getP());
+//                        SongmoreDialog.showShareDialog(SongListActivity.this, null);
                     }
                 });
                 final ImageButton ib_like = (ImageButton) vs_author.findViewById(R.id.songlist_ib_colc);

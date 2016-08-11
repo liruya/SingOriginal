@@ -21,13 +21,13 @@ import android.widget.Toast;
 import com.singoriginal.R;
 import com.singoriginal.adapter.MusicDetailAdapter;
 import com.singoriginal.constant.ConstVal;
+import com.singoriginal.dialog.SongmoreDialog;
 import com.singoriginal.fragment.PlaycontentFragment;
 import com.singoriginal.fragment.PlaylistFragment;
 import com.singoriginal.model.MusicData;
 import com.singoriginal.model.MusicDetail;
 import com.singoriginal.util.DownloadUtil;
 import com.singoriginal.util.MusicUtil;
-import com.singoriginal.util.ShareUtil;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
@@ -363,8 +363,7 @@ public class MusicDetailActivity extends AppCompatActivity implements View.OnCli
                 break;
 
             case R.id.msc_dtl_ib_share:
-                ShareUtil.showShare(MusicDetailActivity.this);
-//                SongmoreDialog.showShareDialog(MusicDetailActivity.this, MusicData.musicList.get(MusicData.music_play_idx));
+                SongmoreDialog.showShareDialog(MusicDetailActivity.this, MusicData.musicList.get(MusicData.music_play_idx));
                 break;
         }
     }

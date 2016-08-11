@@ -19,6 +19,7 @@ import com.singoriginal.model.Music;
 import com.singoriginal.model.SongBrief;
 import com.singoriginal.util.DownloadUtil;
 import com.singoriginal.util.OkHttpUtil;
+import com.singoriginal.util.ShareUtil;
 
 import okhttp3.Request;
 
@@ -103,7 +104,11 @@ public class SongmoreDialog
             public void onClick(View v)
             {
                 dialog.dismiss();
-                showShareDialog(context, msc);
+//                showShareDialog(context, msc);
+                String text = "我正在SingOriginal听 " + msc.getUsername() + " 的歌曲 " + msc.getSongname()
+                              + ConstVal.SONG_INFO + msc.getSongtype() + "/" + msc.getSongid()
+                              + ".html,你也快来听听吧.";
+                ShareUtil.showShare(context, text, msc.getUserimg());
             }
         });
 
